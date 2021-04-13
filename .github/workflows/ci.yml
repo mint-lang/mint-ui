@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Mint
-        uses: fabasoad/setup-mint-action@v1.0.2
+        uses: fabasoad/setup-mint-action@main
         with:
           version: 0.12.0
 
