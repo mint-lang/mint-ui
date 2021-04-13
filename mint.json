@@ -1,0 +1,15 @@
+{
+  "name": "mint-ui",
+  "source-directories": [
+    "source"
+  ],
+  "test-directories": [
+    "test"
+  ],
+  "dependencies": {
+    "mint-color": {
+      "repository": "https://github.com/mint-lang/mint-color",
+      "constraint": "0.0.0 <= v < 1.0.0"
+    }
+  }
+}

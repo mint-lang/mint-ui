@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - "*"
+
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download source
+        uses: actions/checkout@v2
+
+      - name: Install Mint
+        uses: fabasoad/setup-mint-action@v1.0.2
+        with:
+          version: 0.12.0
+
+      - name: Install dependencies
+        run: mint install
+
+      - name: Run tests
+        run: mint test
