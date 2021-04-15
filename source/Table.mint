@@ -12,11 +12,14 @@ component Ui.Table {
   /* The size of the component. */
   property size : Ui.Size = Ui.Size::Inherit
 
+  /* The order direction: `asc` or `desc` */
+  property orderDirection : String = ""
+
   /* The breakpoint for the mobile version. */
   property breakpoint : Number = 1000
 
-  /* The order direction: `asc` or `desc` */
-  property orderDirection : String = ""
+  /* Whether or not the table has borders. */
+  property bordered : Bool = true
 
   /* The `sortKey` of the column which the content is ordered by. */
   property orderBy : String = ""
@@ -32,9 +35,6 @@ component Ui.Table {
 
   /* The style for the table. */
   style base {
-    border: 0.0625em solid var(--input-border);
-    background: var(--content-color);
-    color: var(--content-text);
     border-collapse: separate;
     border-radius: 0.375em;
     border-spacing: 0;
@@ -44,6 +44,12 @@ component Ui.Table {
     font-family: var(--font-family);
     line-height: 170%;
 
+    if (bordered) {
+      border: 0.0625em solid var(--input-border);
+      background: var(--content-color);
+      color: var(--content-text);
+    }
+
     td,
     th {
       text-align: left;
@@ -52,7 +58,9 @@ component Ui.Table {
 
     td + td,
     th + th {
-      border-left: 0.0625em solid var(--input-border);
+      if (bordered) {
+        border-left: 0.0625em solid var(--input-border);
+      }
     }
 
     tr + tr td {
@@ -61,8 +69,11 @@ component Ui.Table {
 
     th {
       border-bottom: 0.125em solid var(--input-border);
-      background: var(--input-color);
-      color: var(--input-text);
+
+      if (bordered) {
+        background: var(--input-color);
+        color: var(--input-text);
+      }
 
       &:first-child {
         border-top-left-radius: 0.375em;
