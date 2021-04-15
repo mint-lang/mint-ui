@@ -11,6 +11,9 @@ component Ui.Image {
   /* The value for the `border-radius` CSS property. */
   property borderRadius : String = ""
 
+  /* Whether or not the image should have a background color. */
+  property transparent : Bool = false
+
   /* Whether or not the image fills the width of it's parent element. */
   property fullWidth : Bool = false
 
@@ -71,8 +74,11 @@ component Ui.Image {
 
   /* The style for the base. */
   style base {
-    background: var(--content-faded-color);
     height: #{Ui.Size.toString(height)};
+
+    if (!transparent) {
+      background: var(--content-faded-color);
+    }
 
     if (fullWidth) {
       width: 100%;
