@@ -2,6 +2,9 @@ component Ui.ImageCrop {
   /* The `change` event handler. */
   property onChange : Function(Ui.ImageCrop.Value, Promise(Never, Void)) = Promise.never1
 
+  /* The size of the component. */
+  property size : Ui.Size = Ui.Size::Inherit
+
   /* Whether or not to embed the panel (removes border and padding). */
   property embedded : Bool = false
 
@@ -20,6 +23,7 @@ component Ui.ImageCrop {
 
   /* Styles for the base element. */
   style base {
+    font-size: #{Ui.Size.toString(size)};
     user-select: none;
 
     if (!embedded) {
@@ -67,9 +71,9 @@ component Ui.ImageCrop {
     /* Marching ants border. */
     border-image: url(#{@asset(../assets/images/ants.gif)});
     border-image-repeat: repeat;
-    border-width: 0.0625em;
     border-image-slice: 1;
     border-style: solid;
+    border-width: 1px;
 
     cursor: move;
   }
@@ -81,10 +85,9 @@ component Ui.ImageCrop {
 
   /* Styles for a crop handle. */
   style crop-handle (corner : String) {
-    background-color: rgba(0, 0, 0, 0.2);
-
-    box-shadow: 0 0 0 0.0625em rgba(0, 0, 0, 0.5);
     border: 0.0625em solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 0 0.0625em rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
 
     position: absolute;
     height: 0.75em;
@@ -92,23 +95,23 @@ component Ui.ImageCrop {
 
     case (corner) {
       "top-left" =>
+        left: calc((0.375em + 1px) * -1);
+        top: calc((0.375em + 1px) * -1);
         cursor: nw-resize;
-        left: -0.375em;
-        top: -0.375em;
 
       "top-right" =>
-        right: calc((0.375em + 0.0625em) * -1);
+        right: calc((0.375em + 1px) * -1);
+        top: calc((0.375em + 1px) * -1);
         cursor: ne-resize;
-        top: -0.375em;
 
       "bottom-left" =>
-        bottom: calc((0.375em + 0.0625em) * -1);
+        bottom: calc((0.375em + 1px) * -1);
+        left: calc((0.375em + 1px) * -1);
         cursor: sw-resize;
-        left: -0.375em;
 
       "bottom-right" =>
-        bottom: calc((0.375em + 0.0625em) * -1);
-        right: calc((0.375em + 0.0625em) * -1);
+        bottom: calc((0.375em + 1px) * -1);
+        right: calc((0.375em + 1px) * -1);
         cursor: se-resize;
 
       =>
