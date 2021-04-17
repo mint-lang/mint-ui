@@ -1,3 +1,4 @@
+/* A simple image cropping component. */
 component Ui.ImageCrop {
   /* The `change` event handler. */
   property onChange : Function(Ui.ImageCrop.Value, Promise(Never, Void)) = Promise.never1
@@ -35,6 +36,9 @@ component Ui.ImageCrop {
     }
 
     &:focus {
+      border-color: var(--input-focus-border);
+      background: var(--input-focus-color);
+      color: var(--input-focus-text);
       outline: 0;
     }
   }
@@ -74,7 +78,6 @@ component Ui.ImageCrop {
     border-image-slice: 1;
     border-style: solid;
     border-width: 1px;
-
     cursor: move;
   }
 
@@ -130,8 +133,8 @@ component Ui.ImageCrop {
   /* Calculates the next position and size based on a direction for an axis. */
   fun calculateAxis (
     direction : Ui.ImageCrop.Direction,
-    startSize : Number,
     startPosition : Number,
+    startSize : Number,
     distance : Number
   ) {
     case (direction) {
@@ -212,16 +215,16 @@ component Ui.ImageCrop {
                 {x, width} =
                   calculateAxis(
                     directions[0],
-                    startValue.width,
                     startValue.x,
+                    startValue.width,
                     distance[0])
 
                 /* Calculate the new values for the vertical axis. */
                 {y, height} =
                   calculateAxis(
                     directions[1],
-                    startValue.height,
                     startValue.y,
+                    startValue.height,
                     distance[1])
 
                 /* Call the change event handler with the new value. */
@@ -242,10 +245,12 @@ component Ui.ImageCrop {
     }
   }
 
+  /* Handles the up event. */
   fun ups (event : Html.Event) : Promise(Never, Void) {
     next { status = Ui.ImageCrop.Status::Idle }
   }
 
+  /* Starts the drag. */
   fun startDrag (
     directions : Tuple(Ui.ImageCrop.Direction, Ui.ImageCrop.Direction),
     event : Html.Event
@@ -264,8 +269,44 @@ component Ui.ImageCrop {
     }
   }
 
+  /* Handles the keydown event. */
+  fun handleKeyDown (event : Html.Event) {
+    try {
+      updatedValue =
+        case (event.keyCode) {
+          Html.Event:DOWN_ARROW =>
+            Maybe::Just({ value | y = Math.clamp(0, 1 - value.height, value.y + 0.005) })
+
+          Html.Event:RIGHT_ARROW =>
+            Maybe::Just({ value | x = Math.clamp(0, 1 - value.width, value.x + 0.005) })
+
+          Html.Event:LEFT_ARROW =>
+            Maybe::Just({ value | x = Math.clamp(0, 1, value.x - 0.005) })
+
+          Html.Event:UP_ARROW =>
+            Maybe::Just({ value | y = Math.clamp(0, 1, value.y - 0.005) })
+
+          => Maybe::Nothing
+        }
+
+      case (updatedValue) {
+        Maybe::Just newValue =>
+          try {
+            Html.Event.preventDefault(event)
+            onChange(newValue)
+          }
+
+        Maybe::Nothing => next {  }
+      }
+    }
+  }
+
+  /* Renders the component. */
   fun render {
-    <div::base as base tabindex="0">
+    <div::base as base
+      tabindex="0"
+      onKeyDown={handleKeyDown}>
+
       <div::wrapper>
         <div::image-wrapper>
           <img::image src={value.source}/>
@@ -319,6 +360,7 @@ component Ui.ImageCrop {
 
         </div>
       </div>
+
     </div>
   }
 }
