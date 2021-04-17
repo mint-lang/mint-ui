@@ -22,6 +22,15 @@ component Ui.ImageCrop {
   /* The status. */
   state status = Ui.ImageCrop.Status::Idle
 
+  /* The provider to track the mouse while dragging. */
+  use Provider.Mouse {
+    clicks = Promise.never1,
+    moves = moves,
+    ups = ups
+  } when {
+    status != Ui.ImageCrop.Status::Idle
+  }
+
   /* Styles for the base element. */
   style base {
     font-size: #{Ui.Size.toString(size)};
@@ -119,15 +128,6 @@ component Ui.ImageCrop {
 
       =>
     }
-  }
-
-  /* The provider to track the mouse while dragging. */
-  use Provider.Mouse {
-    clicks = Promise.never1,
-    moves = moves,
-    ups = ups
-  } when {
-    status != Ui.ImageCrop.Status::Idle
   }
 
   /* Calculates the next position and size based on a direction for an axis. */
