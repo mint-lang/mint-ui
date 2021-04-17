@@ -1,5 +1,5 @@
 /* A record for the image croppers value. */
-record Ui.Cropper.Value {
+record Ui.ImageCrop.Value {
   /* The URL of the image. */
   source : String,
   /* The height of the cropped area (normalized from 0 to 1). */

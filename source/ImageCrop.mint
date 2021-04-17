@@ -1,12 +1,12 @@
-component Ui.Cropper {
+component Ui.ImageCrop {
   /* The `change` event handler. */
-  property onChange : Function(Ui.Cropper.Value, Promise(Never, Void)) = Promise.never1
+  property onChange : Function(Ui.ImageCrop.Value, Promise(Never, Void)) = Promise.never1
 
   /* Whether or not to embed the panel (removes border and padding). */
   property embedded : Bool = false
 
   /* The value (crop data). */
-  property value : Ui.Cropper.Value =
+  property value : Ui.ImageCrop.Value =
     {
       source = "",
       height = 0.5,
@@ -16,7 +16,7 @@ component Ui.Cropper {
     }
 
   /* The status. */
-  state status = Ui.Cropper.Status::Idle
+  state status = Ui.ImageCrop.Status::Idle
 
   /* Styles for the base element. */
   style base {
@@ -121,18 +121,18 @@ component Ui.Cropper {
     moves = moves,
     ups = ups
   } when {
-    status != Ui.Cropper.Status::Idle
+    status != Ui.ImageCrop.Status::Idle
   }
 
   /* Calculates the next position and size based on a direction for an axis. */
   fun calculateAxis (
-    direction : Ui.Cropper.Direction,
+    direction : Ui.ImageCrop.Direction,
     startSize : Number,
     startPosition : Number,
     distance : Number
   ) {
     case (direction) {
-      Ui.Cropper.Direction::Backward =>
+      Ui.ImageCrop.Direction::Backward =>
         try {
           /* Clamp the distance to the minimum and maximum possible values. */
           clampedDistance =
@@ -155,7 +155,7 @@ component Ui.Cropper {
           {position, size}
         }
 
-      Ui.Cropper.Direction::Forward =>
+      Ui.ImageCrop.Direction::Forward =>
         try {
           /* Clamp the distance to the minimum and maximum possible values. */
           clampedDistance =
@@ -179,7 +179,7 @@ component Ui.Cropper {
         }
 
       /* This is the clearest case since we are just moving the crop area. */
-      Ui.Cropper.Direction::Move =>
+      Ui.ImageCrop.Direction::Move =>
         {
           Math.clamp(0, 1 - startSize, startPosition + distance),
           startSize
@@ -196,7 +196,7 @@ component Ui.Cropper {
             Dom.getDimensions(element)
 
           case (status) {
-            Ui.Cropper.Status::Dragging directions startValue startEvent =>
+            Ui.ImageCrop.Status::Dragging directions startValue startEvent =>
               try {
                 /* Caclulate the moved distance as a percentage of the image. */
                 distance =
@@ -240,11 +240,11 @@ component Ui.Cropper {
   }
 
   fun ups (event : Html.Event) : Promise(Never, Void) {
-    next { status = Ui.Cropper.Status::Idle }
+    next { status = Ui.ImageCrop.Status::Idle }
   }
 
   fun startDrag (
-    directions : Tuple(Ui.Cropper.Direction, Ui.Cropper.Direction),
+    directions : Tuple(Ui.ImageCrop.Direction, Ui.ImageCrop.Direction),
     event : Html.Event
   ) {
     try {
@@ -253,7 +253,7 @@ component Ui.Cropper {
       next
         {
           status =
-            Ui.Cropper.Status::Dragging(
+            Ui.ImageCrop.Status::Dragging(
               directions = directions,
               startValue = value,
               startEvent = event)
@@ -273,8 +273,8 @@ component Ui.Cropper {
           onMouseDown={
             startDrag(
               {
-                Ui.Cropper.Direction::Move,
-                Ui.Cropper.Direction::Move
+                Ui.ImageCrop.Direction::Move,
+                Ui.ImageCrop.Direction::Move
               })
           }>
 
@@ -282,8 +282,8 @@ component Ui.Cropper {
             onMouseDown={
               startDrag(
                 {
-                  Ui.Cropper.Direction::Forward,
-                  Ui.Cropper.Direction::Forward
+                  Ui.ImageCrop.Direction::Forward,
+                  Ui.ImageCrop.Direction::Forward
                 })
             }/>
 
@@ -291,8 +291,8 @@ component Ui.Cropper {
             onMouseDown={
               startDrag(
                 {
-                  Ui.Cropper.Direction::Backward,
-                  Ui.Cropper.Direction::Forward
+                  Ui.ImageCrop.Direction::Backward,
+                  Ui.ImageCrop.Direction::Forward
                 })
             }/>
 
@@ -300,8 +300,8 @@ component Ui.Cropper {
             onMouseDown={
               startDrag(
                 {
-                  Ui.Cropper.Direction::Forward,
-                  Ui.Cropper.Direction::Backward
+                  Ui.ImageCrop.Direction::Forward,
+                  Ui.ImageCrop.Direction::Backward
                 })
             }/>
 
@@ -309,8 +309,8 @@ component Ui.Cropper {
             onMouseDown={
               startDrag(
                 {
-                  Ui.Cropper.Direction::Backward,
-                  Ui.Cropper.Direction::Backward
+                  Ui.ImageCrop.Direction::Backward,
+                  Ui.ImageCrop.Direction::Backward
                 })
             }/>
 
