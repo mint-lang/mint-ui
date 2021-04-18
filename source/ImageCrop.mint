@@ -45,10 +45,13 @@ component Ui.ImageCrop {
     }
 
     &:focus {
-      border-color: var(--input-focus-border);
-      background: var(--input-focus-color);
-      color: var(--input-focus-text);
       outline: 0;
+
+      if (!embedded) {
+        border-color: var(--input-focus-border);
+        background: var(--input-focus-color);
+        color: var(--input-focus-text);
+      }
     }
   }
 
