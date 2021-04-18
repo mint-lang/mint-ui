@@ -15,6 +15,12 @@ component Ui.Card.Container {
   /* The content for the content field. */
   property content : Html = <></>
 
+  /*
+  The image to display on the left, if provided it's displayed instead
+  of the thumbnail.
+  */
+  property image : Html = <></>
+
   /* The content for the title field. */
   property title : Html = <></>
 
@@ -25,14 +31,14 @@ component Ui.Card.Container {
     color: var(--content-text);
     text-align: #{textAlign};
 
-    if (String.isNotBlank(thumbnail)) {
-      grid-template-columns: 3em 1fr;
+    if (hasImage) {
+      grid-template-columns: auto 1fr;
     } else {
       grid-template-columns: 1fr;
     }
 
     grid-template-rows: #{rows};
-    grid-gap: 0.375em 0.625em;
+    grid-gap: 0.375em 1em;
     align-content: start;
     display: grid;
 
@@ -40,9 +46,11 @@ component Ui.Card.Container {
     flex: 1;
   }
 
-  /* Styles for the thumbnail image. */
-  style thumbnail {
+  /* Styles for the image. */
+  style image {
+    place-content: center;
     grid-row: span 2;
+    display: grid;
   }
 
   /* Styles for the title. */
@@ -62,7 +70,7 @@ component Ui.Card.Container {
 
   /* Styles for the content. */
   style content {
-    if (String.isNotBlank(thumbnail)) {
+    if (hasImage) {
       grid-column: span 2;
     }
   }
@@ -86,15 +94,24 @@ component Ui.Card.Container {
     }
   }
 
+  /* Returns whether or not to display an image. */
+  get hasImage : Bool {
+    String.isNotBlank(thumbnail) || Html.isNotEmpty(image)
+  }
+
   /* Renders the component. */
   fun render : Html {
     <div::base>
-      if (String.isNotBlank(thumbnail)) {
-        <div::thumbnail>
-          <Ui.Image
-            height={Ui.Size::Em(3)}
-            width={Ui.Size::Em(3)}
-            src={thumbnail}/>
+      if (hasImage) {
+        <div::image>
+          if (Html.isNotEmpty(image)) {
+            image
+          } else {
+            <Ui.Image
+              height={Ui.Size::Em(3)}
+              width={Ui.Size::Em(3)}
+              src={thumbnail}/>
+          }
         </div>
       }
 
