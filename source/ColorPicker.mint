@@ -44,6 +44,8 @@ component Ui.ColorPicker {
   }
 
   style base {
+    font-family: monospace;
+
     grid-template-columns: 1fr auto;
     align-items: center;
     grid-gap: 1em;

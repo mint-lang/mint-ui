@@ -126,9 +126,12 @@ component Ui.ColorPanel {
     }
 
     input {
+      font-family: monospace;
+      font-size: 1.0875em;
       text-align: center;
       font-weight: bold;
-      padding: 0;
+
+      padding: 0.2em 0 0 0;
 
       if (!embedded) {
         background: var(--content-color);
