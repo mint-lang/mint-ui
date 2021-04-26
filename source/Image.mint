@@ -14,6 +14,9 @@ component Ui.Image {
   /* Whether or not the image should have a background color. */
   property transparent : Bool = false
 
+  /* Whether or not the image fills the height of it's parent element. */
+  property fullHeight : Bool = false
+
   /* Whether or not the image fills the width of it's parent element. */
   property fullWidth : Bool = false
 
@@ -74,10 +77,14 @@ component Ui.Image {
 
   /* The style for the base. */
   style base {
-    height: #{Ui.Size.toString(height)};
-
     if (!transparent) {
       background: var(--content-faded-color);
+    }
+
+    if (fullHeight) {
+      height: 100%;
+    } else {
+      height: #{Ui.Size.toString(height)};
     }
 
     if (fullWidth) {
