@@ -31,6 +31,7 @@ component Ui.Container {
     } else {
       align-content: #{justify};
       justify-items: #{align};
+      grid-auto-flow: row;
     }
   }
 
