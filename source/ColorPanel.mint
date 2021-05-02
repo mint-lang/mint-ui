@@ -35,9 +35,9 @@ component Ui.ColorPanel {
   /* State for the temporary hue value. */
   state hueString : Maybe(String) = Maybe::Nothing
 
-  /* The provider to track the mouse while dragging. */
-  use Provider.Mouse {
-    clicks = Promise.never1,
+  /* The provider to track the pointer while dragging. */
+  use Provider.Pointer {
+    downs = Promise.never1,
     moves = moves,
     ups = ups
   } when {
@@ -76,6 +76,7 @@ component Ui.ColorPanel {
     background-clip: content-box;
     border-radius: 0.25em;
     position: relative;
+    touch-action: none;
     grid-area: rect;
     cursor: move;
   }
@@ -90,6 +91,7 @@ component Ui.ColorPanel {
 
     position: relative;
     cursor: row-resize;
+    touch-action: none;
     grid-area: hue;
   }
 
@@ -107,6 +109,7 @@ component Ui.ColorPanel {
     background-clip: content-box;
     background-color: #DDD;
 
+    touch-action: none;
     position: relative;
     cursor: col-resize;
     grid-area: alpha;
@@ -205,7 +208,7 @@ component Ui.ColorPanel {
     }
   }
 
-  /* The mouse up event handler. */
+  /* The pointer up event handler. */
   fun ups (event : Html.Event) : Promise(Never, Void) {
     sequence {
       next { status = Ui.ColorPanel.Status::Idle }
@@ -213,7 +216,7 @@ component Ui.ColorPanel {
     }
   }
 
-  /* The mouse move event handler. */
+  /* The pointer move event handler. */
   fun moves (event : Html.Event) : Promise(Never, Void) {
     case (status) {
       Ui.ColorPanel.Status::ValueSaturationDragging element =>
@@ -274,24 +277,24 @@ component Ui.ColorPanel {
     }
   }
 
-  /* The mouse down event handler on the value-saturation square. */
-  fun handleRectMouseDown (event : Html.Event) : Promise(Never, Void) {
+  /* The pointer down event handler on the value-saturation square. */
+  fun handleRectPointerDown (event : Html.Event) : Promise(Never, Void) {
     try {
       Html.Event.preventDefault(event)
       next { status = Ui.ColorPanel.Status::ValueSaturationDragging(event.target) }
     }
   }
 
-  /* The mouse down event handler on the hue bar. */
-  fun handleHueMouseDown (event : Html.Event) : Promise(Never, Void) {
+  /* The pointer down event handler on the hue bar. */
+  fun handleHuePointerDown (event : Html.Event) : Promise(Never, Void) {
     try {
       Html.Event.preventDefault(event)
       next { status = Ui.ColorPanel.Status::HueDragging(event.target) }
     }
   }
 
-  /* The mouse down event handler on the alpha bar. */
-  fun handleAlphaMouseDown (event : Html.Event) : Promise(Never, Void) {
+  /* The pointer down event handler on the alpha bar. */
+  fun handleAlphaPointerDown (event : Html.Event) : Promise(Never, Void) {
     try {
       Html.Event.preventDefault(event)
       next { status = Ui.ColorPanel.Status::AlphaDragging(event.target) }
@@ -408,15 +411,15 @@ component Ui.ColorPanel {
   /* Renders the panel. */
   fun render : Html {
     <div::base>
-      <div::alpha as alphaElement onMouseDown={handleAlphaMouseDown}>
+      <div::alpha as alphaElement onPointerDown={handleAlphaPointerDown}>
         <div::handle::alpha-handle/>
       </div>
 
-      <div::rect as rectElement onMouseDown={handleRectMouseDown}>
+      <div::rect as rectElement onPointerDown={handleRectPointerDown}>
         <div::handle::rect-handle/>
       </div>
 
-      <div::hue as hueElement onMouseDown={handleHueMouseDown}>
+      <div::hue as hueElement onPointerDown={handleHuePointerDown}>
         <div::handle::hue-handle/>
       </div>
 

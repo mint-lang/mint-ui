@@ -1,5 +1,7 @@
 /* A simple image cropping component. */
 component Ui.ImageCrop {
+  connect Ui exposing { mobile }
+
   /* The `change` event handler. */
   property onChange : Function(Ui.ImageCrop.Value, Promise(Never, Void)) = Promise.never1
 
@@ -22,9 +24,9 @@ component Ui.ImageCrop {
   /* The status. */
   state status = Ui.ImageCrop.Status::Idle
 
-  /* The provider to track the mouse while dragging. */
-  use Provider.Mouse {
-    clicks = Promise.never1,
+  /* The provider to track the pointer while dragging. */
+  use Provider.Pointer {
+    downs = Promise.never1,
     moves = moves,
     ups = ups
   } when {
@@ -95,6 +97,7 @@ component Ui.ImageCrop {
 
   /* Styles for the wrapper element. */
   style wrapper {
+    touch-action: none;
     position: relative;
   }
 
@@ -105,28 +108,34 @@ component Ui.ImageCrop {
     background-color: rgba(0, 0, 0, 0.2);
 
     position: absolute;
-    height: 0.75em;
-    width: 0.75em;
+    height: var(--size);
+    width: var(--size);
+
+    if (mobile) {
+      --size: 1.5em;
+    } else {
+      --size: 0.75em;
+    }
 
     case (corner) {
       "top-left" =>
-        left: calc((0.375em + 1px) * -1);
-        top: calc((0.375em + 1px) * -1);
+        left: calc((var(--size) / 2 + 1px) * -1);
+        top: calc((var(--size) / 2 + 1px) * -1);
         cursor: nw-resize;
 
       "top-right" =>
-        right: calc((0.375em + 1px) * -1);
-        top: calc((0.375em + 1px) * -1);
+        right: calc((var(--size) / 2 + 1px) * -1);
+        top: calc((var(--size) / 2 + 1px) * -1);
         cursor: ne-resize;
 
       "bottom-left" =>
-        bottom: calc((0.375em + 1px) * -1);
-        left: calc((0.375em + 1px) * -1);
+        bottom: calc((var(--size) / 2 + 1px) * -1);
+        left: calc((var(--size) / 2 + 1px) * -1);
         cursor: sw-resize;
 
       "bottom-right" =>
-        bottom: calc((0.375em + 1px) * -1);
-        right: calc((0.375em + 1px) * -1);
+        bottom: calc((var(--size) / 2 + 1px) * -1);
+        right: calc((var(--size) / 2 + 1px) * -1);
         cursor: se-resize;
 
       =>
@@ -317,7 +326,7 @@ component Ui.ImageCrop {
         </div>
 
         <div::crop-area::cutout
-          onMouseDown={
+          onPointerDown={
             startDrag(
               {
                 Ui.ImageCrop.Direction::Move,
@@ -326,7 +335,7 @@ component Ui.ImageCrop {
           }>
 
           <div::crop-handle("top-left")
-            onMouseDown={
+            onPointerDown={
               startDrag(
                 {
                   Ui.ImageCrop.Direction::Forward,
@@ -335,7 +344,7 @@ component Ui.ImageCrop {
             }/>
 
           <div::crop-handle("top-right")
-            onMouseDown={
+            onPointerDown={
               startDrag(
                 {
                   Ui.ImageCrop.Direction::Backward,
@@ -344,7 +353,7 @@ component Ui.ImageCrop {
             }/>
 
           <div::crop-handle("bottom-left")
-            onMouseDown={
+            onPointerDown={
               startDrag(
                 {
                   Ui.ImageCrop.Direction::Forward,
@@ -353,7 +362,7 @@ component Ui.ImageCrop {
             }/>
 
           <div::crop-handle("bottom-right")
-            onMouseDown={
+            onPointerDown={
               startDrag(
                 {
                   Ui.ImageCrop.Direction::Backward,
