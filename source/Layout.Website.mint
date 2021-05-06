@@ -23,10 +23,13 @@ component Ui.Layout.Website {
   /* Whether or not center the whole layout on the screen. */
   property centered : Bool = true
 
+  /* The maximum width of the layout. */
+  property maxWidth : String = "100vh"
+
   /* Styles for the base element. */
   style base {
+    max-width: #{maxWidth};
     min-height: 100vh;
-    max-width: 100vw;
     min-width: 320px;
 
     grid-template-rows: #{rows};
