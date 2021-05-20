@@ -158,6 +158,7 @@ component Ui.Button {
   /* Styles for the label. */
   style label {
     padding-bottom: 0.05em;
+    line-height: 1.2;
 
     if (breakWords) {
       word-break: break-word;
