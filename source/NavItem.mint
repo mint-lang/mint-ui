@@ -90,7 +90,7 @@ component Ui.NavItem {
   /* Renders the item. */
   fun render : Html {
     case (item) {
-      Ui.NavItem::Group iconBefore iconAfter label items =>
+      Ui.NavItem::Group(iconBefore, iconAfter, label, items) =>
         <div::group>
           <strong::group-item::row>
             <{ renderContents(iconBefore, iconAfter, label) }>
@@ -99,7 +99,7 @@ component Ui.NavItem {
           <Ui.NavItems items={items}/>
         </div>
 
-      Ui.NavItem::Link iconBefore iconAfter label href target =>
+      Ui.NavItem::Link(iconBefore, iconAfter, label, href, target) =>
         <a::row::item(Window.isActiveURL(href))
           target={target}
           href={href}>
@@ -108,13 +108,13 @@ component Ui.NavItem {
 
         </a>
 
-      Ui.NavItem::Item iconBefore iconAfter label action =>
+      Ui.NavItem::Item(iconBefore, iconAfter, label, action) =>
         <div::row::item(false) onClick={action}>
           <{ renderContents(iconBefore, iconAfter, label) }>
         </div>
 
       Ui.NavItem::Divider => <div::divider/>
-      Ui.NavItem::Html content => content
+      Ui.NavItem::Html(content) => content
     }
   }
 }

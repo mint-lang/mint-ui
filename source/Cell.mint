@@ -35,19 +35,19 @@ component Ui.Cell {
   fun render : Html {
     <div::base>
       case (cell) {
-        Ui.Cell::Number value => <{ Number.toString(value) }>
-        Ui.Cell::String value => <{ value }>
-        Ui.Cell::Html value => value
+        Ui.Cell::Number(value) => <{ Number.toString(value) }>
+        Ui.Cell::String(value) => <{ value }>
+        Ui.Cell::Html(value) => value
 
-        Ui.Cell::Code code breakSpaces =>
+        Ui.Cell::Code(code, breakSpaces) =>
           <code::code(breakSpaces)>
             <{ code }>
           </code>
 
-        Ui.Cell::HtmlItems actions =>
+        Ui.Cell::HtmlItems(actions) =>
           <Ui.Container
-            justify="start"
-            gap={Ui.Size::Em(0.5)}>
+            gap={Ui.Size::Em(0.5)}
+            justify="start">
 
             <{ actions }>
 

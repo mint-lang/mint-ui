@@ -35,7 +35,7 @@ module Ui.ListItem {
   /* Returns the `content` of a list item. */
   fun content (item : Ui.ListItem) : Html {
     case (item) {
-      Ui.ListItem::Item content => content
+      Ui.ListItem::Item(content) => content
       Ui.ListItem::Divider => <></>
     }
   }
@@ -43,7 +43,7 @@ module Ui.ListItem {
   /* Returns the `matchString` of a list item. */
   fun matchString (item : Ui.ListItem) : String {
     case (item) {
-      Ui.ListItem::Item matchString => matchString
+      Ui.ListItem::Item(matchString) => matchString
       Ui.ListItem::Divider => ""
     }
   }
@@ -51,7 +51,7 @@ module Ui.ListItem {
   /* Returns the `key` of a list item. */
   fun key (item : Ui.ListItem) : String {
     case (item) {
-      Ui.ListItem::Item key => key
+      Ui.ListItem::Item(key) => key
       Ui.ListItem::Divider => ""
     }
   }

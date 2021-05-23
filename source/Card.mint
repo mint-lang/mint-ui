@@ -101,7 +101,7 @@ component Ui.Card {
   fun render : Html {
     if (String.isBlank(href)) {
       case (onClick) {
-        Maybe::Just handler =>
+        Maybe::Just(handler) =>
           <button::common::button::focus onClick={handler}>
             <div::base>
               <{ children }>

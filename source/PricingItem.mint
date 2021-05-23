@@ -126,7 +126,7 @@ component Ui.PricingItem {
       <hr::hr/>
 
       case (price) {
-        Maybe::Just item =>
+        Maybe::Just(item) =>
           try {
             <div::price>
               <div::currency>

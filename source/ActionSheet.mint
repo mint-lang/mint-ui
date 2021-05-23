@@ -252,12 +252,12 @@ global component Ui.ActionSheet {
           Timer.timeout(100, "")
 
           case (container) {
-            Maybe::Just element => Dom.focusFirst(element)
+            Maybe::Just(element) => Dom.focusFirst(element)
             Maybe::Nothing => next {  }
           }
 
           case (scrollContainer) {
-            Maybe::Just element => Dom.scrollTo(element, 0, 0)
+            Maybe::Just(element) => Dom.scrollTo(element, 0, 0)
             Maybe::Nothing => next {  }
           }
         }
@@ -360,14 +360,14 @@ global component Ui.ActionSheet {
   /* Renders the given navigation item. */
   fun renderItem (item : Ui.NavItem) : Html {
     case (item) {
-      Ui.NavItem::Html content =>
+      Ui.NavItem::Html(content) =>
         <div::html>
           <{ content }>
         </div>
 
       Ui.NavItem::Divider => <div::divider/>
 
-      Ui.NavItem::Item iconAfter iconBefore label action =>
+      Ui.NavItem::Item(iconAfter, iconBefore, label, action) =>
         renderContents(
           iconAfter,
           iconBefore,
@@ -377,7 +377,7 @@ global component Ui.ActionSheet {
           "",
           handleItemClick(action))
 
-      Ui.NavItem::Link iconAfter iconBefore label href target =>
+      Ui.NavItem::Link(iconAfter, iconBefore, label, href, target) =>
         renderContents(
           iconAfter,
           iconBefore,
@@ -387,7 +387,7 @@ global component Ui.ActionSheet {
           target,
           handleLinkClick(href))
 
-      Ui.NavItem::Group iconAfter iconBefore label items =>
+      Ui.NavItem::Group(iconAfter, iconBefore, label, items) =>
         <>
           <{
             renderContents(

@@ -162,7 +162,7 @@ component Ui.Layout.Documentation {
   /* Updates the table of contents. */
   fun updateToc {
     case (content) {
-      Maybe::Just element =>
+      Maybe::Just(element) =>
         try {
           items =
             Dom.getElementsBySelector("a[name]", element)

@@ -33,7 +33,7 @@ component Ui.Select {
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
     case (list) {
-      Maybe::Just item => item.handleKeyDown(event)
+      Maybe::Just(item) => item.handleKeyDown(event)
       Maybe::Nothing => next {  }
     }
   }
@@ -44,7 +44,7 @@ component Ui.Select {
       onChange(value)
 
       case (picker) {
-        Maybe::Just item => item.hideDropdown()
+        Maybe::Just(item) => item.hideDropdown()
         Maybe::Nothing => next {  }
       }
     }

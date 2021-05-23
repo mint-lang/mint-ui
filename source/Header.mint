@@ -153,9 +153,9 @@ component Ui.Header {
             for (item of items) {
               case (item) {
                 Ui.NavItem::Divider => <div::divider/>
-                Ui.NavItem::Html content => content
+                Ui.NavItem::Html(content) => content
 
-                Ui.NavItem::Group iconBefore iconAfter label items =>
+                Ui.NavItem::Group(iconBefore, iconAfter, label, items) =>
                   try {
                     key =
                       String.parameterize(label)
@@ -185,12 +185,12 @@ component Ui.Header {
                       }/>
                   }
 
-                Ui.NavItem::Item iconBefore iconAfter label action =>
+                Ui.NavItem::Item(iconBefore, iconAfter, label, action) =>
                   <div::item(false) onClick={action}>
                     <{ renderItem(iconBefore, iconAfter, label) }>
                   </div>
 
-                Ui.NavItem::Link iconBefore iconAfter label href target =>
+                Ui.NavItem::Link(iconBefore, iconAfter, label, href, target) =>
                   <a::item(Window.isActiveURL(href))
                     target={target}
                     href={href}>

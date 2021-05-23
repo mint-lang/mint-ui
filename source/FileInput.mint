@@ -165,7 +165,7 @@ component Ui.FileInput {
   fun render : Html {
     <button::base as base onClick={handleSelect}>
       case (value) {
-        Maybe::Just file =>
+        Maybe::Just(file) =>
           <>
             <div::infos>
               <Ui.Field label="Name">

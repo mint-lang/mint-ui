@@ -6,7 +6,7 @@ component Ui.FocusTrap {
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
     case (base) {
-      Maybe::Just element =>
+      Maybe::Just(element) =>
         if (event.keyCode == 9) {
           try {
             target =

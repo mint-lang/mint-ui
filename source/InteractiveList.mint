@@ -120,7 +120,7 @@ component Ui.InteractiveList {
       }
 
       case (container) {
-        Maybe::Just element => Ui.scrollIntoViewIfNeeded(`#{element}.children[#{nextIndex}]`)
+        Maybe::Just(element) => Ui.scrollIntoViewIfNeeded(`#{element}.children[#{nextIndex}]`)
         => next {  }
       }
     }
@@ -171,7 +171,7 @@ component Ui.InteractiveList {
           <div::items as container>
             for (item of items) {
               case (item) {
-                Ui.ListItem::Item key content =>
+                Ui.ListItem::Item(key, content) =>
                   <Ui.InteractiveList.Item
                     onClick={(event : Html.Event) { handleClickSelect(key) }}
                     intended={intendable && key == intended}

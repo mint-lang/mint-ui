@@ -15,8 +15,8 @@ module Ui.Size {
   /* Converts the size into it's CSS equivalent. */
   fun toString (size : Ui.Size) : String {
     case (size) {
-      Ui.Size::Em value => "#{value}em"
-      Ui.Size::Px value => "#{value}px"
+      Ui.Size::Em(value) => "#{value}em"
+      Ui.Size::Px(value) => "#{value}px"
       Ui.Size::Inherit => "inherit"
     }
   }
