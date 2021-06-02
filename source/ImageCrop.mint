@@ -208,13 +208,13 @@ component Ui.ImageCrop {
   /* Handles the move event. */
   fun moves (event : Html.Event) : Promise(Never, Void) {
     case (base) {
-      Maybe::Just element =>
+      Maybe::Just(element) =>
         try {
           dimensions =
             Dom.getDimensions(element)
 
           case (status) {
-            Ui.ImageCrop.Status::Dragging directions startValue startEvent =>
+            Ui.ImageCrop.Status::Dragging(directions, startValue, startEvent) =>
               try {
                 /* Caclulate the moved distance as a percentage of the image. */
                 distance =
@@ -302,7 +302,7 @@ component Ui.ImageCrop {
         }
 
       case (updatedValue) {
-        Maybe::Just newValue =>
+        Maybe::Just(newValue) =>
           try {
             Html.Event.preventDefault(event)
             onChange(newValue)
