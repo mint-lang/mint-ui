@@ -12,7 +12,7 @@ module Ui.Token {
   /* Resolves the token using the dark mode param. */
   fun resolve (darkMode : Bool, token : Ui.Token) : Array(String) {
     case (token) {
-      Ui.Token::Schemed name light dark =>
+      Ui.Token::Schemed(name, light, dark) =>
         try {
           value =
             if (darkMode) {
@@ -28,7 +28,7 @@ module Ui.Token {
           ]
         }
 
-      Ui.Token::Simple name value =>
+      Ui.Token::Simple(name, value) =>
         [
           "--#{name}: #{value}"
         ]
