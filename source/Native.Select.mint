@@ -153,7 +153,7 @@ component Ui.Native.Select {
                   disabled={true}
                   label="─────────────"/>
 
-              Ui.ListItem::Item content key =>
+              Ui.ListItem::Item(content, key) =>
                 <option value={key}>
                   <{ content }>
                 </option>
