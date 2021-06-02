@@ -95,7 +95,7 @@ store Ui {
   state darkMode : Bool =
     case (Storage.Local.get("ui.dark-mode")) {
       Result::Err => Window.matchesMediaQuery("(prefers-color-scheme: dark)")
-      Result::Ok value => value == "true"
+      Result::Ok(value) => value == "true"
     }
 
   /* A media query listener for to set mobile property. */
