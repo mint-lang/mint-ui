@@ -100,7 +100,7 @@ component Ui.Field {
       </div>
 
       case (error) {
-        Maybe::Just message =>
+        Maybe::Just(message) =>
           <div::error>
             <Ui.Icon icon={Ui.Icons:ALERT}/>
             <{ message }>
