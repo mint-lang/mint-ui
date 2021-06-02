@@ -35,7 +35,7 @@ component Ui.AvoidFocus {
   fun update : Promise(Never, Void) {
     try {
       case (base) {
-        Maybe::Just element =>
+        Maybe::Just(element) =>
           for (element of Dom.getElementsBySelector("*", element)) {
             Dom.setAttribute("tabindex", "-1", element)
           }
