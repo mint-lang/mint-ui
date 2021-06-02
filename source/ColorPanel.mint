@@ -219,7 +219,7 @@ component Ui.ColorPanel {
   /* The pointer move event handler. */
   fun moves (event : Html.Event) : Promise(Never, Void) {
     case (status) {
-      Ui.ColorPanel.Status::ValueSaturationDragging element =>
+      Ui.ColorPanel.Status::ValueSaturationDragging(element) =>
         try {
           dimensions =
             Dom.getDimensions(element)
@@ -240,7 +240,7 @@ component Ui.ColorPanel {
           onChange(nextValue)
         }
 
-      Ui.ColorPanel.Status::HueDragging element =>
+      Ui.ColorPanel.Status::HueDragging(element) =>
         try {
           dimensions =
             Dom.getDimensions(element)
@@ -256,7 +256,7 @@ component Ui.ColorPanel {
           onChange(nextValue)
         }
 
-      Ui.ColorPanel.Status::AlphaDragging element =>
+      Ui.ColorPanel.Status::AlphaDragging(element) =>
         try {
           dimensions =
             Dom.getDimensions(element)
