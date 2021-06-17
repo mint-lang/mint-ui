@@ -81,7 +81,7 @@ component Ui.Dropdown {
   }
 
   /* Updates the dimensions of the panel if `matchWidth` is true. */
-  fun updateDimensions : Promise(Never, Void) {
+  fun updateDimensions (timestamp : Number) : Promise(Never, Void) {
     case (stickyPanel) {
       Maybe::Just(panel) =>
         next { width = Dom.getDimensions(`#{panel}.base`).width }

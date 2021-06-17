@@ -103,7 +103,7 @@ component Ui.StickyPanel {
   }
 
   /* Calculates the position of the panel. */
-  fun updateDimensions : Promise(Never, Void) {
+  fun updateDimensions (timestamp : Number) : Promise(Never, Void) {
     next
       {
         left = finalPosition.left,
