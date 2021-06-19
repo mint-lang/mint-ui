@@ -35,6 +35,26 @@ module Ui.Token {
     }
   }
 
+  /* Sets a given token. */
+  fun setToken (token : Ui.Token, tokens : Array(Ui.Token)) : Array(Ui.Token) {
+    try {
+      name =
+        getName(token)
+
+      tokens
+      |> Array.reject((item : Ui.Token) { getName(item) == name })
+      |> Array.push(token)
+    }
+  }
+
+  /* Gets the name of the token. */
+  fun getName (token : Ui.Token) : String {
+    case (token) {
+      Ui.Token::Schemed(name) => name
+      Ui.Token::Simple(name) => name
+    }
+  }
+
   /* Resolves many tokens using the dark mode param. */
   fun resolveMany (darkMode : Bool, tokens : Array(Ui.Token)) : String {
     tokens
