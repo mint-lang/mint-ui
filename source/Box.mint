@@ -3,6 +3,9 @@ component Ui.Box {
   /* The size of the box. */
   property size : Ui.Size = Ui.Size::Inherit
 
+  /* Whether or not to fit the content to the extent of the box. */
+  property fitContent : Bool = false
+
   /* The children to render. */
   property children : Array(Html) = []
 
@@ -19,6 +22,10 @@ component Ui.Box {
     color: var(--content-text);
     border-radius: 0.5em;
     padding: 1.25em;
+
+    if (fitContent) {
+      display: grid;
+    }
   }
 
   /* Styles for the title. */
@@ -33,6 +40,7 @@ component Ui.Box {
     font-size: 1.25em;
   }
 
+  /* Styles for the label. */
   style label {
     padding-left: 0.75em;
     font-size: 0.875em;
@@ -40,6 +48,7 @@ component Ui.Box {
     opacity: 0.85;
   }
 
+  /* Styles for the wrapper element. */
   style wrapper {
     font-size: #{Ui.Size.toString(size)};
     grid-gap: 0.5em;
@@ -67,7 +76,7 @@ component Ui.Box {
             </div>
           }
 
-          <Ui.Content>
+          <Ui.Content fitContent={fitContent}>
             <{ children }>
           </Ui.Content>
         </div>
