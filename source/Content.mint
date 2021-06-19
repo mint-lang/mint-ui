@@ -14,6 +14,9 @@ component Ui.Content {
   /* The size of the content. */
   property size : Ui.Size = Ui.Size::Inherit
 
+  /* Whether or not to fit the content to the extent of the base element. */
+  property fitContent : Bool = false
+
   /* The children to display. */
   property children : Array(Html) = []
 
@@ -27,6 +30,10 @@ component Ui.Content {
     text-align: #{textAlign};
     word-break: break-word;
     line-height: 1.7;
+
+    if (fitContent) {
+      display: grid;
+    }
 
     > *:first-child {
       margin-top: 0;
