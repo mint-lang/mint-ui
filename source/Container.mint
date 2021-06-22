@@ -21,24 +21,32 @@ component Ui.Container {
   /* Styles for the base element. */
   style base {
     font-size: #{Ui.Size.toString(size)};
-    grid-gap: #{Ui.Size.toString(gap)};
-    display: grid;
+
+    justify-content: #{justify};
+    align-items: #{align};
+    display: flex;
 
     if (orientation == "horizontal") {
-      justify-content: #{justify};
-      grid-auto-flow: column;
-      align-items: #{align};
+      flex-direction: row;
     } else {
-      align-content: #{justify};
-      justify-items: #{align};
-      grid-auto-flow: row;
+      flex-direction: column;
     }
+  }
+
+  /* Styles for the gap. */
+  style gap {
+    height: #{Ui.Size.toString(gap)};
+    width: #{Ui.Size.toString(gap)};
   }
 
   /* Renders the component. */
   fun render : Html {
     <div::base>
-      <{ children }>
+      <{
+        children
+        |> Html.flatten
+        |> Array.intersperse(<div::gap/>)
+      }>
     </div>
   }
 }
