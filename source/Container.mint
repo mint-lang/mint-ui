@@ -37,6 +37,7 @@ component Ui.Container {
   style gap {
     height: #{Ui.Size.toString(gap)};
     width: #{Ui.Size.toString(gap)};
+    flex: 0 0 auto;
   }
 
   /* Renders the component. */

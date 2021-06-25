@@ -52,8 +52,9 @@ component Ui.Field {
     }
   }
 
-  /* Style for the divider. */
-  style divider {
+  /* Style for the gap. */
+  style gap {
+    flex: 0 0 auto;
     height: 0.5em;
     width: 0.5em;
   }
@@ -90,7 +91,7 @@ component Ui.Field {
                 <{ children }>
               </div>
 
-              <div::divider/>
+              <div::gap/>
 
               <div::label>
                 <{ label }>
@@ -103,7 +104,7 @@ component Ui.Field {
                 <{ label }>
               </div>
 
-              <div::divider/>
+              <div::gap/>
 
               <div>
                 <{ children }>
@@ -116,7 +117,7 @@ component Ui.Field {
         Maybe::Just(message) =>
           <div::error>
             <Ui.Icon icon={Ui.Icons:ALERT}/>
-            <div::divider/>
+            <div::gap/>
             <{ message }>
           </div>
 
