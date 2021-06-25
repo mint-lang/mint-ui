@@ -6,6 +6,9 @@ component Ui.Field {
   /* The orientation either `vertical` or `horizontal`. */
   property orientation : String = "vertical"
 
+  /* Whether or not the label is in a single line. */
+  property singleLineLabel : Bool = true
+
   /* The children to render. */
   property children : Array(Html) = []
 
@@ -15,37 +18,29 @@ component Ui.Field {
   /* The style for the base. */
   style base {
     text-align: left;
-    display: grid;
   }
 
   /* The style for the control. */
   style control {
     case (orientation) {
       "horizontal" =>
-        justify-content: start;
-        grid-auto-flow: column;
+        flex-direction: row;
         align-items: center;
-        grid-gap: 0.5em;
 
       =>
-        align-content: start;
-        grid-gap: 0.5em;
+        flex-direction: column;
     }
 
-    display: grid;
+    display: flex;
   }
 
   /* The style for the error message. */
   style error {
     color: var(--danger-color);
-
     margin-top: 0.3125em;
 
-    grid-auto-flow: column;
-    justify-content: start;
     align-items: start;
-    grid-gap: 0.5em;
-    display: grid;
+    display: flex;
 
     font-family: var(--font-family);
     font-size: 0.875em;
@@ -57,20 +52,34 @@ component Ui.Field {
     }
   }
 
+  /* Style for the divider. */
+  style divider {
+    height: 0.5em;
+    width: 0.5em;
+  }
+
   /* The style for the label. */
   style label {
     font-family: var(--font-family);
     color: var(--content-text);
-
     font-size: 0.875em;
     font-weight: bold;
 
-    white-space: nowrap;
-    line-height: 1;
+    case (orientation) {
+      "horizontal" =>
+        flex: 1;
 
-    flex: 0 0 auto;
+      =>
+        flex: 0 0 auto;
+    }
+
+    if (singleLineLabel) {
+      white-space: nowrap;
+      line-height: 1;
+    }
   }
 
+  /* Renders the component. */
   fun render : Html {
     <div::base>
       <div::control>
@@ -80,6 +89,8 @@ component Ui.Field {
               <div>
                 <{ children }>
               </div>
+
+              <div::divider/>
 
               <div::label>
                 <{ label }>
@@ -92,6 +103,8 @@ component Ui.Field {
                 <{ label }>
               </div>
 
+              <div::divider/>
+
               <div>
                 <{ children }>
               </div>
@@ -103,6 +116,7 @@ component Ui.Field {
         Maybe::Just(message) =>
           <div::error>
             <Ui.Icon icon={Ui.Icons:ALERT}/>
+            <div::divider/>
             <{ message }>
           </div>
 
