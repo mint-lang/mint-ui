@@ -15,6 +15,9 @@ component Ui.Calendar.Cell {
   /* Whether or not the cell is active (selectable). */
   property active : Bool = false
 
+  /* Whether or not the component is readonly. */
+  property readonly : Bool = false
+
   /* The day. */
   property day : Time
 
@@ -28,8 +31,10 @@ component Ui.Calendar.Cell {
     display: flex;
 
     cursor: pointer;
-    height: 2em;
-    width: 2em;
+    min-height: 2em;
+    min-width: 2em;
+    height: 100%;
+    width: 100%;
 
     if (active) {
       opacity: 1;
@@ -37,7 +42,7 @@ component Ui.Calendar.Cell {
       opacity: 0.2;
     }
 
-    if (disabled) {
+    if (disabled || readonly) {
       pointer-events: none;
     }
 

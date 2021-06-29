@@ -6,6 +6,9 @@ component Ui.Calendar {
   /* The change event handler. */
   property onChange : Function(Time, Promise(Never, Void)) = Promise.never1
 
+  /* The days to highlight as selected. */
+  property selectedDays : Set(Time) = Set.empty()
+
   /* Whether or not to trigger the `onMonthChange` event if clicking on a day in an other month. */
   property changeMonthOnSelect : Bool = false
 
@@ -23,6 +26,9 @@ component Ui.Calendar {
 
   /* Whether or not the component is disabled. */
   property disabled : Bool = false
+
+  /* Whether or not the component is readonly. */
+  property readonly : Bool = false
 
   /* Styles for the base. */
   style base {
@@ -53,6 +59,8 @@ component Ui.Calendar {
   /* Style for the table. */
   style table {
     grid-template-columns: repeat(7, 1fr);
+    justify-items: center;
+    align-items: center;
     grid-gap: 0.3125em;
     display: grid;
     width: 100%;
@@ -88,7 +96,7 @@ component Ui.Calendar {
 
   /* Style for the day names. */
   style dayNames {
-    justify-content: space-between;
+    justify-content: space-around;
     white-space: nowrap;
     display: flex;
     line-height: 1;
@@ -185,11 +193,30 @@ component Ui.Calendar {
             }
 
           for (cell of actualDays) {
-            <Ui.Calendar.Cell
-              active={Array.any((item : Time) : Bool { cell == item }, range)}
-              onClick={handleCellClick}
-              selected={day == cell}
-              day={cell}/>
+            try {
+              normalizedDay =
+                Time.startOf("day", day)
+
+              normalizedCell =
+                Time.startOf("day", cell)
+
+              normalizedDays =
+                Set.map(Time.startOf("day"), selectedDays)
+
+              selected =
+                if (Set.size(normalizedDays) == 0) {
+                  normalizedDay == normalizedCell
+                } else {
+                  Set.has(normalizedCell, normalizedDays)
+                }
+
+              <Ui.Calendar.Cell
+                active={Array.any((item : Time) : Bool { normalizedCell == item }, range)}
+                onClick={handleCellClick}
+                day={normalizedCell}
+                selected={selected}
+                readonly={readonly}/>
+            }
           }
         }
       </div>
