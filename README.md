@@ -39,8 +39,8 @@ $ mint install
 Mint - Installing dependencies
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚙ Constructing dependency tree...
-  ✔ Cloned mint-ui(https://github.com/mint-lang/mint-ui)
-  ✔ Cloned mint-color(https://github.com/mint-lang/mint-color)
+  ✔ Cloned mint-ui (https://github.com/mint-lang/mint-ui)
+  ✔ Cloned mint-color (https://github.com/mint-lang/mint-color)
 
 ⚙ Resolving dependency tree...
   ◈ mint-ui ➔ 1.0.0
