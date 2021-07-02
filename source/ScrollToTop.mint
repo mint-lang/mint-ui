@@ -13,8 +13,8 @@ component Ui.ScrollToTop {
   /* The size of the content. */
   property size : Ui.Size = Ui.Size::Inherit
 
-  /* The treshold (scroll position) to show the button. */
-  property treshold : Number = 50
+  /* The threshold (scroll position) to show the button. */
+  property threshold : Number = 50
 
   /* The z-index of the component. */
   property zIndex : Number = 800
@@ -45,7 +45,7 @@ component Ui.ScrollToTop {
       right: 1.5rem;
     }
 
-    if (scrollPosition < treshold) {
+    if (scrollPosition < threshold) {
       transform: scale(0);
       opacity: 0;
     } else {
