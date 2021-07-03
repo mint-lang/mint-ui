@@ -12,6 +12,6 @@ enum Ui.Cell {
   /* A simple number value. */
   Number(Number)
 
-  /* Abritrary HTML content. */
+  /* Arbitrary HTML content. */
   Html(Html)
 }

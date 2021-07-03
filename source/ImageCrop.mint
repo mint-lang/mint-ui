@@ -160,7 +160,7 @@ component Ui.ImageCrop {
               distance)
 
           /*
-          Caclulate new size. In this case moving down/right we need
+          Calculate new size. In this case moving down/right we need
           to add the distance to the size.
           */
           size =
@@ -183,7 +183,7 @@ component Ui.ImageCrop {
               distance)
 
           /*
-          Caclulate new size. In this case moving up/left we need
+          Calculate new size. In this case moving up/left we need
           to subtract the distance from the size.
           */
           size =
@@ -216,7 +216,7 @@ component Ui.ImageCrop {
           case (status) {
             Ui.ImageCrop.Status::Dragging(directions, startValue, startEvent) =>
               try {
-                /* Caclulate the moved distance as a percentage of the image. */
+                /* Calculate the moved distance as a percentage of the image. */
                 distance =
                   {
                     (event.pageX - startEvent.pageX) / dimensions.width,

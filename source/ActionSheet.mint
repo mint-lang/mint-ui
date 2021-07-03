@@ -13,7 +13,7 @@ Some of it's features:
   focusable elements.
 
 - When closed the focus is returned to the last focused element before opening
-  (which is usally the one that opened the action-sheet).
+  (which is usually the one that opened the action-sheet).
 */
 global component Ui.ActionSheet {
   connect Ui exposing { mobile }

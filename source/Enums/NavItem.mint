@@ -32,6 +32,6 @@ enum Ui.NavItem {
     label : String,
     href : String)
 
-  /* Abritrary HTML content. */
+  /* Arbitrary HTML content. */
   Html(Html)
 }

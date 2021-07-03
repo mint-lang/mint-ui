@@ -8,7 +8,7 @@ Some of it's features:
 - Showing it returns a promise which is resolved when its closed or rejected when cancelled.
 - The keyboard focus is trapped in the list: `Tab` and `Shift-Tab` cycles focusable elements.
 - When closed the focus is returned to the last focused element before opening
-  (which is usally the one that opened the drawer).
+  (which is usually the one that opened the drawer).
 */
 global component Ui.Drawer {
   /* The reject function. */
