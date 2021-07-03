@@ -1,6 +1,6 @@
 {
   "name": "mint-ui",
-  "mint-version": "0.13.0 <= v < 1.0.0",
+  "mint-version": "0.14.0 <= v < 1.0.0",
   "source-directories": [
     "source"
   ],
