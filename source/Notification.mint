@@ -89,7 +89,7 @@ component Ui.Notification {
       Timer.nextFrame("")
       next { shown = true }
 
-      /* Wait for the duration plus the transision duration and some extra. */
+      /* Wait for the duration plus the transition duration and some extra. */
       Timer.timeout(duration, "")
       next { shown = false }
     }

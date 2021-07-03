@@ -15,7 +15,7 @@ Some of it's features:
   focusable elements.
 
 - When closed the focus is returned to the last focused element before opening
-  (which is usally the one that opened the modal).
+  (which is usually the one that opened the modal).
 */
 global component Ui.Modal {
   /* The reject function. */

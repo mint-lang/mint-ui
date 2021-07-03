@@ -24,7 +24,7 @@ Permission is hereby granted, free of charge, to any person eligible for the "Fr
 
 ### Disallowed use cases
 
-It is not allowed to copy or modify Mint UI code for the purpose of selling, renting, licensing, relicensing, sublicensing your own derivate of Mint UI.
+It is not allowed to copy or modify Mint UI code for the purpose of selling, renting, licensing, relicensing, sublicensing your own derivative of Mint UI.
 
 ### Warranty notice
 

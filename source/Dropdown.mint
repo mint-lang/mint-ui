@@ -3,7 +3,7 @@ A dropdown component.
 
 - On desktop it renders the given content around the given element
   using `Ui.StickyPanel`
-- On mobile it renders teh given content in a modal
+- On mobile it renders the given content in a modal
 */
 component Ui.Dropdown {
   connect Ui exposing { mobile }
