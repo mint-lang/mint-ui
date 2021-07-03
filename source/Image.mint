@@ -43,7 +43,7 @@ component Ui.Image {
 
   use Provider.Intersection {
     rootMargin = "50px",
-    treshold = 0.01,
+    threshold = 0.01,
     element = base,
     callback =
       (ratio : Number) {
