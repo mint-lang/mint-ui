@@ -1,7 +1,7 @@
 /*
 A generic global modal component.
 
-Some of it's features:
+Some of its features:
 
 - When open pressing `Esc` closes it.
 

@@ -69,7 +69,7 @@ component Ui.Textarea {
     element = textarea
   }
 
-  /* The common styles for the textarea and it's mirror. */
+  /* The common styles for the textarea and its mirror. */
   style common {
     border: 0.0625em solid var(--input-border);
     padding: 0.4375em 0.625em;

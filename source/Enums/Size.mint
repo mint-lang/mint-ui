@@ -12,7 +12,7 @@ enum Ui.Size {
 
 /* Utility functions for working with `Ui.Size`. */
 module Ui.Size {
-  /* Converts the size into it's CSS equivalent. */
+  /* Converts the size into its CSS equivalent. */
   fun toString (size : Ui.Size) : String {
     case (size) {
       Ui.Size::Em(value) => "#{value}em"
