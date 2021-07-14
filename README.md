@@ -27,7 +27,7 @@ add `mint-ui` to the `mint.json` file as a dependency:
 "dependencies": {
   "mint-ui": {
     "repository": "https://github.com/mint-lang/mint-ui",
-    "constraint": "1.0.0 <= v < 2.0.0"
+    "constraint": "3.0.0 <= v < 4.0.0"
   }
 }
 ```
