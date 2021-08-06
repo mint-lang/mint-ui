@@ -206,7 +206,7 @@ global component Ui.ActionSheet {
   /* Hides the component. */
   fun hide : Promise(Never, Void) {
     if (!open) {
-      next {  }
+      next { }
     } else {
       sequence {
         next { open = false }
@@ -229,7 +229,7 @@ global component Ui.ActionSheet {
   /* Shows the component with the given items and options. */
   fun showWithOptions (size : Ui.Size, items : Array(Ui.NavItem)) : Promise(Never, Void) {
     if (Array.isEmpty(items)) {
-      next {  }
+      next { }
     } else {
       try {
         {resolve, reject, promise} =
@@ -253,12 +253,12 @@ global component Ui.ActionSheet {
 
           case (container) {
             Maybe::Just(element) => Dom.focusFirst(element)
-            Maybe::Nothing => next {  }
+            Maybe::Nothing => next { }
           }
 
           case (scrollContainer) {
             Maybe::Just(element) => Dom.scrollTo(element, 0, 0)
-            Maybe::Nothing => next {  }
+            Maybe::Nothing => next { }
           }
         }
 
@@ -280,7 +280,7 @@ global component Ui.ActionSheet {
   /* The close event handler. */
   fun handleClose (event : Html.Event) : Promise(Never, Void) {
     if (Dom.containsMaybe(container, event.target)) {
-      next {  }
+      next { }
     } else {
       hide()
     }
@@ -306,7 +306,7 @@ global component Ui.ActionSheet {
         hide()
       }
     } else {
-      next {  }
+      next { }
     }
   }
 
@@ -348,7 +348,7 @@ global component Ui.ActionSheet {
 
         </a>
       } else {
-        <button::reset::item-interactive(group) onClick={onClick}>
+        <button::reset::item(group)::item-interactive(group) onClick={onClick}>
           <div::item(group)>
             <{ contents }>
           </div>
