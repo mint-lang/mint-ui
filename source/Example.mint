@@ -9,7 +9,7 @@ component Ui.Example {
   /* Controls the vertical spacing between the elements. */
   property verticalSpacing : Number = 0
 
-  /* The example and it's source code to display. */
+  /* The example and its source code to display. */
   property data : Tuple(Html, String)
 
   /* Controls when to use a one column layout. */

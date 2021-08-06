@@ -14,10 +14,10 @@ component Ui.Image {
   /* Whether or not the image should have a background color. */
   property transparent : Bool = false
 
-  /* Whether or not the image fills the height of it's parent element. */
+  /* Whether or not the image fills the height of its parent element. */
   property fullHeight : Bool = false
 
-  /* Whether or not the image fills the width of it's parent element. */
+  /* Whether or not the image fills the width of its parent element. */
   property fullWidth : Bool = false
 
   /* Wehter or not the image is draggable using browser drag & drop. */

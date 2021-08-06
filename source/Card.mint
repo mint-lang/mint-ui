@@ -47,7 +47,7 @@ component Ui.Card {
     }
   }
 
-  /* Additional styles for the card if it's has focus. */
+  /* Additional styles for the card if it has focus. */
   style focus {
     /* Removes the dotted focus ring in Firefox. */
     &::-moz-focus-inner {

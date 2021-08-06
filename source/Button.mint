@@ -36,7 +36,7 @@ component Ui.Button {
   /* Whether or not the button is disabled. */
   property disabled : Bool = false
 
-  /* Whether or not make the text use ellipsis if it's overflows. */
+  /* Whether or not make the text use ellipsis in case it overflows. */
   property ellipsis : Bool = true
 
   /* The icon before the label. */

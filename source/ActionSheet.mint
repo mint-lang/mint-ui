@@ -2,7 +2,7 @@
 An action sheet comes up from the bottom of the screen and displays actions
 a user can take.
 
-Some of it's features:
+Some of its features:
 
 - Showing the component returns a promise which is resolved when its closed.
 - When open pressing `Esc` closes it.

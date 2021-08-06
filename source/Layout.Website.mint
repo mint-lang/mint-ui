@@ -24,7 +24,7 @@ component Ui.Layout.Website {
   property centered : Bool = true
 
   /* The maximum width of the layout. */
-  property maxWidth : String = "100vh"
+  property maxWidth : String = "100vw"
 
   /* Styles for the base element. */
   style base {

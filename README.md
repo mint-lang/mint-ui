@@ -27,7 +27,7 @@ add `mint-ui` to the `mint.json` file as a dependency:
 "dependencies": {
   "mint-ui": {
     "repository": "https://github.com/mint-lang/mint-ui",
-    "constraint": "1.0.0 <= v < 2.0.0"
+    "constraint": "3.0.0 <= v < 4.0.0"
   }
 }
 ```
@@ -43,8 +43,8 @@ Mint - Installing dependencies
   ✔ Cloned mint-color (https://github.com/mint-lang/mint-color)
 
 ⚙ Resolving dependency tree...
-  ◈ mint-ui ➔ 1.0.0
-  ◈ mint-color ➔ 0.4.0
+  ◈ mint-ui ➔ 3.0.0
+  ◈ mint-color ➔ 0.5.0
 
 ⚙ Copying packages...
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

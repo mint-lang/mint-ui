@@ -1,7 +1,7 @@
 /*
 A global drawer component.
 
-Some of it's features:
+Some of its features:
 
 - When open pressing `Esc` closes it.
 - After opening it will focus the first focusable item.
