@@ -86,7 +86,7 @@ component Ui.Dropdown {
       Maybe::Just(panel) =>
         next { width = Dom.getDimensions(`#{panel}.base`).width }
 
-      Maybe::Nothing => next {  }
+      Maybe::Nothing => next { }
     }
   }
 

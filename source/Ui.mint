@@ -213,7 +213,7 @@ store Ui {
   */
   fun scrollIntoViewIfNeeded (element : Dom.Element) : Promise(Never, Void) {
     if (isVisible(element)) {
-      next {  }
+      next { }
     } else {
       `
       #{element}.scrollIntoView({

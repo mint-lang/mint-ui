@@ -273,7 +273,7 @@ component Ui.ColorPanel {
         }
 
       Ui.ColorPanel.Status::Idle =>
-        next {  }
+        next { }
     }
   }
 

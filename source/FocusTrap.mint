@@ -32,14 +32,14 @@ component Ui.FocusTrap {
                 Dom.focus(first)
               }
             } else {
-              next {  }
+              next { }
             }
           }
         } else {
-          next {  }
+          next { }
         }
 
-      => next {  }
+      => next { }
     }
   }
 

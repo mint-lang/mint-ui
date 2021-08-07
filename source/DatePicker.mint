@@ -49,7 +49,7 @@ component Ui.DatePicker {
           onChange(`new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() + 1)`)
         }
 
-      => next {  }
+      => next { }
     }
   }
 

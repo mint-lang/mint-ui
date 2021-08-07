@@ -57,7 +57,7 @@ global component Ui.Drawer {
       () {
         case (base) {
           Maybe::Just(item) => item.focusFirst()
-          Maybe::Nothing => next {  }
+          Maybe::Nothing => next { }
         }
       })
   }

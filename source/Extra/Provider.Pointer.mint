@@ -66,7 +66,7 @@ provider Provider.Pointer : Provider.Pointer.Subscription {
                   })
             }
 
-        => next {  }
+        => next { }
       }
     }
   }

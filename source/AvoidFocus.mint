@@ -43,7 +43,7 @@ component Ui.AvoidFocus {
         Maybe::Nothing => []
       }
 
-      next {  }
+      next { }
     }
   }
 

@@ -50,7 +50,7 @@ component Ui.Image {
         if (ratio > 0) {
           next { visible = true }
         } else {
-          next {  }
+          next { }
         }
       }
   } when {
@@ -103,7 +103,7 @@ component Ui.Image {
   /* The load event handler. */
   fun handleLoad : Promise(Never, Void) {
     if (Set.has(src, images)) {
-      next {  }
+      next { }
     } else {
       sequence {
         setImageLoaded(src)

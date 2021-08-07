@@ -115,7 +115,7 @@ component Ui.Picker {
         if (onEnter(event)) {
           hideDropdown()
         } else {
-          next {  }
+          next { }
         }
 
       Html.Event:SPACE =>

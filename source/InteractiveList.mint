@@ -121,7 +121,7 @@ component Ui.InteractiveList {
 
       case (container) {
         Maybe::Just(element) => Ui.scrollIntoViewIfNeeded(`#{element}.children[#{nextIndex}]`)
-        => next {  }
+        => next { }
       }
     }
   }
@@ -149,7 +149,7 @@ component Ui.InteractiveList {
           selectNext(false)
         }
 
-      => next {  }
+      => next { }
     }
   }
 

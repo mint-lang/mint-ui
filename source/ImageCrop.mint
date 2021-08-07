@@ -249,11 +249,11 @@ component Ui.ImageCrop {
                   })
               }
 
-            => next {  }
+            => next { }
           }
         }
 
-      => next {  }
+      => next { }
     }
   }
 
@@ -308,7 +308,7 @@ component Ui.ImageCrop {
             onChange(newValue)
           }
 
-        Maybe::Nothing => next {  }
+        Maybe::Nothing => next { }
       }
     }
   }

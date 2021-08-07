@@ -143,7 +143,7 @@ component Ui.Tabs {
   /* The event handler for the tab select. */
   fun handleSelect (key : String) : Promise(Never, Void) {
     if (key == active) {
-      next {  }
+      next { }
     } else {
       onChange(key)
     }

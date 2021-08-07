@@ -106,7 +106,7 @@ component Ui.Slider {
       |> onChange()
 
       /* This triggers a re-render so the silder is always in sync. */
-      next {  }
+      next { }
     }
   }
 

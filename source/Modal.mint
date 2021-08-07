@@ -60,7 +60,7 @@ global component Ui.Modal {
       () {
         case (base) {
           Maybe::Just(item) => item.focusFirst()
-          Maybe::Nothing => next {  }
+          Maybe::Nothing => next { }
         }
       })
   }

@@ -173,7 +173,7 @@ component Ui.Layout.Documentation {
           next { tocItems = tocItems }
         }
 
-      => next {  }
+      => next { }
     }
   }
 
