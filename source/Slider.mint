@@ -1,5 +1,8 @@
 /* A simple slider component. */
 component Ui.Slider {
+  /* The drag end event handler. */
+  property onDragEnd : Function(Number, Promise(Never, Void)) = Promise.never1
+
   /* The change event handler. */
   property onChange : Function(Number, Promise(Never, Void)) = Promise.never1
 
@@ -110,6 +113,20 @@ component Ui.Slider {
     }
   }
 
+  /* The input event handler. */
+  fun handleChange (event : Html.Event) : Promise(Never, Void) {
+    sequence {
+      event.target
+      |> Dom.getValue()
+      |> Number.fromString()
+      |> Maybe.withDefault(0)
+      |> onDragEnd()
+
+      /* This triggers a re-render so the silder is always in sync. */
+      next { }
+    }
+  }
+
   /* Renders the slider. */
   fun render : Html {
     <input::base
@@ -117,6 +134,7 @@ component Ui.Slider {
       step={Number.toString(step)}
       max={Number.toString(max)}
       min={Number.toString(min)}
+      onChange={handleChange}
       onInput={handleInput}
       disabled={disabled}
       type="range"/>
