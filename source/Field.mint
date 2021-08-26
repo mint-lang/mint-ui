@@ -3,8 +3,8 @@ component Ui.Field {
   /* The error message. */
   property error : Maybe(String) = Maybe::Nothing
 
-  /* The orientation either `vertical` or `horizontal`. */
-  property orientation : String = "vertical"
+  /* The orientation. */
+  property orientation : Ui.Field = Ui.Field::Vertical
 
   /* Whether or not the label is in a single line. */
   property singleLineLabel : Bool = true
@@ -23,11 +23,15 @@ component Ui.Field {
   /* The style for the control. */
   style control {
     case (orientation) {
-      "horizontal" =>
+      Ui.Field::HorizontalReverse =>
+        flex-direction: row-reverse;
+        align-items: center;
+
+      Ui.Field::Horizontal =>
         flex-direction: row;
         align-items: center;
 
-      =>
+      Ui.Field::Vertical =>
         flex-direction: column;
     }
 
@@ -67,10 +71,13 @@ component Ui.Field {
     font-weight: bold;
 
     case (orientation) {
-      "horizontal" =>
+      Ui.Field::HorizontalReverse =>
         flex: 1;
 
-      =>
+      Ui.Field::Horizontal =>
+        flex: 1;
+
+      Ui.Field::Vertical =>
         flex: 0 0 auto;
     }
 
@@ -85,7 +92,7 @@ component Ui.Field {
     <div::base>
       <div::control>
         case (orientation) {
-          "horizontal" =>
+          Ui.Field::Horizontal =>
             <{
               <div>
                 <{ children }>
