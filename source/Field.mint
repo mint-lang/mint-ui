@@ -24,11 +24,11 @@ component Ui.Field {
   style control {
     case (orientation) {
       Ui.Field::HorizontalReverse =>
-        flex-direction: row-reverse;
+        flex-direction: row;
         align-items: center;
 
       Ui.Field::Horizontal =>
-        flex-direction: row;
+        flex-direction: row-reverse;
         align-items: center;
 
       Ui.Field::Vertical =>
@@ -72,7 +72,7 @@ component Ui.Field {
 
     case (orientation) {
       Ui.Field::HorizontalReverse =>
-        flex: 1;
+        flex: 0 0 auto;
 
       Ui.Field::Horizontal =>
         flex: 1;
@@ -91,33 +91,15 @@ component Ui.Field {
   fun render : Html {
     <div::base>
       <div::control>
-        case (orientation) {
-          Ui.Field::Horizontal =>
-            <{
-              <div>
-                <{ children }>
-              </div>
+        <div::label>
+          <{ label }>
+        </div>
 
-              <div::gap/>
+        <div::gap/>
 
-              <div::label>
-                <{ label }>
-              </div>
-            }>
-
-          =>
-            <{
-              <div::label>
-                <{ label }>
-              </div>
-
-              <div::gap/>
-
-              <div>
-                <{ children }>
-              </div>
-            }>
-        }
+        <div>
+          <{ children }>
+        </div>
       </div>
 
       case (error) {
