@@ -44,14 +44,16 @@ component Ui.Cell {
             <{ code }>
           </code>
 
-        Ui.Cell::HtmlItems(actions) =>
-          <Ui.Container
-            gap={Ui.Size::Em(0.5)}
-            justify="start">
-
-            <{ actions }>
-
-          </Ui.Container>
+        Ui.Cell::HtmlItems(items, breakOnMobile) =>
+          if (mobile && breakOnMobile) {
+            <Ui.Column>
+              <{ items }>
+            </Ui.Column>
+          } else {
+            <Ui.Row justify="start">
+              <{ items }>
+            </Ui.Row>
+          }
       }
     </div>
   }
