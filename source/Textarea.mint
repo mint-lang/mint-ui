@@ -268,7 +268,8 @@ component Ui.Textarea {
         disabled={disabled}
         onFocus={onFocus}
         onKeyUp={onKeyUp}
-        onBlur={onBlur}/>
+        onBlur={onBlur}
+        rows={Number.toString(rows)}/>
     </div>
   }
 }
