@@ -4,7 +4,7 @@ enum Ui.Cell {
   Code(breakSpaces : Bool, code : String)
 
   /* A list of Html items, separated by some space. */
-  HtmlItems(items: Array(Html), breakOnMobile: Bool)
+  HtmlItems(items : Array(Html), breakOnMobile : Bool)
 
   /* A simple string value. */
   String(String)
