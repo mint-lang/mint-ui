@@ -21,6 +21,12 @@ component Ui.DatePicker {
   /* The offset of the dropdown from the input. */
   property offset : Number = 5
 
+  /* The formatter for the time in the input. */
+  property formatter : Function(String, Time, String) = Time.format
+
+  /* The format for the time in the input. */
+  property format : String = "yyyy-MM-dd"
+
   /* A variable for tracking the current month. */
   state month : Maybe(Time) = Maybe::Nothing
 
@@ -76,7 +82,7 @@ component Ui.DatePicker {
       label =
         Maybe::Just(
           <div::label>
-            <{ Time.format("yyyy-MM-dd", value) }>
+            <{ formatter(format, value) }>
           </div>)
 
       <Ui.Picker as picker
