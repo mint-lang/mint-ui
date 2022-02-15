@@ -82,7 +82,8 @@ component Ui.ContainedImage {
                   currentWidth = width,
                   currentHeight = height,
                   left = left,
-                  top =top})
+                  top = top
+                })
               }
 
             Maybe::Nothing => next { }
