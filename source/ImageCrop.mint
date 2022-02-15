@@ -2,6 +2,9 @@
 component Ui.ImageCrop {
   connect Ui exposing { mobile }
 
+  /* Called when the position and size is updated. */
+  property onUpdate : Function(Tuple(Number, Number, Number, Number), Promise(Never, Void)) = Promise.never1
+
   /* The `change` event handler. */
   property onChange : Function(Ui.ImageCrop.Value, Promise(Never, Void)) = Promise.never1
 
@@ -321,7 +324,10 @@ component Ui.ImageCrop {
 
   /* Updates the position of the image. */
   fun updatePosition (value : Tuple(Number, Number, Number, Number)) {
-    next { position = value }
+    sequence {
+      next { position = value }
+      onUpdate(value)
+    }
   }
 
   /* Renders the component. */
