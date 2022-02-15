@@ -3,7 +3,7 @@ component Ui.ImageCrop {
   connect Ui exposing { mobile }
 
   /* Called when the position and size is updated. */
-  property onUpdate : Function(Tuple(Number, Number, Number, Number), Promise(Never, Void)) = Promise.never1
+  property onUpdate : Function(Ui.ContainedImage, Promise(Never, Void)) = Promise.never1
 
   /* The `change` event handler. */
   property onChange : Function(Ui.ImageCrop.Value, Promise(Never, Void)) = Promise.never1
@@ -25,7 +25,15 @@ component Ui.ImageCrop {
     }
 
   /* A state to hold the dimensions of the image. */
-  state position : Tuple(Number, Number, Number, Number) = {0, 0, 0, 0}
+  state position : Ui.ContainedImage =
+    {
+      originalHeight = 0,
+      originalWidth = 0,
+      currentHeight = 0,
+      currentWidth = 0,
+      left = 0,
+      top = 0
+    }
 
   /* The status. */
   state status = Ui.ImageCrop.Status::Idle
@@ -72,8 +80,8 @@ component Ui.ImageCrop {
 
   /* The style for the wrapper. */
   style wrapper (overflow : bool) {
-    height: calc(#{position[1]}px + 1px);
-    width: calc(#{position[0]}px + 1px);
+    height: calc(#{position.currentHeight}px + 1px);
+    width: calc(#{position.currentWidth}px + 1px);
     position: absolute;
 
     if (overflow) {
@@ -81,11 +89,11 @@ component Ui.ImageCrop {
     }
 
     if (!embedded) {
-      left: calc(#{position[2]}px + 1em + 1px);
-      top: calc(#{position[3]}px + 1em + 1px);
+      left: calc(#{position.left}px + 1em + 1px);
+      top: calc(#{position.top}px + 1em + 1px);
     } else {
-      left: #{position[2]}px;
-      top: #{position[3]}px;
+      left: #{position.left}px;
+      top: #{position.top}px;
     }
   }
 
@@ -229,8 +237,8 @@ component Ui.ImageCrop {
               /* Calculate the moved distance as a percentage of the image. */
               distance =
                 {
-                  (event.pageX - startEvent.pageX) / position[0],
-                  (event.pageY - startEvent.pageY) / position[1]
+                  (event.pageX - startEvent.pageX) / position.currentWidth,
+                  (event.pageY - startEvent.pageY) / position.currentHeight
                 }
 
               /* Calculate the new values for the horizontal axis. */
@@ -323,7 +331,7 @@ component Ui.ImageCrop {
   }
 
   /* Updates the position of the image. */
-  fun updatePosition (value : Tuple(Number, Number, Number, Number)) {
+  fun updatePosition (value : Ui.ContainedImage) {
     sequence {
       next { position = value }
       onUpdate(value)

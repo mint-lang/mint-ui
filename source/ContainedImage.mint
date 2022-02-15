@@ -1,7 +1,7 @@
 /* A component to display an image contained in a variable size parent element. */
 component Ui.ContainedImage {
   /* Called when the position and size is updated. */
-  property onUpdate : Function(Tuple(Number, Number, Number, Number), Promise(Never, Void)) = Promise.never1
+  property onUpdate : Function(Ui.ContainedImage, Promise(Never, Void)) = Promise.never1
 
   /* The padding to add to the container. */
   property padding : Number = 10
@@ -76,7 +76,13 @@ component Ui.ContainedImage {
                 |> Dom.setStyle("left", "#{left}px")
                 |> Dom.setStyle("top", "#{top}px")
 
-                onUpdate({width, height, left, top})
+                onUpdate({
+                  originalHeight = naturalHeight,
+                  originalWidth = naturalWidth,
+                  currentWidth = width,
+                  currentHeight = height,
+                  left = left,
+                  top =top})
               }
 
             Maybe::Nothing => next { }
