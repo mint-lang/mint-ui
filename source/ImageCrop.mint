@@ -21,6 +21,9 @@ component Ui.ImageCrop {
       y = 0.25
     }
 
+  /* A state to hold the dimensions of the image. */
+  state position : Tuple(Number, Number, Number, Number) = {0, 0, 0, 0}
+
   /* The status. */
   state status = Ui.ImageCrop.Status::Idle
 
@@ -37,6 +40,12 @@ component Ui.ImageCrop {
   style base {
     font-size: #{Ui.Size.toString(size)};
     user-select: none;
+    display: grid;
+
+    > *:first-child {
+      border: 0.0625em solid var(--input-border);
+      border-radius: 0.375em;
+    }
 
     if (!embedded) {
       border: 0.0625em solid var(--input-border);
@@ -57,27 +66,34 @@ component Ui.ImageCrop {
     }
   }
 
-  /* Styles for the image itself. */
-  style image {
-    display: block;
-    width: 100%;
-  }
+  /* The style for the wrapper. */
+  style wrapper (overflow : bool) {
+    height: calc(#{position[1]}px + 1px);
+    width: calc(#{position[0]}px + 1px);
+    position: absolute;
 
-  /* Styles for the image wrapper. */
-  style image-wrapper {
-    position: relative;
-    overflow: hidden;
+    if (overflow) {
+      overflow: hidden;
+    }
+
+    if (!embedded) {
+      left: calc(#{position[2]}px + 1em + 1px);
+      top: calc(#{position[3]}px + 1em + 1px);
+    } else {
+      left: #{position[2]}px;
+      top: #{position[3]}px;
+    }
   }
 
   /* Styles for the image overlay. */
-  style image-overlay {
+  style overlay {
     outline: 4000px solid rgba(0, 0, 0, 0.5);
   }
 
   /* Styles for the cutout. */
   style cutout {
-    height: calc(#{value.height * 100}%;
-    width: calc(#{value.width * 100}%;
+    height: #{value.height * 100}%;
+    width: #{value.width * 100}%;
     box-sizing: border-box;
     left: #{value.x * 100}%;
     top: #{value.y * 100}%;
@@ -93,12 +109,6 @@ component Ui.ImageCrop {
     border-style: solid;
     border-width: 1px;
     cursor: move;
-  }
-
-  /* Styles for the wrapper element. */
-  style wrapper {
-    touch-action: none;
-    position: relative;
   }
 
   /* Styles for a crop handle. */
@@ -209,48 +219,43 @@ component Ui.ImageCrop {
   fun moves (event : Html.Event) : Promise(Never, Void) {
     case (base) {
       Maybe::Just(element) =>
-        try {
-          dimensions =
-            Dom.getDimensions(element)
+        case (status) {
+          Ui.ImageCrop.Status::Dragging(directions, startValue, startEvent) =>
+            try {
+              /* Calculate the moved distance as a percentage of the image. */
+              distance =
+                {
+                  (event.pageX - startEvent.pageX) / position[0],
+                  (event.pageY - startEvent.pageY) / position[1]
+                }
 
-          case (status) {
-            Ui.ImageCrop.Status::Dragging(directions, startValue, startEvent) =>
-              try {
-                /* Calculate the moved distance as a percentage of the image. */
-                distance =
-                  {
-                    (event.pageX - startEvent.pageX) / dimensions.width,
-                    (event.pageY - startEvent.pageY) / dimensions.height
-                  }
+              /* Calculate the new values for the horizontal axis. */
+              {x, width} =
+                calculateAxis(
+                  directions[0],
+                  startValue.x,
+                  startValue.width,
+                  distance[0])
 
-                /* Calculate the new values for the horizontal axis. */
-                {x, width} =
-                  calculateAxis(
-                    directions[0],
-                    startValue.x,
-                    startValue.width,
-                    distance[0])
+              /* Calculate the new values for the vertical axis. */
+              {y, height} =
+                calculateAxis(
+                  directions[1],
+                  startValue.y,
+                  startValue.height,
+                  distance[1])
 
-                /* Calculate the new values for the vertical axis. */
-                {y, height} =
-                  calculateAxis(
-                    directions[1],
-                    startValue.y,
-                    startValue.height,
-                    distance[1])
+              /* Call the change event handler with the new value. */
+              onChange(
+                { value |
+                  height = Math.abs(height),
+                  width = Math.abs(width),
+                  y = y,
+                  x = x
+                })
+            }
 
-                /* Call the change event handler with the new value. */
-                onChange(
-                  { value |
-                    height = Math.abs(height),
-                    width = Math.abs(width),
-                    y = y,
-                    x = x
-                  })
-              }
-
-            => next { }
-          }
+          => next { }
         }
 
       => next { }
@@ -313,18 +318,26 @@ component Ui.ImageCrop {
     }
   }
 
+  /* Updates the position of the image. */
+  fun updatePosition (value : Tuple(Number, Number, Number, Number)) {
+    next { position = value }
+  }
+
   /* Renders the component. */
   fun render {
     <div::base as base
-      tabindex="0"
-      onKeyDown={handleKeyDown}>
+      onKeyDown={handleKeyDown}
+      tabindex="0">
 
-      <div::wrapper>
-        <div::image-wrapper>
-          <img::image src={value.source}/>
-          <div::image-overlay::cutout/>
-        </div>
+      <Ui.ContainedImage
+        onUpdate={updatePosition}
+        src={value.source}/>
 
+      <div::wrapper(true)>
+        <div::overlay::cutout/>
+      </div>
+
+      <div::wrapper(false)>
         <div::crop-area::cutout
           onPointerDown={
             startDrag(
