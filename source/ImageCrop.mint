@@ -39,6 +39,7 @@ component Ui.ImageCrop {
   /* Styles for the base element. */
   style base {
     font-size: #{Ui.Size.toString(size)};
+    position: relative;
     user-select: none;
     display: grid;
 
