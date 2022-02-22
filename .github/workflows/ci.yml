@@ -23,7 +23,7 @@ jobs:
       - name: Install Mint
         uses: fabasoad/setup-mint-action@main
         with:
-          version: 0.15.2
+          version: 0.15.3
 
       - name: Install dependencies
         run: mint install
