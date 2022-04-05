@@ -6,6 +6,9 @@ component Ui.Calendar {
   /* The change event handler. */
   property onChange : Function(Time, Promise(Never, Void)) = Promise.never1
 
+  /* The language to use for time formatting. */
+  property language : Time.Format.Language = Time.Format:ENGLISH
+
   /* The days to highlight as selected. */
   property selectedDays : Set(Time) = Set.empty()
 
@@ -106,7 +109,7 @@ component Ui.Calendar {
   fun handleCellClick (day : Time) : Promise(Never, Void) {
     if (changeMonthOnSelect && Time.month(day) != Time.month(month)) {
       sequence {
-        onMonthChange(Time.startOf("month", day))
+        onMonthChange(Time.atBeginningOfMonth(day))
         onChange(day)
       }
     } else {
@@ -116,12 +119,12 @@ component Ui.Calendar {
 
   /* Event handler for the chevron left icon click. */
   fun handleChevronLeftClick (event : Html.Event) : Promise(Never, Void) {
-    onMonthChange(Time.startOf("month", Time.previousMonth(month)))
+    onMonthChange(Time.atBeginningOfMonth(Time.previousMonth(month)))
   }
 
   /* Event handler for the chevron right icon click. */
   fun handleChevronRightClick (event : Html.Event) : Promise(Never, Void) {
-    onMonthChange(Time.startOf("month", Time.nextMonth(month)))
+    onMonthChange(Time.atBeginningOfMonth(Time.nextMonth(month)))
   }
 
   /* Renders the component. */
@@ -135,7 +138,7 @@ component Ui.Calendar {
           interactive={true}/>
 
         <div::text>
-          <{ Time.format("MMMM - yyyy", month) }>
+          <{ Time.format(language, "%B - %Y", month) }>
         </div>
 
         <Ui.Icon
@@ -148,11 +151,11 @@ component Ui.Calendar {
       <div::dayNames>
         try {
           range =
-            Time.range(Time.startOf("week", day), Time.endOf("week", day))
+            Time.range(Time.atBeginningOfWeek(day), Time.atEndOfWeek(day))
 
           for (day of range) {
             <div::dayName>
-              <{ Time.format("eee", day) }>
+              <{ Time.format(language, "%a", day) }>
             </div>
           }
         }
@@ -162,20 +165,21 @@ component Ui.Calendar {
         try {
           startDate =
             month
-            |> Time.startOf("month")
-            |> Time.startOf("week")
+            |> Time.atBeginningOfMonth
+            |> Time.atBeginningOfWeek
 
           endDate =
             month
-            |> Time.endOf("month")
-            |> Time.endOf("week")
+            |> Time.atEndOfMonth
+            |> Time.atEndOfWeek
 
           days =
             Time.range(startDate, endDate)
 
           range =
-            Time.endOf("month", month)
-            |> Time.range(Time.startOf("month", month))
+            month
+            |> Time.atEndOfMonth
+            |> Time.range(Time.atBeginningOfMonth(month))
 
           actualDays =
             case (Array.size(days)) {
@@ -195,13 +199,13 @@ component Ui.Calendar {
           for (cell of actualDays) {
             try {
               normalizedDay =
-                Time.startOf("day", day)
+                Time.atBeginningOfDay(day)
 
               normalizedCell =
-                Time.startOf("day", cell)
+                Time.atBeginningOfDay(cell)
 
               normalizedDays =
-                Set.map(Time.startOf("day"), selectedDays)
+                Set.map(Time.atBeginningOfDay, selectedDays)
 
               selected =
                 if (Set.size(normalizedDays) == 0) {

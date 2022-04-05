@@ -3,6 +3,9 @@ component Ui.Calendar.Cell {
   /* The click event. */
   property onClick : Function(Time, Promise(Never, Void)) = Promise.never1
 
+  /* The language to use for time formatting. */
+  property language : Time.Format.Language = Time.Format:ENGLISH
+
   /* The size of the component. */
   property size : Ui.Size = Ui.Size::Inherit
 
@@ -65,10 +68,10 @@ component Ui.Calendar.Cell {
   /* Renders the component. */
   fun render : Html {
     <div::base
-      title={Time.format("yyyy-MM-dd", day)}
+      title={Time.format(language, "%Y-%m-%d", day)}
       onClick={handleClick}>
 
-      <{ Time.format("dd", day) }>
+      <{ Time.format(language, "%d", day) }>
 
     </div>
   }

@@ -3,6 +3,9 @@ component Ui.DatePicker {
   /* The change event handler. */
   property onChange : Function(Time, Promise(Never, Void)) = Promise.never1
 
+  /* The language to use for time formatting. */
+  property language : Time.Format.Language = Time.Format:ENGLISH
+
   /* The position of the dropdown. */
   property position : Ui.Position = Ui.Position::BottomRight
 
@@ -22,10 +25,10 @@ component Ui.DatePicker {
   property offset : Number = 5
 
   /* The formatter for the time in the input. */
-  property formatter : Function(String, Time, String) = Time.format
+  property formatter : Function(Time.Format.Language, String, Time, String) = Time.format
 
   /* The format for the time in the input. */
-  property format : String = "yyyy-MM-dd"
+  property format : String = "%Y-%m-%d"
 
   /* A variable for tracking the current month. */
   state month : Maybe(Time) = Maybe::Nothing
@@ -82,7 +85,7 @@ component Ui.DatePicker {
       label =
         Maybe::Just(
           <div::label>
-            <{ formatter(format, value) }>
+            <{ formatter(language, format, value) }>
           </div>)
 
       <Ui.Picker as picker

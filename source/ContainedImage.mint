@@ -76,14 +76,15 @@ component Ui.ContainedImage {
                 |> Dom.setStyle("left", "#{left}px")
                 |> Dom.setStyle("top", "#{top}px")
 
-                onUpdate({
-                  originalHeight = naturalHeight,
-                  originalWidth = naturalWidth,
-                  currentWidth = width,
-                  currentHeight = height,
-                  left = left,
-                  top = top
-                })
+                onUpdate(
+                  {
+                    originalHeight = naturalHeight,
+                    originalWidth = naturalWidth,
+                    currentWidth = width,
+                    currentHeight = height,
+                    left = left,
+                    top = top
+                  })
               }
 
             Maybe::Nothing => next { }
