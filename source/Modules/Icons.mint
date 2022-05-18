@@ -204,7 +204,7 @@ module Ui.Icons {
   const TRIANGLE_LEFT = @svg(../../assets/icons/triangle-left.svg)
   const TRIANGLE_RIGHT = @svg(../../assets/icons/triangle-right.svg)
   const TRIANGLE_UP = @svg(../../assets/icons/triangle-up.svg)
-  const TRIANGLE_UP_DOWN = @svg(../../assets/icons/triangle-down.svg)
+  const TRIANGLE_UP_DOWN = @svg(../../assets/icons/triangle-up-down.svg)
   const UNFOLD = @svg(../../assets/icons/unfold.svg)
   const UNMUTE = @svg(../../assets/icons/unmute.svg)
   const UNSAVED = @svg(../../assets/icons/unsaved.svg)
