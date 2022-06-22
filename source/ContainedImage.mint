@@ -59,10 +59,10 @@ component Ui.ContainedImage {
                   `#{element}.naturalHeight`
 
                 height =
-                  Math.min(dimensions.width * (naturalHeight / naturalWidth), dimensions.height) - (padding * 2)
+                  Math.min(Math.min(dimensions.width * (naturalHeight / naturalWidth), dimensions.height), naturalHeight) - (padding * 2)
 
                 width =
-                  Math.min(dimensions.height * (naturalWidth / naturalHeight), dimensions.width) - (padding * 2)
+                  Math.min(Math.min(dimensions.height * (naturalWidth / naturalHeight), dimensions.width), naturalWidth) - (padding * 2)
 
                 left =
                   (dimensions.width - width) / 2
