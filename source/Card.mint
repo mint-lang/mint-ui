@@ -15,6 +15,9 @@ component Ui.Card {
   /* Whether or not to draw a border around the card. */
   property bordered : Bool = false
 
+  /* Whether or not the card is active (has a highlighted border). */
+  property active : Bool = false
+
   /* The target window of the URL. */
   property target : String = ""
 
@@ -89,11 +92,22 @@ component Ui.Card {
 
   /* Common styles. */
   style common {
-    box-shadow: 0 0 0.625em var(--shadow-color);
     box-sizing: border-box;
 
     if (bordered) {
       border: 0.0625em solid var(--content-border);
+    }
+
+    if (active && bordered) {
+      border: 0.0625em solid var(--primary-color);
+
+      box-shadow: 0 0 0 0.125em var(--primary-color),
+                  0 0 0.625em var(--shadow-color);
+    } else if (active) {
+      box-shadow: 0 0 0 0.1875em var(--primary-color),
+                  0 0 0.625em var(--shadow-color);
+    } else {
+      box-shadow: 0 0 0.625em var(--shadow-color);
     }
   }
 
