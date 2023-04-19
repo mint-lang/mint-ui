@@ -1,7 +1,7 @@
 /* A component to display a `Ui.ListItem` for the interactive list. */
 component Ui.InteractiveList.Item {
   /* The click event handler. */
-  property onClick : Function(Html.Event, Promise(Never, Void)) = Promise.never1
+  property onClick : Function(Html.Event, Promise(Void)) = Promise.never1
 
   /* The size of the item. */
   property size : Ui.Size = Ui.Size::Inherit

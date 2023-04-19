@@ -120,38 +120,36 @@ component Ui.Book {
 
   /* Renders the book. */
   fun render {
-    try {
-      contents =
-        <>
-          <div::front>
-            <img::image
-              alt={alt}
-              src={src}/>
-          </div>
+    let contents =
+      <>
+        <div::front>
+          <img::image
+            alt={alt}
+            src={src}/>
+        </div>
 
-          <div::back/>
+        <div::back/>
 
-          <div::left-right::right/>
-          <div::left-right::left/>
-          <div::top-bottom::bottom/>
-          <div::top-bottom::top/>
-        </>
+        <div::left-right::right/>
+        <div::left-right::left/>
+        <div::top-bottom::bottom/>
+        <div::top-bottom::top/>
+      </>
 
-      <div::base>
-        if (String.isBlank(href)) {
-          <a::book>
-            <{ contents }>
-          </a>
-        } else {
-          <a::book
-            target={target}
-            href={href}>
+    <div::base>
+      if (String.isBlank(href)) {
+        <a::book>
+          <{ contents }>
+        </a>
+      } else {
+        <a::book
+          target={target}
+          href={href}>
 
-            <{ contents }>
+          <{ contents }>
 
-          </a>
-        }
-      </div>
-    }
+        </a>
+      }
+    </div>
   }
 }

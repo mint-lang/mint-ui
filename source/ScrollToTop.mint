@@ -8,7 +8,7 @@ component Ui.ScrollToTop {
   connect Ui exposing { mobile }
 
   /* We use the scroll provider to update scroll position. */
-  use Provider.Scroll { scrolls = updatePosition }
+  use Provider.Scroll { scrolls: updatePosition }
 
   /* The size of the content. */
   property size : Ui.Size = Ui.Size::Inherit
@@ -55,33 +55,31 @@ component Ui.ScrollToTop {
   }
 
   /* Updates the scroll position. */
-  fun updatePosition (event : Html.Event) : Promise(Never, Void) {
-    next { scrollPosition = `window.scrollY` }
+  fun updatePosition (event : Html.Event) : Promise(Void) {
+    next { scrollPosition: `window.scrollY` }
   }
 
   /* Scrolls to the top of the page. */
-  fun handleClick (event : Html.Event) : Promise(Never, Void) {
+  fun handleClick (event : Html.Event) : Promise(Void) {
     Window.setScrollTop(0)
   }
 
   /* Renders the component. */
   fun render : Html {
-    try {
-      base =
-        <div::base>
-          <Ui.FloatingButton
-            icon={Ui.Icons:CHEVRON_UP}
-            onClick={handleClick}
-            type="secondary"/>
-        </div>
+    let base =
+      <div::base>
+        <Ui.FloatingButton
+          icon={Ui.Icons:CHEVRON_UP}
+          onClick={handleClick}
+          type="secondary"/>
+      </div>
 
-      if (global) {
-        <Html.Portals.Body>
-          <{ base }>
-        </Html.Portals.Body>
-      } else {
-        base
-      }
+    if (global) {
+      <Html.Portals.Body>
+        <{ base }>
+      </Html.Portals.Body>
+    } else {
+      base
     }
   }
 }

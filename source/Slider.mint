@@ -1,10 +1,10 @@
 /* A simple slider component. */
 component Ui.Slider {
   /* The drag end event handler. */
-  property onDragEnd : Function(Number, Promise(Never, Void)) = Promise.never1
+  property onDragEnd : Function(Number, Promise(Void)) = Promise.never1
 
   /* The change event handler. */
-  property onChange : Function(Number, Promise(Never, Void)) = Promise.never1
+  property onChange : Function(Number, Promise(Void)) = Promise.never1
 
   /* The size of the slider. */
   property size : Ui.Size = Ui.Size::Inherit
@@ -100,31 +100,27 @@ component Ui.Slider {
   }
 
   /* The input event handler. */
-  fun handleInput (event : Html.Event) : Promise(Never, Void) {
-    sequence {
-      event.target
-      |> Dom.getValue()
-      |> Number.fromString()
-      |> Maybe.withDefault(0)
-      |> onChange()
+  fun handleInput (event : Html.Event) : Promise(Void) {
+    await event.target
+    |> Dom.getValue()
+    |> Number.fromString()
+    |> Maybe.withDefault(0)
+    |> onChange()
 
-      /* This triggers a re-render so the silder is always in sync. */
-      next { }
-    }
+    /* This triggers a re-render so the silder is always in sync. */
+    next { }
   }
 
   /* The input event handler. */
-  fun handleChange (event : Html.Event) : Promise(Never, Void) {
-    sequence {
-      event.target
-      |> Dom.getValue()
-      |> Number.fromString()
-      |> Maybe.withDefault(0)
-      |> onDragEnd()
+  fun handleChange (event : Html.Event) : Promise(Void) {
+    await event.target
+    |> Dom.getValue()
+    |> Number.fromString()
+    |> Maybe.withDefault(0)
+    |> onDragEnd()
 
-      /* This triggers a re-render so the silder is always in sync. */
-      next { }
-    }
+    /* This triggers a re-render so the silder is always in sync. */
+    next { }
   }
 
   /* Renders the slider. */

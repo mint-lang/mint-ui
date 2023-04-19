@@ -33,16 +33,16 @@ global component Ui.ActionSheet {
   /* The state of the component (open / closed). */
   state open : Bool = false
 
-  use Provider.Url { changes = handleUrlChange }
+  use Provider.Url { changes: handleUrlChange }
 
   use Provider.Shortcuts {
-    shortcuts =
+    shortcuts:
       [
         {
-          shortcut = [Html.Event:ESCAPE],
-          condition = () : Bool { true },
-          bypassFocused = true,
-          action = hide
+          shortcut: [Html.Event:ESCAPE],
+          condition: () : Bool { true },
+          bypassFocused: true,
+          action: hide
         }
       ]
   }
@@ -204,107 +204,104 @@ global component Ui.ActionSheet {
   }
 
   /* Hides the component. */
-  fun hide : Promise(Never, Void) {
+  fun hide : Promise(Void) {
     if (!open) {
       next { }
     } else {
-      sequence {
-        next { open = false }
+      await next { open: false }
 
-        Timer.timeout(320, "")
-        resolve(void)
-        Dom.focus(focusedElement)
+      await Timer.timeout(320)
+      await resolve(void)
+      await Dom.focus(focusedElement)
 
-        next
-          {
-            resolve = (value : Void) { void },
-            focusedElement = Maybe::Nothing,
-            size = Ui.Size::Inherit,
-            items = []
-          }
-      }
+      next
+        {
+          resolve: (value : Void) { void },
+          focusedElement: Maybe::Nothing,
+          size: Ui.Size::Inherit,
+          items: []
+        }
     }
   }
 
   /* Shows the component with the given items and options. */
-  fun showWithOptions (size : Ui.Size, items : Array(Ui.NavItem)) : Promise(Never, Void) {
+  fun showWithOptions (size : Ui.Size, items : Array(Ui.NavItem)) : Promise(Void) {
     if (Array.isEmpty(items)) {
       next { }
     } else {
-      try {
-        {resolve, reject, promise} =
-          Promise.create()
+      let {resolve, promise} =
+        Promise.create()
 
-        next
-          {
-            focusedElement = Dom.getActiveElement(),
-            resolve = resolve,
-            items = items,
-            size = size
-          }
-
-        sequence {
-          /* We need to wait for the component to be rendered before showing it. */
-          Timer.timeout(10, "")
-          next { open = true }
-
-          /* We need to wait for the element to be settled before we can focus it. */
-          Timer.timeout(100, "")
-
-          case (container) {
-            Maybe::Just(element) => Dom.focusFirst(element)
-            Maybe::Nothing => next { }
-          }
-
-          case (scrollContainer) {
-            Maybe::Just(element) => Dom.scrollTo(element, 0, 0)
-            Maybe::Nothing => next { }
-          }
+      next
+        {
+          focusedElement: Dom.getActiveElement(),
+          resolve: resolve,
+          items: items,
+          size: size
         }
 
-        promise
+      {
+        /* We need to wait for the component to be rendered before showing it. */
+        await Timer.timeout(10)
+        await next { open: true }
+
+        /* We need to wait for the element to be settled before we can focus it. */
+        await Timer.timeout(100)
+
+        case (container) {
+          Maybe::Just(element) => Dom.focusFirst(element)
+          Maybe::Nothing => next { }
+        }
+
+        case (scrollContainer) {
+          Maybe::Just(element) => Dom.scrollTo(element, 0, 0)
+          Maybe::Nothing => next { }
+        }
       }
+
+      promise
     }
   }
 
   /* Shows the component with the given items. */
-  fun show (items : Array(Ui.NavItem)) : Promise(Never, Void) {
+  fun show (items : Array(Ui.NavItem)) : Promise(Void) {
     showWithOptions(Ui.Size::Inherit, items)
   }
 
   /* The url change event handler. */
-  fun handleUrlChange (url : Url) : Promise(Never, Void) {
+  fun handleUrlChange (url : Url) : Promise(Void) {
     hide()
   }
 
   /* The close event handler. */
-  fun handleClose (event : Html.Event) : Promise(Never, Void) {
-    if (Dom.containsMaybe(container, event.target)) {
-      next { }
-    } else {
-      hide()
+  fun handleClose (event : Html.Event) : Promise(Void) {
+    case (container) {
+      Maybe::Nothing => next { }
+
+      Maybe::Just(base) =>
+        if (Dom.contains(base, event.target)) {
+          next { }
+        } else {
+          hide()
+        }
     }
   }
 
   /* The item click event handler. */
   fun handleItemClick (
-    onClick : Function(Html.Event, Promise(Never, Void)),
+    onClick : Function(Html.Event, Promise(Void)),
     event : Html.Event
   ) {
-    sequence {
-      onClick(event)
-      hide()
-    }
+    await onClick(event)
+    hide()
   }
 
   /* The link click event handler. */
   fun handleLinkClick (href : String, event : Html.Event) {
     if (String.isNotBlank(href) && !event.ctrlKey) {
-      sequence {
-        /* Wait for navigation to complete. */
-        Timer.timeout(10, "")
-        hide()
-      }
+      /* Wait for navigation to complete. */
+      await Timer.timeout(10)
+      hide()
     } else {
       next { }
     }
@@ -318,42 +315,40 @@ global component Ui.ActionSheet {
     group : Bool,
     href : String,
     target : String,
-    onClick : Function(Html.Event, Promise(Never, Void))
+    onClick : Function(Html.Event, Promise(Void))
   ) {
-    try {
-      contents =
-        <>
-          if (Html.isNotEmpty(iconBefore)) {
-            <Ui.Icon icon={iconBefore}/>
-          }
+    let contents =
+      <>
+        if (Html.isNotEmpty(iconBefore)) {
+          <Ui.Icon icon={iconBefore}/>
+        }
 
-          <{ label }>
+        <{ label }>
 
-          if (Html.isNotEmpty(iconAfter)) {
-            <Ui.Icon icon={iconAfter}/>
-          }
-        </>
+        if (Html.isNotEmpty(iconAfter)) {
+          <Ui.Icon icon={iconAfter}/>
+        }
+      </>
 
-      if (group) {
-        <div::item(group)::item-interactive(group) onClick={onClick}>
+    if (group) {
+      <div::item(group)::item-interactive(group) onClick={onClick}>
+        <{ contents }>
+      </div>
+    } else if (String.isNotBlank(href)) {
+      <a::item(group)::item-interactive(group)
+        onClick={onClick}
+        target={target}
+        href={href}>
+
+        <{ contents }>
+
+      </a>
+    } else {
+      <button::reset::item(group)::item-interactive(group) onClick={onClick}>
+        <div::item(group)>
           <{ contents }>
         </div>
-      } else if (String.isNotBlank(href)) {
-        <a::item(group)::item-interactive(group)
-          onClick={onClick}
-          target={target}
-          href={href}>
-
-          <{ contents }>
-
-        </a>
-      } else {
-        <button::reset::item(group)::item-interactive(group) onClick={onClick}>
-          <div::item(group)>
-            <{ contents }>
-          </div>
-        </button>
-      }
+      </button>
     }
   }
 
@@ -375,7 +370,7 @@ global component Ui.ActionSheet {
           false,
           "",
           "",
-          handleItemClick(action))
+          (event : Html.Event) { handleItemClick(action, event) })
 
       Ui.NavItem::Link(iconAfter, iconBefore, label, href, target) =>
         renderContents(
@@ -385,7 +380,7 @@ global component Ui.ActionSheet {
           false,
           href,
           target,
-          handleLinkClick(href))
+          (event : Html.Event) { handleLinkClick(href, event) })
 
       Ui.NavItem::Group(iconAfter, iconBefore, label, items) =>
         <>
@@ -397,7 +392,7 @@ global component Ui.ActionSheet {
               true,
               "",
               "",
-              Promise.never1())
+              Promise.never1)
           }>
 
           <div::group>

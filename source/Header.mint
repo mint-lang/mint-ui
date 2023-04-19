@@ -33,12 +33,12 @@ component Ui.Header {
   /* A state to store the current url. */
   state url : Url = Window.url()
 
-  use Provider.Url { changes = updateUrl }
+  use Provider.Url { changes: updateUrl }
 
   /* We are using this provider to update the `width` state. */
   use Provider.ElementSize {
-    changes = updateWidth,
-    element = base
+    changes: updateWidth,
+    element: base
   }
 
   /* Styles for the base. */
@@ -100,18 +100,18 @@ component Ui.Header {
   }
 
   /* The menu icon click handler. */
-  fun handleClick : Promise(Never, Void) {
+  fun handleClick : Promise(Void) {
     Ui.ActionSheet.show(items)
   }
 
   /* Updates the `url` state. */
   fun updateUrl (url : Url) {
-    next { url = url }
+    next { url: url }
   }
 
   /* Updates the `width` state based on the dimensions and breakpoint. */
   fun updateWidth (dimensions : Dom.Dimensions) {
-    next { width = dimensions.width }
+    next { width: dimensions.width }
   }
 
   /* Renders the contents of an item. */
@@ -156,22 +156,22 @@ component Ui.Header {
                 Ui.NavItem::Html(content) => content
 
                 Ui.NavItem::Group(iconBefore, iconAfter, label, items) =>
-                  try {
-                    key =
+                  {
+                    let key =
                       String.parameterize(label)
 
-                    open =
-                      Map.getWithDefault(key, false, openDropdowns)
+                    let open =
+                      Map.getWithDefault(openDropdowns, key, false )
 
                     <Ui.Dropdown
-                      onClose={() { next { openDropdowns = Map.set(key, false, openDropdowns) } }}
+                      onClose={() { next { openDropdowns: Map.set(openDropdowns, key, false) } }}
                       position={Ui.Position::BottomRight}
                       closeOnOutsideClick={true}
                       offset={15}
                       open={open}
                       element={
                         <div::item(false)
-                          onClick={() { next { openDropdowns = Map.set(key, true, openDropdowns) } }}
+                          onClick={() { next { openDropdowns: Map.set(openDropdowns, key, true) } }}
                           tabIndex="0">
 
                           <{ renderItem(iconBefore, iconAfter, label) }>

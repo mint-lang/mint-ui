@@ -6,7 +6,7 @@ Use this when you want to create a custom modal.
 */
 component Ui.Modal.Base {
   /* The close event handler. */
-  property onClose : Function(Promise(Never, Void)) = Promise.never
+  property onClose : Function(Promise(Void)) = Promise.never
 
   /* The duration of the transition. */
   property transitionDuration : Number = 240
@@ -24,8 +24,8 @@ component Ui.Modal.Base {
   property open : Bool = false
 
   use Provider.OutsideClick {
-    elements = [wrapper],
-    clicks = onClose
+    elements: [wrapper],
+    clicks: onClose
   } when {
     open && closeOnOutsideClick
   }
@@ -79,7 +79,7 @@ component Ui.Modal.Base {
   }
 
   /* Focuses the first focusable element in the modal. */
-  fun focusFirst : Promise(Never, Void) {
+  fun focusFirst : Promise(Void) {
     wrapper
     |> Maybe.map(Dom.focusFirst)
     |> Maybe.withDefault(Promise.never())

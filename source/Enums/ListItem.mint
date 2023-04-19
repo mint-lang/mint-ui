@@ -27,9 +27,9 @@ module Ui.ListItem {
   /* Creates list items form a string. */
   fun fromString (value : String) : Ui.ListItem {
     Ui.ListItem::Item(
-      matchString = String.toLowerCase(value),
-      key = String.parameterize(value),
-      content = <{ value }>)
+      matchString: String.toLowerCase(value),
+      key: String.parameterize(value),
+      content: <{ value }>)
   }
 
   /* Returns the `content` of a list item. */

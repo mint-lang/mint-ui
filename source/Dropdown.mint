@@ -9,10 +9,10 @@ component Ui.Dropdown {
   connect Ui exposing { mobile }
 
   /* The click event handler. */
-  property onClick : Function(Html.Event, Promise(Never, Void)) = Promise.never1
+  property onClick : Function(Html.Event, Promise(Void)) = Promise.never1
 
   /* The close event handler. */
-  property onClose : Function(Promise(Never, Void)) = Promise.never
+  property onClose : Function(Promise(Void)) = Promise.never
 
   /* The position of the panel. */
   property position : Ui.Position = Ui.Position::BottomLeft
@@ -43,15 +43,15 @@ component Ui.Dropdown {
 
   /* We use this provider to update the width of the panel if needed. */
   use Provider.AnimationFrame {
-    frames = updateDimensions
+    frames: updateDimensions
   } when {
     open && matchWidth
   }
 
   /* We use this provider to close the panel when clicking outside of it. */
   use Provider.OutsideClick {
-    elements = [panel],
-    clicks = onClose
+    elements: [panel],
+    clicks: onClose
   } when {
     closeOnOutsideClick && open && !mobile
   }
@@ -81,10 +81,10 @@ component Ui.Dropdown {
   }
 
   /* Updates the dimensions of the panel if `matchWidth` is true. */
-  fun updateDimensions (timestamp : Number) : Promise(Never, Void) {
+  fun updateDimensions (timestamp : Number) : Promise(Void) {
     case (stickyPanel) {
       Maybe::Just(panel) =>
-        next { width = Dom.getDimensions(`#{panel}.base`).width }
+        next { width: Dom.getDimensions(`#{panel}.base`).width }
 
       Maybe::Nothing => next { }
     }

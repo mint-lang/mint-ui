@@ -1,7 +1,7 @@
 /* Renders a time relative from the current time in human readable language. */
 component Ui.RelativeTime {
   /* The formatter for the text. */
-  property formatter : Function(Time.Format.Language, Time, Time, String) = Time.distanceOfTimeInWords
+  property formatter : Function(Time, Time, Time.Format.Language, String) = Time.distanceOfTimeInWords
 
   /* The language to use for time formatting. */
   property language : Time.Format.Language = Time.Format:ENGLISH
@@ -9,7 +9,7 @@ component Ui.RelativeTime {
   /* The formatter for the title. */
   property titleFormatter : Function(Time.Format.Language, Time, String) =
     (language : Time.Format.Language, date : Time) {
-      Time.format(language, "%F", date)
+      Time.format(date, language, "%F")
     }
 
   /* The date. */
@@ -18,7 +18,7 @@ component Ui.RelativeTime {
   /* The current time. */
   state now : Time = Time.now()
 
-  use Provider.Tick { ticks = () { next { now = Time.now() } } }
+  use Provider.Tick { ticks: () { next { now: Time.now() } } }
 
   /* Styles for the component. */
   style base {
@@ -28,7 +28,7 @@ component Ui.RelativeTime {
   /* Renders the component. */
   fun render : Html {
     <time::base title={titleFormatter(language, date)}>
-      <{ formatter(language, now, date) }>
+      <{ formatter(date, now, language) }>
     </time>
   }
 }

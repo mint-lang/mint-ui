@@ -1,7 +1,7 @@
 /* A Card is used to display data in sematically grouped way. */
 component Ui.Card {
   /* The click event handler. */
-  property onClick : Maybe(Function(Html.Event, Promise(Never, Void))) = Maybe::Nothing
+  property onClick : Maybe(Function(Html.Event, Promise(Void))) = Maybe::Nothing
 
   /* The minimum width of the card. */
   property minWidth : Ui.Size = Ui.Size::Px(0)

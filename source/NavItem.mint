@@ -1,12 +1,12 @@
 /* A component to render a navigation item (on desktop). */
 component Ui.NavItem {
-  use Provider.Url { changes = (url : Url) { next { } } }
-
   /* The size of the component. */
   property size : Ui.Size = Ui.Size::Inherit
 
   /* The navigation item. */
   property item : Ui.NavItem
+
+  use Provider.Url { changes: (url : Url) { next { } } }
 
   /* Styles for a row. */
   style row {

@@ -1,7 +1,7 @@
 /* A toggle component. */
 component Ui.Toggle {
   /* The change event handler. */
-  property onChange : Function(Bool, Promise(Never, Void)) = Promise.never1
+  property onChange : Function(Bool, Promise(Void)) = Promise.never1
 
   /* The size of the component. */
   property size : Ui.Size = Ui.Size::Inherit
@@ -112,7 +112,7 @@ component Ui.Toggle {
   }
 
   /* Toggles the componnet. */
-  fun toggle : Promise(Never, Void) {
+  fun toggle : Promise(Void) {
     onChange(!checked)
   }
 

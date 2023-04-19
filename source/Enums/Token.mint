@@ -10,11 +10,11 @@ enum Ui.Token {
 /* Utility functions for the Ui.Token enum. */
 module Ui.Token {
   /* Resolves the token using the dark mode param. */
-  fun resolve (darkMode : Bool, token : Ui.Token) : Array(String) {
+  fun resolve (token : Ui.Token, darkMode : Bool) : Array(String) {
     case (token) {
       Ui.Token::Schemed(name, light, dark) =>
-        try {
-          value =
+        {
+          let value =
             if (darkMode) {
               "var(--dark-#{name})"
             } else {
@@ -36,15 +36,13 @@ module Ui.Token {
   }
 
   /* Sets a given token. */
-  fun setToken (token : Ui.Token, tokens : Array(Ui.Token)) : Array(Ui.Token) {
-    try {
-      name =
-        getName(token)
+  fun setToken (tokens : Array(Ui.Token), token : Ui.Token) : Array(Ui.Token) {
+    let name =
+      getName(token)
 
-      tokens
-      |> Array.reject((item : Ui.Token) { getName(item) == name })
-      |> Array.push(token)
-    }
+    tokens
+    |> Array.reject((item : Ui.Token) { getName(item) == name })
+    |> Array.push(token)
   }
 
   /* Gets the name of the token. */
@@ -56,9 +54,10 @@ module Ui.Token {
   }
 
   /* Resolves many tokens using the dark mode param. */
-  fun resolveMany (darkMode : Bool, tokens : Array(Ui.Token)) : String {
+  fun resolveMany (tokens : Array(Ui.Token), darkMode : Bool) : String {
     tokens
-    |> Array.flatMap(resolve(darkMode))
+    |> Array.map((token : Ui.Token) { resolve(token, darkMode) })
+    |> Array.concat()
     |> Array.sortBy((item : String) { item })
     |> String.join(";\n")
   }

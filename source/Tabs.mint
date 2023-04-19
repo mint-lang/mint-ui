@@ -5,7 +5,7 @@ A simple tabs component.
 */
 component Ui.Tabs {
   /* The change event handler. */
-  property onChange : Function(String, Promise(Never, Void)) = Promise.never1
+  property onChange : Function(String, Promise(Void)) = Promise.never1
 
   /* The size of the component. */
   property size : Ui.Size = Ui.Size::Inherit
@@ -24,8 +24,8 @@ component Ui.Tabs {
 
   /* We are using this provider to update the `mobile` state. */
   use Provider.ElementSize {
-    changes = updateWidth,
-    element = base
+    changes: updateWidth,
+    element: base
   }
 
   /* The style for the base element. */
@@ -137,11 +137,11 @@ component Ui.Tabs {
 
   /* Updates the `mobile` state based on the dimensions and breakpoint. */
   fun updateWidth (dimensions : Dom.Dimensions) {
-    next { width = dimensions.width }
+    next { width: dimensions.width }
   }
 
   /* The event handler for the tab select. */
-  fun handleSelect (key : String) : Promise(Never, Void) {
+  fun handleSelect (key : String) : Promise(Void) {
     if (key == active) {
       next { }
     } else {
@@ -168,31 +168,29 @@ component Ui.Tabs {
   fun render : Html {
     <div::base as base>
       if (mobile) {
-        try {
-          navItems =
-            for (tab of items) {
-              Ui.NavItem::Item(
-                action = (event : Html.Event) { handleSelect(tab.key) },
-                iconBefore = tab.iconBefore,
-                iconAfter = tab.iconAfter,
-                label = tab.label)
-            }
+        let navItems =
+          for (tab of items) {
+            Ui.NavItem::Item(
+              action: (event : Html.Event) { handleSelect(tab.key) },
+              iconBefore: tab.iconBefore,
+              iconAfter: tab.iconAfter,
+              label: tab.label)
+          }
 
-          <button::button-reset::button-mobile>
-            <div::mobile onClick={() { Ui.ActionSheet.show(navItems) }}>
-              <{
-                items
-                |> Array.find((tab : Ui.Tab) { tab.key == active })
-                |> Maybe.map(renderTab)
-                |> Maybe.withDefault(<></>)
-              }>
+        <button::button-reset::button-mobile>
+          <div::mobile onClick={() { Ui.ActionSheet.show(navItems) }}>
+            <{
+              items
+              |> Array.find((tab : Ui.Tab) { tab.key == active })
+              |> Maybe.map(renderTab)
+              |> Maybe.withDefault(<></>)
+            }>
 
-              <Ui.Icon
-                icon={Ui.Icons:CHEVRON_DOWN}
-                size={Ui.Size::Em(1.5)}/>
-            </div>
-          </button>
-        }
+            <Ui.Icon
+              icon={Ui.Icons:CHEVRON_DOWN}
+              size={Ui.Size::Em(1.5)}/>
+          </div>
+        </button>
       } else {
         <div::tabs>
           for (tab of items) {

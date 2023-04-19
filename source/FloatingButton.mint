@@ -1,7 +1,7 @@
 /* A floating action button (FAB) represents the primary action of a screen. */
 component Ui.FloatingButton {
   /* The click event handler. */
-  property onClick : Function(Html.Event, Promise(Never, Void)) = Promise.never1
+  property onClick : Function(Html.Event, Promise(Void)) = Promise.never1
 
   /* The size of the button. */
   property size : Ui.Size = Ui.Size::Em(3)

@@ -16,8 +16,8 @@ component Ui.AvoidFocus {
 
   /* We are using the mutation provider to update elements on the fly. */
   use Provider.Mutation {
-    changes = update,
-    element = base
+    changes: update,
+    element: base
   }
 
   /* Style for the base element. */
@@ -32,19 +32,17 @@ component Ui.AvoidFocus {
   }
 
   /* Sets `tabindex="-1"` on all child elements. */
-  fun update : Promise(Never, Void) {
-    try {
-      case (base) {
-        Maybe::Just(element) =>
-          for (element of Dom.getElementsBySelector("*", element)) {
-            Dom.setAttribute("tabindex", "-1", element)
-          }
+  fun update : Promise(Void) {
+    case (base) {
+      Maybe::Just(element) =>
+        for (element of Dom.getElementsBySelector(element, "*")) {
+          Dom.setAttribute(element, "tabindex", "-1")
+        }
 
-        Maybe::Nothing => []
-      }
-
-      next { }
+      Maybe::Nothing => []
     }
+
+    next { }
   }
 
   /* Renders the component. */

@@ -1,7 +1,7 @@
 /* A date picker component. */
 component Ui.DatePicker {
   /* The change event handler. */
-  property onChange : Function(Time, Promise(Never, Void)) = Promise.never1
+  property onChange : Function(Time, Promise(Void)) = Promise.never1
 
   /* The language to use for time formatting. */
   property language : Time.Format.Language = Time.Format:ENGLISH
@@ -25,7 +25,7 @@ component Ui.DatePicker {
   property offset : Number = 5
 
   /* The formatter for the time in the input. */
-  property formatter : Function(Time.Format.Language, String, Time, String) = Time.format
+  property formatter : Function(Time, Time.Format.Language, String, String) = Time.format
 
   /* The format for the time in the input. */
   property format : String = "%Y-%m-%d"
@@ -45,7 +45,7 @@ component Ui.DatePicker {
       37 => onChange(`new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() - 1)`)
 
       38 =>
-        try {
+        {
           Html.Event.preventDefault(event)
           onChange(`new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() - 1)`)
         }
@@ -53,7 +53,7 @@ component Ui.DatePicker {
       39 => onChange(`new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() + 1)`)
 
       40 =>
-        try {
+        {
           Html.Event.preventDefault(event)
           onChange(`new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() + 1)`)
         }
@@ -64,41 +64,39 @@ component Ui.DatePicker {
 
   /* Handles the month change event. */
   fun handleMonthChange (value : Time) {
-    next { month = Maybe::Just(value) }
+    next { month: Maybe::Just(value) }
   }
 
   /* Renders the date picker. */
   fun render : Html {
-    try {
-      panel =
-        <Ui.AvoidFocus disableCursor={false}>
-          <Ui.Calendar as calendar
-            month={Maybe.withDefault(value, month)}
-            onMonthChange={handleMonthChange}
-            changeMonthOnSelect={true}
-            onChange={onChange}
-            embedded={true}
-            day={value}
-            size={size}/>
-        </Ui.AvoidFocus>
+    let panel =
+      <Ui.AvoidFocus disableCursor={false}>
+        <Ui.Calendar as calendar
+          month={Maybe.withDefault(month, value)}
+          onMonthChange={handleMonthChange}
+          changeMonthOnSelect={true}
+          onChange={onChange}
+          embedded={true}
+          day={value}
+          size={size}/>
+      </Ui.AvoidFocus>
 
-      label =
-        Maybe::Just(
-          <div::label>
-            <{ formatter(language, format, value) }>
-          </div>)
+    let label =
+      Maybe::Just(
+        <div::label>
+          <{ formatter(value, language, format) }>
+        </div>)
 
-      <Ui.Picker as picker
-        icon={Ui.Icons:CALENDAR}
-        onKeyDown={handleKeyDown}
-        matchWidth={false}
-        disabled={disabled}
-        invalid={invalid}
-        position={position}
-        offset={offset}
-        panel={panel}
-        label={label}
-        size={size}/>
-    }
+    <Ui.Picker as picker
+      icon={Ui.Icons:CALENDAR}
+      onKeyDown={handleKeyDown}
+      matchWidth={false}
+      disabled={disabled}
+      invalid={invalid}
+      position={position}
+      offset={offset}
+      panel={panel}
+      label={label}
+      size={size}/>
   }
 }

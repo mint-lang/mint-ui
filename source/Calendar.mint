@@ -1,10 +1,10 @@
 /* A simple calendar component where the days can be selected. */
 component Ui.Calendar {
   /* The month change event handler. */
-  property onMonthChange : Function(Time, Promise(Never, Void)) = Promise.never1
+  property onMonthChange : Function(Time, Promise(Void)) = Promise.never1
 
   /* The change event handler. */
-  property onChange : Function(Time, Promise(Never, Void)) = Promise.never1
+  property onChange : Function(Time, Promise(Void)) = Promise.never1
 
   /* The language to use for time formatting. */
   property language : Time.Format.Language = Time.Format:ENGLISH
@@ -106,24 +106,22 @@ component Ui.Calendar {
   }
 
   /* Event handler for the cell click. */
-  fun handleCellClick (day : Time) : Promise(Never, Void) {
+  fun handleCellClick (day : Time) : Promise(Void) {
     if (changeMonthOnSelect && Time.month(day) != Time.month(month)) {
-      sequence {
-        onMonthChange(Time.atBeginningOfMonth(day))
-        onChange(day)
-      }
+      await onMonthChange(Time.atBeginningOfMonth(day))
+      onChange(day)
     } else {
       onChange(day)
     }
   }
 
   /* Event handler for the chevron left icon click. */
-  fun handleChevronLeftClick (event : Html.Event) : Promise(Never, Void) {
+  fun handleChevronLeftClick (event : Html.Event) : Promise(Void) {
     onMonthChange(Time.atBeginningOfMonth(Time.previousMonth(month)))
   }
 
   /* Event handler for the chevron right icon click. */
-  fun handleChevronRightClick (event : Html.Event) : Promise(Never, Void) {
+  fun handleChevronRightClick (event : Html.Event) : Promise(Void) {
     onMonthChange(Time.atBeginningOfMonth(Time.nextMonth(month)))
   }
 
@@ -138,7 +136,7 @@ component Ui.Calendar {
           interactive={true}/>
 
         <div::text>
-          <{ Time.format(language, "%B - %Y", month) }>
+          <{ Time.format(month, language, "%B - %Y") }>
         </div>
 
         <Ui.Icon
@@ -149,80 +147,82 @@ component Ui.Calendar {
       </div>
 
       <div::dayNames>
-        try {
-          range =
-            Time.range(Time.atBeginningOfWeek(day), Time.atEndOfWeek(day))
+        <{
+          {
+            let range =
+              Time.range(Time.atBeginningOfWeek(day), Time.atEndOfWeek(day))
 
-          for (day of range) {
-            <div::dayName>
-              <{ Time.format(language, "%a", day) }>
-            </div>
+            for (day of range) {
+              <div::dayName>
+                <{ Time.format(day, language, "%a") }>
+              </div>
+            }
           }
-        }
+        }>
       </div>
 
       <div::table>
-        try {
-          startDate =
-            month
-            |> Time.atBeginningOfMonth
-            |> Time.atBeginningOfWeek
+        <{
+          {
+            let startDate =
+              month
+              |> Time.atBeginningOfMonth
+              |> Time.atBeginningOfWeek
 
-          endDate =
-            month
-            |> Time.atEndOfMonth
-            |> Time.atEndOfWeek
+            let endDate =
+              month
+              |> Time.atEndOfMonth
+              |> Time.atEndOfWeek
 
-          days =
-            Time.range(startDate, endDate)
+            let days =
+              Time.range(startDate, endDate)
 
-          range =
-            month
-            |> Time.atEndOfMonth
-            |> Time.range(Time.atBeginningOfMonth(month))
+            let range =
+              month
+              |> Time.atBeginningOfMonth
+              |> Time.range(Time.atEndOfMonth(month))
 
-          actualDays =
-            case (Array.size(days)) {
-              28 =>
-                Time.range(
-                  Time.previousWeek(startDate),
-                  Time.nextWeek(endDate))
+            let actualDays =
+              case (Array.size(days)) {
+                28 =>
+                  Time.range(
+                    Time.previousWeek(startDate),
+                    Time.nextWeek(endDate))
 
-              35 =>
-                Time.range(
-                  startDate,
-                  Time.nextWeek(endDate))
+                35 =>
+                  Time.range(
+                    startDate,
+                    Time.nextWeek(endDate))
 
-              => days
-            }
+                => days
+              }
 
-          for (cell of actualDays) {
-            try {
-              normalizedDay =
-                Time.atBeginningOfDay(day)
+            let normalizedDay =
+              Time.atBeginningOfDay(day)
 
-              normalizedCell =
+            for (cell of actualDays) {
+              let normalizedCell =
                 Time.atBeginningOfDay(cell)
 
-              normalizedDays =
-                Set.map(Time.atBeginningOfDay, selectedDays)
+              let normalizedDays =
+                Set.map(selectedDays, Time.atBeginningOfDay)
 
-              selected =
+              let selected =
                 if (Set.size(normalizedDays) == 0) {
                   normalizedDay == normalizedCell
                 } else {
-                  Set.has(normalizedCell, normalizedDays)
+                  Set.has(normalizedDays, normalizedCell)
                 }
 
               <Ui.Calendar.Cell
-                active={Array.any((item : Time) : Bool { normalizedCell == item }, range)}
+                active={Array.contains(range, normalizedCell)}
                 onClick={handleCellClick}
                 day={normalizedCell}
                 selected={selected}
                 readonly={readonly}/>
             }
           }
-        }
+        }>
       </div>
     </div>
   }

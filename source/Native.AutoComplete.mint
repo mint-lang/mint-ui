@@ -1,7 +1,7 @@
 /* An auto complete component using the native `datalist` element. */
 component Ui.Native.AutoComplete {
   /* The change event handler. */
-  property onChange : Function(String, Promise(Never, Void)) = Promise.never1
+  property onChange : Function(String, Promise(Void)) = Promise.never1
 
   /* The size of the input. */
   property size : Ui.Size = Ui.Size::Inherit

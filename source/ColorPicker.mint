@@ -3,7 +3,7 @@ component Ui.ColorPicker {
   connect Ui exposing { darkMode }
 
   /* The change event handler. */
-  property onChange : Function(Color, Promise(Never, Void)) = Promise.never1
+  property onChange : Function(Color, Promise(Void)) = Promise.never1
 
   /* The position of the dropdown. */
   property position : Ui.Position = Ui.Position::BottomRight
@@ -54,36 +54,34 @@ component Ui.ColorPicker {
 
   /* Renders the date picker. */
   fun render : Html {
-    try {
-      panel =
-        <Ui.AvoidFocus disableCursor={false}>
-          <Ui.ColorPanel
-            onChange={onChange}
-            embedded={true}
-            value={value}
-            size={size}/>
-        </Ui.AvoidFocus>
+    let panel =
+      <Ui.AvoidFocus disableCursor={false}>
+        <Ui.ColorPanel
+          onChange={onChange}
+          embedded={true}
+          value={value}
+          size={size}/>
+      </Ui.AvoidFocus>
 
-      label =
-        Maybe::Just(
-          <div::base>
-            <span>
-              <{ Color.toCSSHex(value) }>
-            </span>
+    let label =
+      Maybe::Just(
+        <div::base>
+          <span>
+            <{ Color.toCSSHex(value) }>
+          </span>
 
-            <div::rect/>
-          </div>)
+          <div::rect/>
+        </div>)
 
-      <Ui.Picker as picker
-        matchWidth={false}
-        disabled={disabled}
-        position={position}
-        invalid={invalid}
-        offset={offset}
-        panel={panel}
-        label={label}
-        icon={<></>}
-        size={size}/>
-    }
+    <Ui.Picker as picker
+      matchWidth={false}
+      disabled={disabled}
+      position={position}
+      invalid={invalid}
+      offset={offset}
+      panel={panel}
+      label={label}
+      icon={<></>}
+      size={size}/>
   }
 }

@@ -1,10 +1,10 @@
 /* A vertical list the user can interact with using the keyboard. */
 component Ui.InteractiveList {
   /* The select event handler (when an item is clicked). */
-  property onClickSelect : Function(String, Promise(Never, Void)) = Promise.never1
+  property onClickSelect : Function(String, Promise(Void)) = Promise.never1
 
   /* The select event handler. */
-  property onSelect : Function(String, Promise(Never, Void)) = Promise.never1
+  property onSelect : Function(String, Promise(Void)) = Promise.never1
 
   /* The selected set of items. */
   property selected : Set(String) = Set.empty()
@@ -50,7 +50,7 @@ component Ui.InteractiveList {
   fun componentDidMount {
     next
       {
-        intended =
+        intended:
           selected
           |> Set.toArray
           |> Array.first
@@ -60,69 +60,63 @@ component Ui.InteractiveList {
 
   /* Sets the intended element. */
   fun intend (value : String) {
-    next { intended = value }
+    next { intended: value }
   }
 
   /* Handles a select event. */
   fun handleSelect (value : String) {
-    sequence {
-      intend(value)
-      onSelect(value)
-    }
+    await intend(value)
+    onSelect(value)
   }
 
   /* Handles a select event (when the item is clicked). */
   fun handleClickSelect (value : String) {
-    sequence {
-      intend(value)
-      onClickSelect(value)
-    }
+    await intend(value)
+    onClickSelect(value)
   }
 
   /* Selects the next or previous element. */
-  fun selectNext (forward : Bool) : Promise(Never, Void) {
-    try {
-      itemsOnly =
-        Array.select(
-          (item : Ui.ListItem) {
-            case (item) {
-              Ui.ListItem::Divider => false
-              Ui.ListItem::Item => true
-            }
-          },
-          items)
-
-      index =
-        Array.indexBy(intended, Ui.ListItem.key, itemsOnly)
-
-      nextIndex =
-        if (forward) {
-          if (index == Array.size(itemsOnly) - 1) {
-            0
-          } else {
-            index + 1
+  fun selectNext (forward : Bool) : Promise(Void) {
+    let itemsOnly =
+      Array.select(
+        items,
+        (item : Ui.ListItem) {
+          case (item) {
+            Ui.ListItem::Divider => false
+            Ui.ListItem::Item => true
           }
-        } else if (index == 0) {
-          Array.size(itemsOnly) - 1
+        })
+
+    let index =
+      Array.indexBy(itemsOnly, intended, Ui.ListItem.key)
+
+    let nextIndex =
+      if (forward) {
+        if (index == Array.size(itemsOnly) - 1) {
+          0
         } else {
-          index - 1
+          index + 1
         }
-
-      nextKey =
-        itemsOnly[nextIndex]
-        |> Maybe.map(Ui.ListItem.key)
-        |> Maybe.withDefault("")
-
-      if (intendable) {
-        intend(nextKey)
+      } else if (index == 0) {
+        Array.size(itemsOnly) - 1
       } else {
-        handleSelect(nextKey)
+        index - 1
       }
 
-      case (container) {
-        Maybe::Just(element) => Ui.scrollIntoViewIfNeeded(`#{element}.children[#{nextIndex}]`)
-        => next { }
-      }
+    let nextKey =
+      itemsOnly[nextIndex]
+      |> Maybe.map(Ui.ListItem.key)
+      |> Maybe.withDefault("")
+
+    if (intendable) {
+      intend(nextKey)
+    } else {
+      handleSelect(nextKey)
+    }
+
+    case (container) {
+      Maybe::Just(element) => Ui.scrollIntoViewIfNeeded(`#{element}.children[#{nextIndex}]`)
+      => next { }
     }
   }
 
@@ -132,19 +126,19 @@ component Ui.InteractiveList {
       Html.Event:ENTER => onSelect(intended)
 
       Html.Event:SPACE =>
-        try {
+        {
           Html.Event.preventDefault(event)
           onSelect(intended)
         }
 
       Html.Event:DOWN_ARROW =>
-        try {
+        {
           Html.Event.preventDefault(event)
           selectNext(true)
         }
 
       Html.Event:UP_ARROW =>
-        try {
+        {
           Html.Event.preventDefault(event)
           selectNext(false)
         }
@@ -155,40 +149,38 @@ component Ui.InteractiveList {
 
   /* Renders the list. */
   fun render : Html {
-    try {
-      tabIndex =
-        if (interactive) {
-          "0"
-        } else {
-          "-1"
-        }
+    let tabIndex =
+      if (interactive) {
+        "0"
+      } else {
+        "-1"
+      }
 
-      <div::base
-        onKeyDown={Ui.disabledHandler(!interactive, handleKeyDown)}
-        tabindex={tabIndex}>
+    <div::base
+      onKeyDown={Ui.disabledHandler(!interactive, handleKeyDown)}
+      tabindex={tabIndex}>
 
-        <Ui.ScrollPanel>
-          <div::items as container>
-            for (item of items) {
-              case (item) {
-                Ui.ListItem::Item(key, content) =>
-                  <Ui.InteractiveList.Item
-                    onClick={(event : Html.Event) { handleClickSelect(key) }}
-                    intended={intendable && key == intended}
-                    selected={Set.has(key, selected)}
-                    key={key}>
+      <Ui.ScrollPanel>
+        <div::items as container>
+          for (item of items) {
+            case (item) {
+              Ui.ListItem::Item(key, content) =>
+                <Ui.InteractiveList.Item
+                  onClick={(event : Html.Event) { handleClickSelect(key) }}
+                  intended={intendable && key == intended}
+                  selected={Set.has(selected, key)}
+                  key={key}>
 
-                    <{ content }>
+                  <{ content }>
 
-                  </Ui.InteractiveList.Item>
+                </Ui.InteractiveList.Item>
 
-                Ui.ListItem::Divider => <div/>
-              }
+              Ui.ListItem::Divider => <div/>
             }
-          </div>
-        </Ui.ScrollPanel>
+          }
+        </div>
+      </Ui.ScrollPanel>
 
-      </div>
-    }
+    </div>
   }
 }

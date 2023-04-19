@@ -40,27 +40,25 @@ component Ui.Brand {
   }
 
   fun render : Html {
-    try {
-      content =
-        <>
-          if (Html.isNotEmpty(icon)) {
-            <Ui.Icon icon={icon}/>
-          }
+    let content =
+      <>
+        if (Html.isNotEmpty(icon)) {
+          <Ui.Icon icon={icon}/>
+        }
 
-          <div::name>
-            <{ name }>
-          </div>
-        </>
-
-      if (String.isEmpty(href)) {
-        <div::base href={href}>
-          <{ content }>
+        <div::name>
+          <{ name }>
         </div>
-      } else {
-        <a::base::link href={href}>
-          <{ content }>
-        </a>
-      }
+      </>
+
+    if (String.isEmpty(href)) {
+      <div::base href={href}>
+        <{ content }>
+      </div>
+    } else {
+      <a::base::link href={href}>
+        <{ content }>
+      </a>
     }
   }
 }

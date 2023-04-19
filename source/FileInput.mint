@@ -1,7 +1,7 @@
 /* An input for selecting a file. */
 component Ui.FileInput {
   /* The change event handler. */
-  property onChange : Function(Maybe(File), Promise(Never, Void)) = Promise.never1
+  property onChange : Function(Maybe(File), Promise(Void)) = Promise.never1
 
   /* The label for selecting a different file. */
   property selectAnotherLabel : String = "Click to select a different file."
@@ -136,29 +136,25 @@ component Ui.FileInput {
   }
 
   /* Focuses the element. */
-  fun focus : Promise(Never, Void) {
+  fun focus : Promise(Void) {
     Dom.focus(base)
   }
 
   /* Handles the clear event. */
-  fun handleClear (event : Html.Event) : Promise(Never, Void) {
-    try {
-      Html.Event.preventDefault(event)
-      Html.Event.stopPropagation(event)
-      onChange(Maybe::Nothing)
-    }
+  fun handleClear (event : Html.Event) : Promise(Void) {
+    Html.Event.preventDefault(event)
+    Html.Event.stopPropagation(event)
+    onChange(Maybe::Nothing)
   }
 
   /* Handles the select event. */
-  fun handleSelect (event : Html.Event) : Promise(Never, Void) {
-    sequence {
-      Html.Event.preventDefault(event)
+  fun handleSelect (event : Html.Event) : Promise(Void) {
+    Html.Event.preventDefault(event)
 
-      selected =
-        File.select(accept)
+    let selected =
+      await File.select(accept)
 
-      onChange(Maybe::Just(selected))
-    }
+    onChange(Maybe::Just(selected))
   }
 
   /* Renders the component. */

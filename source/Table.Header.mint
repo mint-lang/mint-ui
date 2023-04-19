@@ -1,7 +1,7 @@
 /* A table header component. */
 component Ui.Table.Header {
   /* The handler for the order change event. */
-  property onOrderChange : Function(Tuple(String, String), Promise(Never, Void)) = Promise.never1
+  property onOrderChange : Function(Tuple(String, String), Promise(Void)) = Promise.never1
 
   /* The order direction either "asc" or "desc". */
   property orderDirection : String = ""
@@ -49,21 +49,19 @@ component Ui.Table.Header {
   }
 
   /* The handler for the icon. */
-  fun handleSort : Promise(Never, Void) {
-    sequence {
-      nextOrderDirection =
-        if (orderBy == data.sortKey) {
-          if (orderDirection == "asc") {
-            "desc"
-          } else {
-            "asc"
-          }
+  fun handleSort : Promise(Void) {
+    let nextOrderDirection =
+      if (orderBy == data.sortKey) {
+        if (orderDirection == "asc") {
+          "desc"
         } else {
           "asc"
         }
+      } else {
+        "asc"
+      }
 
-      onOrderChange({data.sortKey, nextOrderDirection})
-    }
+    onOrderChange({data.sortKey, nextOrderDirection})
   }
 
   /* Renders the header. */

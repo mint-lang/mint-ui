@@ -61,26 +61,24 @@ component Ui.Box {
 
   /* Renders the box. */
   fun render {
-    try {
-      <div::wrapper>
-        if (Html.isNotEmpty(label)) {
-          <div::label>
-            <{ label }>
+    <div::wrapper>
+      if (Html.isNotEmpty(label)) {
+        <div::label>
+          <{ label }>
+        </div>
+      }
+
+      <div::base>
+        if (Html.isNotEmpty(title)) {
+          <div::title>
+            <{ title }>
           </div>
         }
 
-        <div::base>
-          if (Html.isNotEmpty(title)) {
-            <div::title>
-              <{ title }>
-            </div>
-          }
-
-          <Ui.Content fitContent={fitContent}>
-            <{ children }>
-          </Ui.Content>
-        </div>
+        <Ui.Content fitContent={fitContent}>
+          <{ children }>
+        </Ui.Content>
       </div>
-    }
+    </div>
   }
 }

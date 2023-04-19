@@ -127,21 +127,19 @@ component Ui.PricingItem {
 
       case (price) {
         Maybe::Just(item) =>
-          try {
-            <div::price>
-              <div::currency>
-                <{ item[0] }>
-              </div>
-
-              <div::value>
-                <{ item[1] }>
-              </div>
-
-              <div::period>
-                <{ item[2] }>
-              </div>
+          <div::price>
+            <div::currency>
+              <{ item[0] }>
             </div>
-          }
+
+            <div::value>
+              <{ item[1] }>
+            </div>
+
+            <div::period>
+              <{ item[2] }>
+            </div>
+          </div>
 
         Maybe::Nothing =>
           <></>

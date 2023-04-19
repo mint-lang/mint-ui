@@ -1,7 +1,7 @@
 /* A simple checkbox component. */
 component Ui.Checkbox {
   /* The handler for the change event. */
-  property onChange : Function(Bool, Promise(Never, Void)) = Promise.never1
+  property onChange : Function(Bool, Promise(Void)) = Promise.never1
 
   /* The size of the checkbox. */
   property size : Ui.Size = Ui.Size::Inherit
@@ -67,12 +67,12 @@ component Ui.Checkbox {
   }
 
   /* Toggles the checkbox. */
-  fun toggle : Promise(Never, Void) {
+  fun toggle : Promise(Void) {
     onChange(!checked)
   }
 
   /* Focuses the checkbox. */
-  fun focus : Promise(Never, Void) {
+  fun focus : Promise(Void) {
     Dom.focus(checkbox)
   }
 

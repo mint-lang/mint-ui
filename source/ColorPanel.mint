@@ -3,10 +3,10 @@ component Ui.ColorPanel {
   connect Ui exposing { darkMode }
 
   /* The `change` event handler. */
-  property onChange : Function(Color, Promise(Never, Void)) = Promise.never1
+  property onChange : Function(Color, Promise(Void)) = Promise.never1
 
   /* The `end` event handler. */
-  property onEnd : Function(Promise(Never, Void)) = Promise.never
+  property onEnd : Function(Promise(Void)) = Promise.never
 
   /* The value (color). */
   property value : Color = Color::HEX("000000FF")
@@ -37,9 +37,9 @@ component Ui.ColorPanel {
 
   /* The provider to track the pointer while dragging. */
   use Provider.Pointer {
-    downs = Promise.never1,
-    moves = moves,
-    ups = ups
+    downs: Promise.never1,
+    moves: moves,
+    ups: ups
   } when {
     status != Ui.ColorPanel.Status::Idle
   }
@@ -198,41 +198,37 @@ component Ui.ColorPanel {
 
   /* The computed value for the alpha gradient. */
   get alphaGradient : String {
-    try {
-      color =
-        value
-        |> Color.setAlpha(100)
-        |> Color.toCSSRGBA()
+    let color =
+      value
+      |> Color.setAlpha(100)
+      |> Color.toCSSRGBA()
 
-      "linear-gradient(90deg, transparent, " + color + ")"
-    }
+    "linear-gradient(90deg, transparent, " + color + ")"
   }
 
   /* The pointer up event handler. */
-  fun ups (event : Html.Event) : Promise(Never, Void) {
-    sequence {
-      next { status = Ui.ColorPanel.Status::Idle }
-      onEnd()
-    }
+  fun ups (event : Html.Event) : Promise(Void) {
+    await next { status: Ui.ColorPanel.Status::Idle }
+    onEnd()
   }
 
   /* The pointer move event handler. */
-  fun moves (event : Html.Event) : Promise(Never, Void) {
+  fun moves (event : Html.Event) : Promise(Void) {
     case (status) {
       Ui.ColorPanel.Status::ValueSaturationDragging(element) =>
-        try {
-          dimensions =
+        {
+          let dimensions =
             Dom.getDimensions(element)
 
-          saturation =
+          let saturation =
             (event.pageX - `window.pageXOffset` - dimensions.left) / dimensions.width
             |> Math.clamp(0, 1)
 
-          val =
+          let val =
             (event.pageY - `window.pageYOffset` - dimensions.top) / dimensions.height
             |> Math.clamp(0, 1)
 
-          nextValue =
+          let nextValue =
             value
             |> Color.setSaturation(saturation * 100)
             |> Color.setValue((1 - val) * 100)
@@ -241,15 +237,15 @@ component Ui.ColorPanel {
         }
 
       Ui.ColorPanel.Status::HueDragging(element) =>
-        try {
-          dimensions =
+        {
+          let dimensions =
             Dom.getDimensions(element)
 
-          hue =
+          let hue =
             (event.pageY - `window.pageYOffset` - dimensions.top) / dimensions.height
             |> Math.clamp(0, 1)
 
-          nextValue =
+          let nextValue =
             value
             |> Color.setHue(hue * 360)
 
@@ -257,15 +253,15 @@ component Ui.ColorPanel {
         }
 
       Ui.ColorPanel.Status::AlphaDragging(element) =>
-        try {
-          dimensions =
+        {
+          let dimensions =
             Dom.getDimensions(element)
 
-          alpha =
+          let alpha =
             (event.pageX - `window.pageXOffset` - dimensions.left) / dimensions.width
             |> Math.clamp(0, 1)
 
-          nextValue =
+          let nextValue =
             value
             |> Color.setAlpha(Math.round(alpha * 100))
 
@@ -278,134 +274,118 @@ component Ui.ColorPanel {
   }
 
   /* The pointer down event handler on the value-saturation square. */
-  fun handleRectPointerDown (event : Html.Event) : Promise(Never, Void) {
-    try {
-      Html.Event.preventDefault(event)
-      next { status = Ui.ColorPanel.Status::ValueSaturationDragging(event.target) }
-    }
+  fun handleRectPointerDown (event : Html.Event) : Promise(Void) {
+    Html.Event.preventDefault(event)
+    next { status: Ui.ColorPanel.Status::ValueSaturationDragging(event.target) }
   }
 
   /* The pointer down event handler on the hue bar. */
-  fun handleHuePointerDown (event : Html.Event) : Promise(Never, Void) {
-    try {
-      Html.Event.preventDefault(event)
-      next { status = Ui.ColorPanel.Status::HueDragging(event.target) }
-    }
+  fun handleHuePointerDown (event : Html.Event) : Promise(Void) {
+    Html.Event.preventDefault(event)
+    next { status: Ui.ColorPanel.Status::HueDragging(event.target) }
   }
 
   /* The pointer down event handler on the alpha bar. */
-  fun handleAlphaPointerDown (event : Html.Event) : Promise(Never, Void) {
-    try {
-      Html.Event.preventDefault(event)
-      next { status = Ui.ColorPanel.Status::AlphaDragging(event.target) }
-    }
+  fun handleAlphaPointerDown (event : Html.Event) : Promise(Void) {
+    Html.Event.preventDefault(event)
+    next { status: Ui.ColorPanel.Status::AlphaDragging(event.target) }
   }
 
   /* The change event handler for the hue input. */
-  fun handleHue (raw : String) : Promise(Never, Void) {
-    next { hueString = Maybe::Just(raw) }
+  fun handleHue (raw : String) : Promise(Void) {
+    next { hueString: Maybe::Just(raw) }
   }
 
   /* The blur event handler for the hue input. */
-  fun updateHue : Promise(Never, Void) {
-    sequence {
-      newHue =
-        hueString
-        |> Maybe.map(Number.fromString)
-        |> Maybe.flatten
-        |> Maybe.withDefault(0)
+  fun updateHue : Promise(Void) {
+    let newHue =
+      hueString
+      |> Maybe.map(Number.fromString)
+      |> Maybe.flatten
+      |> Maybe.withDefault(0)
 
-      newValue =
-        Color.setHue(newHue, value)
+    let newValue =
+      Color.setHue(value, newHue)
 
-      next { hueString = Maybe::Nothing }
-      onChange(newValue)
-    }
+    await next { hueString: Maybe::Nothing }
+    onChange(newValue)
   }
 
   /* The change event handler for the value input. */
-  fun handleValue (raw : String) : Promise(Never, Void) {
-    next { valueString = Maybe::Just(raw) }
+  fun handleValue (raw : String) : Promise(Void) {
+    next { valueString: Maybe::Just(raw) }
   }
 
   /* The blur event handler for the value input. */
-  fun updateValue : Promise(Never, Void) {
-    sequence {
-      newValue =
-        valueString
-        |> Maybe.map(Number.fromString)
-        |> Maybe.flatten
-        |> Maybe.withDefault(0)
+  fun updateValue : Promise(Void) {
+    let newValue =
+      valueString
+      |> Maybe.map(Number.fromString)
+      |> Maybe.flatten
+      |> Maybe.withDefault(0)
 
-      nextValue =
-        Color.setValue(newValue, value)
+    let nextValue =
+      Color.setValue(value, newValue)
 
-      next { valueString = Maybe::Nothing }
-      onChange(nextValue)
-    }
+    await next { valueString: Maybe::Nothing }
+    onChange(nextValue)
   }
 
   /* The change event handler for the saturation input. */
-  fun handleSaturation (raw : String) : Promise(Never, Void) {
-    next { saturationString = Maybe::Just(raw) }
+  fun handleSaturation (raw : String) : Promise(Void) {
+    next { saturationString: Maybe::Just(raw) }
   }
 
   /* The blur event handler for the saturation input. */
-  fun updateSaturation : Promise(Never, Void) {
-    sequence {
-      saturation =
-        saturationString
-        |> Maybe.map(Number.fromString)
-        |> Maybe.flatten
-        |> Maybe.withDefault(0)
+  fun updateSaturation : Promise(Void) {
+    let saturation =
+      saturationString
+      |> Maybe.map(Number.fromString)
+      |> Maybe.flatten
+      |> Maybe.withDefault(0)
 
-      newValue =
-        Color.setSaturation(saturation, value)
+    let newValue =
+      Color.setSaturation(value, saturation)
 
-      next { saturationString = Maybe::Nothing }
-      onChange(newValue)
-    }
+    await next { saturationString: Maybe::Nothing }
+    onChange(newValue)
   }
 
   /* The change event handler for the alpha input. */
-  fun handleAlpha (raw : String) : Promise(Never, Void) {
-    next { alphaString = Maybe::Just(raw) }
+  fun handleAlpha (raw : String) : Promise(Void) {
+    next { alphaString: Maybe::Just(raw) }
   }
 
   /* The change event handler for the alpha input. */
-  fun updateAlpha : Promise(Never, Void) {
-    sequence {
-      alpha =
-        alphaString
-        |> Maybe.map(Number.fromString)
-        |> Maybe.flatten
-        |> Maybe.withDefault(0)
+  fun updateAlpha : Promise(Void) {
+    let alpha =
+      alphaString
+      |> Maybe.map(Number.fromString)
+      |> Maybe.flatten
+      |> Maybe.withDefault(0)
 
-      newValue =
-        Color.setAlpha(alpha, value)
+    let newValue =
+      Color.setAlpha(value, alpha)
 
-      next { alphaString = Maybe::Nothing }
-      onChange(newValue)
-    }
+    await next { alphaString: Maybe::Nothing }
+    onChange(newValue)
   }
 
   /* The change event handler for the hex input. */
-  fun handleHex (raw : String) : Promise(Never, Void) {
-    next { hexString = Maybe::Just(raw) }
+  fun handleHex (raw : String) : Promise(Void) {
+    next { hexString: Maybe::Just(raw) }
   }
 
   /* The blur event handler for the hex input. */
-  fun updateHex : Promise(Never, Void) {
-    sequence {
-      newValue =
-        hexString
-        |> Maybe.map(Color.fromHEX)
-        |> Maybe.flatten
-        |> Maybe.withDefault(value)
+  fun updateHex : Promise(Void) {
+    let newValue =
+      hexString
+      |> Maybe.map(Color.fromHEX)
+      |> Maybe.flatten
+      |> Maybe.withDefault(value)
 
-      next { hexString = Maybe::Nothing }
-      onChange(newValue)
-    }
+    await next { hexString: Maybe::Nothing }
+    onChange(newValue)
   }
 
   /* Renders the panel. */

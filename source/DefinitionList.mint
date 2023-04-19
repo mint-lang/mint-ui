@@ -94,12 +94,12 @@ component Ui.DefinitionList {
     }
   }
 
-  fun handleClick (index : Number) : Function(Promise(Never, Void)) {
+  fun handleClick (index : Number) : Function(Promise(Void)) {
     () {
-      if (Set.has(index, data)) {
-        next { data = Set.delete(index, data) }
+      if (Set.has(data, index)) {
+        next { data: Set.delete(data, index) }
       } else {
-        next { data = Set.add(index, data) }
+        next { data: Set.add(data, index) }
       }
     }
   }
@@ -107,54 +107,45 @@ component Ui.DefinitionList {
   /* Renders the list. */
   fun render : Html {
     <div::base>
-      <{
-        Array.mapWithIndex(
-          (row : Tuple(String, Array(Ui.Cell)), index : Number) {
-            try {
-              {summary, cells} =
-                row
+      for (row, index of rows) {
+        let {summary, cells} =
+          row
 
-              open =
-                Set.has(index, data)
+        let open =
+          Set.has(data, index)
 
-              <>
-                <div::details(open)>
-                  <div::summary(open) onClick={handleClick(index)}>
-                    <Ui.Icon icon={Ui.Icons:CHEVRON_RIGHT}/>
+        <>
+          <div::details(open)>
+            <div::summary(open) onClick={handleClick(index)}>
+              <Ui.Icon icon={Ui.Icons:CHEVRON_RIGHT}/>
 
-                    <div::cell>
-                      <{ summary }>
+              <div::cell>
+                <{ summary }>
+              </div>
+            </div>
+
+            if (open) {
+              <div>
+                for (cell of cells) {
+                  let header =
+                    headers[Array.indexOf(cells, cell) or 0]
+                    |> Maybe.withDefault("")
+
+                  <div::item>
+                    <div::label>
+                      <{ header }>
+                    </div>
+
+                    <div>
+                      <Ui.Cell cell={cell}/>
                     </div>
                   </div>
-
-                  if (open) {
-                    <div>
-                      for (cell of cells) {
-                        try {
-                          header =
-                            headers
-                            |> Array.at(Array.indexOf(cell, cells))
-                            |> Maybe.withDefault("")
-
-                          <div::item>
-                            <div::label>
-                              <{ header }>
-                            </div>
-
-                            <div>
-                              <Ui.Cell cell={cell}/>
-                            </div>
-                          </div>
-                        }
-                      }
-                    </div>
-                  }
-                </div>
-              </>
+                }
+              </div>
             }
-          },
-          rows)
-      }>
+          </div>
+        </>
+      }
     </div>
   }
 }

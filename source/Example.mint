@@ -32,8 +32,8 @@ component Ui.Example {
 
   /* We are using this provider to update the `mobile` state. */
   use Provider.ElementSize {
-    changes = updateWidth,
-    element = base
+    changes: updateWidth,
+    element: base
   }
 
   /* the style for the base. */
@@ -135,36 +135,34 @@ component Ui.Example {
 
   /* Updates the `mobile` state based on the dimensions and breakpoint. */
   fun updateWidth (dimensions : Dom.Dimensions) {
-    next { width = dimensions.width }
+    next { width: dimensions.width }
   }
 
   /* Renders the component. */
   fun render : Html {
-    try {
-      {content, code} =
-        data
+    let {content, code} =
+      data
 
-      <div::base as base>
-        if (Html.isNotEmpty(warning)) {
-          <{ warning }>
-        }
+    <div::base as base>
+      if (Html.isNotEmpty(warning)) {
+        <{ warning }>
+      }
 
-        <div::demo-area>
-          <div::demo-area-wrapper>
-            <{ content }>
-          </div>
-        </div>
-
-        if (Html.isNotEmpty(controls)) {
-          <div::controls>
-            <{ controls }>
-          </div>
-        }
-
-        <div::code>
-          <{ highlight(code) }>
+      <div::demo-area>
+        <div::demo-area-wrapper>
+          <{ content }>
         </div>
       </div>
-    }
+
+      if (Html.isNotEmpty(controls)) {
+        <div::controls>
+          <{ controls }>
+        </div>
+      }
+
+      <div::code>
+        <{ highlight(code) }>
+      </div>
+    </div>
   }
 }

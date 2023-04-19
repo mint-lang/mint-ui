@@ -1,7 +1,7 @@
 /* This is a cell of the calendar component. */
 component Ui.Calendar.Cell {
   /* The click event. */
-  property onClick : Function(Time, Promise(Never, Void)) = Promise.never1
+  property onClick : Function(Time, Promise(Void)) = Promise.never1
 
   /* The language to use for time formatting. */
   property language : Time.Format.Language = Time.Format:ENGLISH
@@ -61,17 +61,17 @@ component Ui.Calendar.Cell {
   }
 
   /* The click event handler. */
-  fun handleClick (event : Html.Event) : Promise(Never, Void) {
+  fun handleClick (event : Html.Event) : Promise(Void) {
     onClick(day)
   }
 
   /* Renders the component. */
   fun render : Html {
     <div::base
-      title={Time.format(language, "%Y-%m-%d", day)}
+      title={Time.format(day, language, "%Y-%m-%d")}
       onClick={handleClick}>
 
-      <{ Time.format(language, "%d", day) }>
+      <{ Time.format(day, language, "%d") }>
 
     </div>
   }

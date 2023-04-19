@@ -21,40 +21,35 @@ global component Ui.Notifications {
   }
 
   /* Shows the given content as a notification with default duration. */
-  fun notifyDefault (content : Html) : Promise(Never, Void) {
+  fun notifyDefault (content : Html) : Promise(Void) {
     notify(content, 7000)
   }
 
   /* Shows the given content as a notification with the given duration. */
-  fun notify (content : Html, duration : Number) : Promise(Never, Void) {
-    sequence {
-      id =
-        Uid.generate()
+  fun notify (content : Html, duration : Number) : Promise(Void) {
+    let id =
+      Uid.generate()
 
-      notification =
-        {content, duration}
+    let notification =
+      {content, duration}
 
-      next { notifications = Map.set(id, notification, notifications) }
+    await next { notifications: Map.set(notifications, id, notification) }
+    await Timer.timeout(duration + 520)
 
-      Timer.timeout(duration + 520, "")
-
-      next { notifications = Map.delete(id, notifications) }
-    }
+    next { notifications: Map.delete(notifications, id) }
   }
 
   /* Renders the notifications. */
   fun render : Html {
     <div::base>
       for (id, notification of notifications) {
-        try {
-          {content, duration} =
-            notification
+        let {content, duration} =
+          notification
 
-          <Ui.Notification
-            duration={duration}
-            content={content}
-            key={id}/>
-        }
+        <Ui.Notification
+          duration={duration}
+          content={content}
+          key={id}/>
       }
     </div>
   }

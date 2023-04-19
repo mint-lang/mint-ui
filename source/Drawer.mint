@@ -36,19 +36,19 @@ global component Ui.Drawer {
   state open : Bool = false
 
   use Provider.Shortcuts {
-    shortcuts =
+    shortcuts:
       [
         {
-          condition = () : Bool { true },
-          bypassFocused = true,
-          shortcut = [27],
-          action = hide
+          condition: () : Bool { true },
+          bypassFocused: true,
+          shortcut: [27],
+          action: hide
         }
       ]
   }
 
   /* Shows the component with the given content. */
-  fun show (content : Html) : Promise(Ui.Drawer.Cancelled, Void) {
+  fun show (content : Html) : Promise(Void) {
     showWithOptions(
       content,
       900,
@@ -68,69 +68,63 @@ global component Ui.Drawer {
     zIndex : Number,
     transitionDuration : Number,
     minWidth : String,
-    openCallback : Function(Promise(Never, Void))
-  ) : Promise(Ui.Drawer.Cancelled, Void) {
-    try {
-      {resolve, reject, promise} =
-        Promise.create()
+    openCallback : Function(Promise(Void))
+  ) : Promise(Void) {
+    let {resolve, promise} =
+      Promise.create()
 
-      next
-        {
-          transitionDuration = transitionDuration,
-          focusedElement = Dom.getActiveElement(),
-          minWidth = minWidth,
-          content = content,
-          resolve = resolve,
-          zIndex = zIndex,
-          reject = reject,
-          open = true
-        }
-
-      sequence {
-        Timer.timeout(transitionDuration, "")
-        openCallback()
+    next
+      {
+        transitionDuration: transitionDuration,
+        focusedElement: Dom.getActiveElement(),
+        minWidth: minWidth,
+        content: content,
+        resolve: resolve,
+        zIndex: zIndex,
+        open: true
       }
 
-      promise
+    {
+      await Timer.timeout(transitionDuration)
+      openCallback()
     }
+
+    promise
   }
 
   /* Cancels the drawer. */
-  fun cancel : Promise(Never, Void) {
-    sequence {
-      next { open = false }
+  fun cancel : Promise(Void) {
+    await next { open: false }
 
-      Timer.timeout(transitionDuration, "")
-      reject(`null` as Ui.Drawer.Cancelled)
-      Dom.focus(focusedElement)
+    await Timer.timeout(transitionDuration)
 
-      next
-        {
-          reject = (error : Ui.Drawer.Cancelled) { void },
-          resolve = (value : Void) { void },
-          focusedElement = Maybe::Nothing,
-          content = <{  }>
-        }
-    }
+    /* await reject(`null` as Ui.Drawer.Cancelled) */
+    await Dom.focus(focusedElement)
+
+    next
+      {
+        reject: (error : Ui.Drawer.Cancelled) { void },
+        resolve: (value : Void) { void },
+        focusedElement: Maybe::Nothing,
+        content: <{  }>
+      }
   }
 
   /* Hides the drawer. */
-  fun hide : Promise(Never, Void) {
-    sequence {
-      next { open = false }
+  fun hide : Promise(Void) {
+    await next { open: false }
 
-      Timer.timeout(transitionDuration, "")
-      resolve(void)
-      Dom.focus(focusedElement)
+    await Timer.timeout(transitionDuration)
+    await resolve(void)
+    await Dom.focus(focusedElement)
 
-      next
-        {
-          reject = (error : Ui.Drawer.Cancelled) { void },
-          resolve = (value : Void) { void },
-          focusedElement = Maybe::Nothing,
-          content = <{  }>
-        }
-    }
+    next
+      {
+        reject: (error : Ui.Drawer.Cancelled) { void },
+        resolve: (value : Void) { void },
+        focusedElement: Maybe::Nothing,
+        content: <{  }>
+      }
   }
 
   /* Renders the drawer. */

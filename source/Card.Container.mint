@@ -80,18 +80,16 @@ component Ui.Card.Container {
   existence of the fields.
   */
   get rows : String {
-    try {
-      size =
-        [
-          Html.isNotEmpty(title),
-          Html.isNotEmpty(subtitle),
-          Html.isNotEmpty(content)
-        ]
-        |> Array.select((item : Bool) { item })
-        |> Array.size()
+    let size =
+      [
+        Html.isNotEmpty(title),
+        Html.isNotEmpty(subtitle),
+        Html.isNotEmpty(content)
+      ]
+      |> Array.select((item : Bool) { item })
+      |> Array.size()
 
-      "repeat(#{size}, auto)"
-    }
+    "repeat(#{size}, auto)"
   }
 
   /* Returns whether or not to display an image. */

@@ -64,38 +64,34 @@ component Ui.Breadcrumbs {
     if (mobile) {
       <></>
     } else {
-      try {
-        content =
-          for (item of items) {
-            try {
-              {href, content} =
-                item
+      let content =
+        for (item of items) {
+          let {href, content} =
+            item
 
-              if (String.isBlank(href)) {
-                <span::breadcrumb aria-label="breadcrumb">
-                  <{ content }>
-                </span>
-              } else {
-                <a::breadcrumb::link
-                  aria-label="breadcrumb"
-                  href={href}>
+          if (String.isBlank(href)) {
+            <span::breadcrumb aria-label="breadcrumb">
+              <{ content }>
+            </span>
+          } else {
+            <a::breadcrumb::link
+              aria-label="breadcrumb"
+              href={href}>
 
-                  <{ content }>
+              <{ content }>
 
-                </a>
-              }
-            }
+            </a>
           }
+        }
 
-        span =
-          <span::separator aria-hidden="true">
-            <{ separator }>
-          </span>
+      let span =
+        <span::separator aria-hidden="true">
+          <{ separator }>
+        </span>
 
-        <nav::base as base>
-          <{ Array.intersperse(span, content) }>
-        </nav>
-      }
+      <nav::base as base>
+        <{ Array.intersperse(content, span) }>
+      </nav>
     }
   }
 }

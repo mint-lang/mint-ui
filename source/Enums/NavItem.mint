@@ -19,7 +19,7 @@ enum Ui.NavItem {
 
   /* An item which has an action. */
   Item(
-    action : Function(Html.Event, Promise(Never, Void)),
+    action : Function(Html.Event, Promise(Void)),
     iconBefore : Html,
     iconAfter : Html,
     label : String)

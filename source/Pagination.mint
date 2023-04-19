@@ -3,7 +3,7 @@ component Ui.Pagination {
   connect Ui exposing { mobile }
 
   /* The change event handler. */
-  property onChange : Function(Number, Promise(Never, Void)) = Promise.never1
+  property onChange : Function(Number, Promise(Void)) = Promise.never1
 
   /* The size of the component. */
   property size : Ui.Size = Ui.Size::Inherit
@@ -52,98 +52,94 @@ component Ui.Pagination {
 
   /* Renders a button. */
   fun renderButton (data : Tuple(Number, Bool, String, Html)) : Html {
-    try {
-      {page, active, label, icon} =
-        data
+    let {page, active, label, icon} =
+      data
 
-      type =
-        if (active) {
-          "primary"
-        } else {
-          "faded"
-        }
+    let type =
+      if (active) {
+        "primary"
+      } else {
+        "faded"
+      }
 
-      key =
-        Number.toString(page) + label
+    let key =
+      Number.toString(page) + label
 
-      <Ui.Button
-        onClick={(event : Html.Event) { onChange(page) }}
-        disabled={disabled}
-        iconBefore={icon}
-        ellipsis={false}
-        label={label}
-        type={type}
-        key={key}/>
-    }
+    <Ui.Button
+      onClick={(event : Html.Event) { onChange(page) }}
+      disabled={disabled}
+      iconBefore={icon}
+      ellipsis={false}
+      label={label}
+      type={type}
+      key={key}/>
   }
 
   /* Renders the pagination. */
   fun render : Html {
-    try {
-      pages =
-        Math.floor(Math.max(total - 1, 0) / perPage)
+    let pages =
+      Math.floor(Math.max(total - 1, 0) / perPage)
 
-      buttonRange =
-        Array.range(
-          Math.max(0, page - sidePages),
-          Math.min(page + sidePages, pages))
+    let buttonRange =
+      Array.range(
+        Math.max(0, page - sidePages),
+        Math.min(page + sidePages, pages))
 
-      <div::base>
-        <Ui.Container
-          gap={Ui.Size::Em(0.625)}
-          justify="start"
-          align="stretch">
+    <div::base>
+      <Ui.Container
+        gap={Ui.Size::Em(0.625)}
+        justify="start"
+        align="stretch">
 
-          /* First page button */
-          if (!mobile && !Array.contains(0, buttonRange)) {
-            renderButton({0, false, "", Ui.Icons:DOUBLE_CHEVRON_LEFT})
-          }
+        /* First page button */
+        if (!mobile && !Array.contains(buttonRange, 0)) {
+          renderButton({0, false, "", Ui.Icons:DOUBLE_CHEVRON_LEFT})
+        }
 
-          /* Previous button */
-          if (page > 0) {
-            renderButton({page - 1, false, "", Ui.Icons:CHEVRON_LEFT})
-          }
+        /* Previous button */
+        if (page > 0) {
+          renderButton({page - 1, false, "", Ui.Icons:CHEVRON_LEFT})
+        }
 
-          /* Left ellipsis */
-          if (!mobile && sidePages < (page - 1) && pages > 0) {
-            <span::ellipsis/>
-          }
+        /* Left ellipsis */
+        if (!mobile && sidePages < (page - 1) && pages > 0) {
+          <span::ellipsis/>
+        }
 
-          if (mobile) {
-            if (page != pages) {
-              [
-                <div::mobile-indicator>
-                  <{ Number.toString(page + 1) }>
-                  " of "
-                  <{ Number.toString(pages + 1) }>
-                </div>
-              ]
-            } else {
-              []
-            }
+        if (mobile) {
+          if (page != pages) {
+            [
+              <div::mobile-indicator>
+                <{ Number.toString(page + 1) }>
+                " of "
+                <{ Number.toString(pages + 1) }>
+              </div>
+            ]
           } else {
-            for (index of buttonRange) {
-              renderButton({index, index == page, Number.toString(index + 1), <></>})
-            }
+            []
           }
-
-          /* Right ellipsis */
-          if (!mobile && (page + sidePages + 1 < pages) && pages > 0) {
-            <span::ellipsis/>
+        } else {
+          for (index of buttonRange) {
+            renderButton({index, index == page, Number.toString(index + 1), <></>})
           }
+        }
 
-          /* Next page button */
-          if (page < pages && pages > 0) {
-            renderButton({page + 1, false, "", Ui.Icons:CHEVRON_RIGHT})
-          }
+        /* Right ellipsis */
+        if (!mobile && (page + sidePages + 1 < pages) && pages > 0) {
+          <span::ellipsis/>
+        }
 
-          /* Last page button */
-          if (!mobile && page < pages && !Array.contains(pages, buttonRange)) {
-            renderButton({pages, false, "", Ui.Icons:DOUBLE_CHEVRON_RIGHT})
-          }
+        /* Next page button */
+        if (page < pages && pages > 0) {
+          renderButton({page + 1, false, "", Ui.Icons:CHEVRON_RIGHT})
+        }
 
-        </Ui.Container>
-      </div>
-    }
+        /* Last page button */
+        if (!mobile && page < pages && !Array.contains(buttonRange, pages)) {
+          renderButton({pages, false, "", Ui.Icons:DOUBLE_CHEVRON_RIGHT})
+        }
+
+      </Ui.Container>
+    </div>
   }
 }

@@ -25,14 +25,14 @@ component Ui.Layout.Documentation {
 
   /* We are using this provider to update the `tocShown` state. */
   use Provider.ElementSize {
-    changes = updateTocShown,
-    element = base
+    changes: updateTocShown,
+    element: base
   }
 
   /* We are using the mutation provider to update elements on the fly. */
   use Provider.Mutation {
-    changes = updateToc,
-    element = content
+    changes: updateToc,
+    element: content
   }
 
   /* The styles for the base. */
@@ -149,28 +149,28 @@ component Ui.Layout.Documentation {
   /* Gets the table of contents data of an element. */
   fun getTocData (element : Dom.Element) : Tuple(String, String) {
     {
-      Maybe.withDefault("", Dom.getAttribute("name", element)),
+      Maybe.withDefault(Dom.getAttribute(element, "name"), ""),
       Dom.getTextContent(element)
     }
   }
 
   /* Updates the `tocShown` state based on the dimensions and breakpoint. */
   fun updateTocShown (dimensions : Dom.Dimensions) {
-    next { tocShown = dimensions.width > tocBreakpoint }
+    next { tocShown: dimensions.width > tocBreakpoint }
   }
 
   /* Updates the table of contents. */
   fun updateToc {
     case (content) {
       Maybe::Just(element) =>
-        try {
-          items =
-            Dom.getElementsBySelector("a[name]", element)
+        {
+          let items =
+            Dom.getElementsBySelector(element, "a[name]")
 
-          tocItems =
-            Array.map(getTocData, items)
+          let tocItems =
+            Array.map(items, getTocData)
 
-          next { tocItems = tocItems }
+          next { tocItems: tocItems }
         }
 
       => next { }
@@ -178,7 +178,7 @@ component Ui.Layout.Documentation {
   }
 
   /* Handles the change event from the select. */
-  fun openActionSheet (event : Html.Event) : Promise(Never, Void) {
+  fun openActionSheet (event : Html.Event) : Promise(Void) {
     Ui.ActionSheet.show(items)
   }
 

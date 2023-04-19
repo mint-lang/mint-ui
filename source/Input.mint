@@ -1,34 +1,34 @@
 /* A component for getting user input. */
 component Ui.Input {
   /* The event handler for the icons click event. */
-  property onIconClick : Function(Html.Event, Promise(Never, Void)) = Promise.never1
+  property onIconClick : Function(Html.Event, Promise(Void)) = Promise.never1
 
   /* The `mousedown` event handler. */
-  property onMouseDown : Function(Html.Event, Promise(Never, Void)) = Promise.never1
+  property onMouseDown : Function(Html.Event, Promise(Void)) = Promise.never1
 
   /* The `mouseup` event handler. */
-  property onMouseUp : Function(Html.Event, Promise(Never, Void)) = Promise.never1
+  property onMouseUp : Function(Html.Event, Promise(Void)) = Promise.never1
 
   /* The `keydown` event handler. */
-  property onKeyDown : Function(Html.Event, Promise(Never, Void)) = Promise.never1
+  property onKeyDown : Function(Html.Event, Promise(Void)) = Promise.never1
 
   /* The `keyup` event handler. */
-  property onKeyUp : Function(Html.Event, Promise(Never, Void)) = Promise.never1
+  property onKeyUp : Function(Html.Event, Promise(Void)) = Promise.never1
 
   /* The `change` event handler. */
-  property onChange : Function(String, Promise(Never, Void)) = Promise.never1
+  property onChange : Function(String, Promise(Void)) = Promise.never1
 
   /* The event handler when the user tabs out of the input. */
-  property onTabOut : Function(Promise(Never, Void)) = Promise.never
+  property onTabOut : Function(Promise(Void)) = Promise.never
 
   /* The event handler when the user tabs into the input. */
-  property onTabIn : Function(Promise(Never, Void)) = Promise.never
+  property onTabIn : Function(Promise(Void)) = Promise.never
 
   /* The `focus` event handler. */
-  property onFocus : Function(Promise(Never, Void)) = Promise.never
+  property onFocus : Function(Promise(Void)) = Promise.never
 
   /* The `blur` event handler. */
-  property onBlur : Function(Promise(Never, Void)) = Promise.never
+  property onBlur : Function(Promise(Void)) = Promise.never
 
   /* The size of the input. */
   property size : Ui.Size = Ui.Size::Inherit
@@ -67,9 +67,9 @@ component Ui.Input {
   state timeoutId : Number = 0
 
   use Providers.TabFocus {
-    onTabOut = onTabOut,
-    onTabIn = onTabIn,
-    element = input
+    onTabOut: onTabOut,
+    onTabIn: onTabIn,
+    element: input
   }
 
   /* The styles for the base. */
@@ -170,40 +170,35 @@ component Ui.Input {
   }
 
   /* Focuses the input. */
-  fun focus : Promise(Never, Void) {
+  fun focus : Promise(Void) {
     Dom.focus(input)
   }
 
   /* Handles the `input` and `change` events. */
   fun handleChange (event : Html.Event) {
     if (inputDelay == 0) {
-      try {
-        next { currentValue = Maybe::Nothing }
-
-        onChange(Dom.getValue(event.target))
-      }
+      next { currentValue: Maybe::Nothing }
+      onChange(Dom.getValue(event.target))
     } else {
-      try {
-        {nextId, nextValue, promise} =
-          Ui.inputDelayHandler(timeoutId, inputDelay, event)
+      let {nextId, nextValue, promise} =
+        Ui.inputDelayHandler(timeoutId, inputDelay, event)
 
-        next
-          {
-            currentValue = Maybe::Just(nextValue),
-            timeoutId = nextId
-          }
-
-        sequence {
-          /* Await the promise here. */
-          promise
-
-          actualValue =
-            Maybe.withDefault(value, currentValue)
-
-          next { currentValue = Maybe::Nothing }
-
-          onChange(actualValue)
+      next
+        {
+          currentValue: Maybe::Just(nextValue),
+          timeoutId: nextId
         }
+
+      {
+        /* Await the promise here. */
+        await promise
+
+        let actualValue =
+          Maybe.withDefault(currentValue, value)
+
+        await next { currentValue: Maybe::Nothing }
+
+        onChange(actualValue)
       }
     }
   }
@@ -220,7 +215,7 @@ component Ui.Input {
         onFocus={onFocus}
         onKeyUp={onKeyUp}
         onBlur={onBlur}
-        value={Maybe.withDefault(value, currentValue)}
+        value={Maybe.withDefault(currentValue, value)}
         placeholder={placeholder}
         disabled={disabled}
         list={list}

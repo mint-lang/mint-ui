@@ -31,7 +31,7 @@ component Ui.StickyPanel {
   state top : Number = 0
 
   use Provider.AnimationFrame {
-    frames = updateDimensions
+    frames: updateDimensions
   } when {
     shouldCalculate
   }
@@ -54,16 +54,7 @@ component Ui.StickyPanel {
     dimensions : Dom.Dimensions,
     panel : Dom.Dimensions
   ) : Dom.Dimensions {
-    { panel |
-      bottom = top + panel.height,
-      right = left + panel.width,
-      left = left,
-      top = top,
-      x = left,
-      y = top
-    }
-  } where {
-    top =
+    let top =
       case (position) {
         Ui.Position::BottomCenter => dimensions.bottom + offset
         Ui.Position::BottomRight => dimensions.bottom + offset
@@ -82,7 +73,7 @@ component Ui.StickyPanel {
         Ui.Position::LeftTop => dimensions.top
       }
 
-    left =
+    let left =
       case (position) {
         Ui.Position::BottomCenter => dimensions.left + (dimensions.width / 2) - (panel.width / 2)
         Ui.Position::BottomRight => dimensions.right - panel.width
@@ -100,45 +91,52 @@ component Ui.StickyPanel {
         Ui.Position::LeftBottom => dimensions.left - panel.width - offset
         Ui.Position::LeftTop => dimensions.left - panel.width - offset
       }
+
+    { panel |
+      bottom: top + panel.height,
+      right: left + panel.width,
+      left: left,
+      top: top,
+      x: left,
+      y: top
+    }
   }
 
   /* Calculates the position of the panel. */
-  fun updateDimensions (timestamp : Number) : Promise(Never, Void) {
-    next
-      {
-        left = finalPosition.left,
-        top = finalPosition.top
-      }
-  } where {
-    panelDimensions =
+  fun updateDimensions (timestamp : Number) : Promise(Void) {
+    let panelDimensions =
       panel
       |> Maybe.withDefault(DUMMY)
       |> Dom.getDimensions()
 
-    dimensions =
+    let dimensions =
       `this.base`
       |> Dom.getDimensions()
 
-    favoredPosition =
+    let favoredPosition =
       calculatePosition(position, dimensions, panelDimensions)
 
-    finalPosition =
+    let finalPosition =
       if (Ui.isFullyVisible(favoredPosition)) {
         favoredPosition
       } else {
-        try {
-          inversePosition =
-            calculatePosition(
-              Ui.Position.inverse(position),
-              dimensions,
-              panelDimensions)
+        let inversePosition =
+          calculatePosition(
+            Ui.Position.inverse(position),
+            dimensions,
+            panelDimensions)
 
-          if (Ui.isFullyVisible(inversePosition)) {
-            inversePosition
-          } else {
-            favoredPosition
-          }
+        if (Ui.isFullyVisible(inversePosition)) {
+          inversePosition
+        } else {
+          favoredPosition
         }
+      }
+
+    next
+      {
+        left: finalPosition.left,
+        top: finalPosition.top
       }
   }
 

@@ -12,27 +12,26 @@ component Ui.Theme.Root {
   property children : Array(Html) = []
 
   fun render : Html {
-    try {
-      fontSize =
-        if (mobile) {
-          "14px"
-        } else {
-          "16px"
-        }
+    let fontSize =
+      if (mobile) {
+        "14px"
+      } else {
+        "16px"
+      }
 
-      resolvedTokens =
+    let resolvedTokens =
+      [
         [
-          [
-            Ui.Token::Simple(name = "title-font-family", value = fontConfiguration.titleName),
-            Ui.Token::Simple(name = "font-family", value = fontConfiguration.name)
-          ],
-          tokens
-        ]
-        |> Array.concat()
-        |> Ui.Token.resolveMany(darkMode)
+          Ui.Token::Simple(name: "title-font-family", value: fontConfiguration.titleName),
+          Ui.Token::Simple(name: "font-family", value: fontConfiguration.name)
+        ],
+        tokens
+      ]
+      |> Array.concat()
+      |> Ui.Token.resolveMany(darkMode)
 
-      css =
-        "
+    let css =
+      "
         @font-face {
           font-family: '#{fontConfiguration.titleName}';
           font-style: normal;
@@ -101,21 +100,20 @@ component Ui.Theme.Root {
         }
         "
 
-      styles =
-        <>
-          <style>
-            <{ css }>
-          </style>
+    let styles =
+      <>
+        <style>
+          <{ css }>
+        </style>
 
-          <style>
-            <{ ":root { #{resolvedTokens} } " }>
-          </style>
-        </>
+        <style>
+          <{ ":root { #{resolvedTokens} } " }>
+        </style>
+      </>
 
-      <{
-        `_createPortal(#{styles}, document.head)`
-        children
-      }>
-    }
+    <{
+      `_createPortal(#{styles}, document.head)`
+      children
+    }>
   }
 }

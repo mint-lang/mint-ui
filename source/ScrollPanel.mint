@@ -28,13 +28,13 @@ component Ui.ScrollPanel {
   state clientSize : Number = 0
 
   use Provider.ElementSize {
-    element = Maybe.oneOf([horizontal, vertical]),
-    changes = recalculateFromSize
+    element: Maybe.oneOf([horizontal, vertical]),
+    changes: recalculateFromSize
   }
 
   use Provider.Mutation {
-    element = Maybe.oneOf([horizontal, vertical]),
-    changes = recalculate
+    element: Maybe.oneOf([horizontal, vertical]),
+    changes: recalculate
   }
 
   /* Base style for the component. */
@@ -173,24 +173,24 @@ component Ui.ScrollPanel {
   This is needed to be a separate function so the provider doesn't re-subscribe
   every update.
   */
-  fun recalculateFromSize (dimensions : Dom.Dimensions) : Promise(Never, Void) {
+  fun recalculateFromSize (dimensions : Dom.Dimensions) : Promise(Void) {
     recalculate()
   }
 
   /* Sets the state variables from the current state of the element. */
-  fun recalculate : Promise(Never, Void) {
+  fun recalculate : Promise(Void) {
     if (orientation == "horizontal") {
       next
         {
-          scrollPosition =
+          scrollPosition:
             horizontal
             |> Maybe.map(Dom.getScrollLeft)
             |> Maybe.withDefault(0),
-          clientSize =
+          clientSize:
             horizontal
             |> Maybe.map(Dom.getClientWidth)
             |> Maybe.withDefault(0),
-          scrollSize =
+          scrollSize:
             horizontal
             |> Maybe.map(Dom.getScrollWidth)
             |> Maybe.withDefault(0)
@@ -198,15 +198,15 @@ component Ui.ScrollPanel {
     } else {
       next
         {
-          scrollPosition =
+          scrollPosition:
             vertical
             |> Maybe.map(Dom.getScrollTop)
             |> Maybe.withDefault(0),
-          clientSize =
+          clientSize:
             vertical
             |> Maybe.map(Dom.getClientHeight)
             |> Maybe.withDefault(0),
-          scrollSize =
+          scrollSize:
             vertical
             |> Maybe.map(Dom.getScrollHeight)
             |> Maybe.withDefault(0)

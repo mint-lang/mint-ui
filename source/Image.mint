@@ -42,13 +42,13 @@ component Ui.Image {
   state loaded : Bool = false
 
   use Provider.Intersection {
-    rootMargin = "50px",
-    threshold = 0.01,
-    element = base,
-    callback =
+    rootMargin: "50px",
+    threshold: 0.01,
+    element: base,
+    callback:
       (ratio : Number) {
         if (ratio > 0) {
-          next { visible = true }
+          next { visible: true }
         } else {
           next { }
         }
@@ -68,7 +68,7 @@ component Ui.Image {
     display: block;
     width: inherit;
 
-    if (Set.has(src, images) || loaded) {
+    if (Set.has(images, src) || loaded) {
       opacity: 1;
     } else {
       opacity: 0;
@@ -101,14 +101,12 @@ component Ui.Image {
   }
 
   /* The load event handler. */
-  fun handleLoad : Promise(Never, Void) {
-    if (Set.has(src, images)) {
+  fun handleLoad : Promise(Void) {
+    if (Set.has(images, src)) {
       next { }
     } else {
-      sequence {
-        setImageLoaded(src)
-        next { loaded = true }
-      }
+      await setImageLoaded(src)
+      next { loaded: true }
     }
   }
 

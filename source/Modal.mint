@@ -18,11 +18,8 @@ Some of its features:
   (which is usually the one that opened the modal).
 */
 global component Ui.Modal {
-  /* The reject function. */
-  state reject : Function(Ui.Modal.Cancelled, Void) = (error : Ui.Modal.Cancelled) { void }
-
   /* The resolve function. */
-  state resolve : Function(Void, Void) = (value : Void) { void }
+  state resolve : Function(Maybe(Void), Void) = (value : Maybe(Void)) { void }
 
   /* The previously focused element. */
   state focusedElement : Maybe(Dom.Element) = Maybe::Nothing
@@ -40,19 +37,19 @@ global component Ui.Modal {
   state open : Bool = false
 
   use Provider.Shortcuts {
-    shortcuts =
+    shortcuts:
       [
         {
-          condition = () : Bool { true },
-          bypassFocused = true,
-          shortcut = [27],
-          action = hide
+          condition: () : Bool { true },
+          bypassFocused: true,
+          shortcut: [27],
+          action: cancel
         }
       ]
   }
 
   /* Shows the component with the given content. */
-  fun show (content : Html) : Promise(Ui.Modal.Cancelled, Void) {
+  fun show (content : Html) : Promise(Maybe(Void)) {
     showWithOptions(
       content,
       900,
@@ -70,68 +67,60 @@ global component Ui.Modal {
     content : Html,
     zIndex : Number,
     transitionDuration : Number,
-    openCallback : Function(Promise(Never, Void))
-  ) : Promise(Ui.Modal.Cancelled, Void) {
-    try {
-      {resolve, reject, promise} =
-        Promise.create()
+    openCallback : Function(Promise(Void))
+  ) : Promise(Maybe(Void)) {
+    let {resolve, promise} =
+      Promise.create()
 
-      next
-        {
-          transitionDuration = transitionDuration,
-          focusedElement = Dom.getActiveElement(),
-          content = content,
-          resolve = resolve,
-          zIndex = zIndex,
-          reject = reject,
-          open = true
-        }
-
-      sequence {
-        Timer.timeout(transitionDuration, "")
-        openCallback()
+    next
+      {
+        transitionDuration: transitionDuration,
+        focusedElement: Dom.getActiveElement(),
+        content: content,
+        resolve: resolve,
+        zIndex: zIndex,
+        open: true
       }
 
-      promise
+    /* This block makes it so that it's statements are run asynchronously. */
+    {
+      await Timer.timeout(transitionDuration)
+      openCallback()
     }
+
+    promise
   }
 
   /* Cancels the modal. */
-  fun cancel : Promise(Never, Void) {
-    sequence {
-      next { open = false }
+  fun cancel : Promise(Void) {
+    await next { open: false }
 
-      Timer.timeout(transitionDuration, "")
-      reject(`null` as Ui.Modal.Cancelled)
-      Dom.focus(focusedElement)
+    await Timer.timeout(transitionDuration)
+    await resolve(Maybe::Nothing)
+    await Dom.focus(focusedElement)
 
-      next
-        {
-          reject = (error : Ui.Modal.Cancelled) { void },
-          resolve = (value : Void) { void },
-          focusedElement = Maybe::Nothing,
-          content = <{  }>
-        }
-    }
+    next
+      {
+        resolve: (value : Maybe(Void)) { void },
+        focusedElement: Maybe::Nothing,
+        content: <{  }>
+      }
   }
 
   /* Hides the modal. */
-  fun hide : Promise(Never, Void) {
-    sequence {
-      next { open = false }
+  fun hide : Promise(Void) {
+    await next { open: false }
 
-      Timer.timeout(transitionDuration, "")
-      resolve(void)
-      Dom.focus(focusedElement)
+    await Timer.timeout(transitionDuration)
+    await resolve(Maybe::Just(void))
+    await Dom.focus(focusedElement)
 
-      next
-        {
-          reject = (error : Ui.Modal.Cancelled) { void },
-          resolve = (value : Void) { void },
-          focusedElement = Maybe::Nothing,
-          content = <{  }>
-        }
-    }
+    await next
+      {
+        resolve: (value : Maybe(Void)) { void },
+        focusedElement: Maybe::Nothing,
+        content: <{  }>
+      }
   }
 
   /* Renders the modal. */

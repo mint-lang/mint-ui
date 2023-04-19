@@ -8,32 +8,26 @@ component Ui.FocusTrap {
     case (base) {
       Maybe::Just(element) =>
         if (event.keyCode == 9) {
-          try {
-            target =
-              Maybe::Just(event.target)
+          let target =
+            Maybe::Just(event.target)
 
-            elements =
-              Dom.getFocusableElements(element)
+          let elements =
+            Dom.getFocusableElements(element)
 
-            first =
-              Array.first(elements)
+          let first =
+            Array.first(elements)
 
-            last =
-              Array.last(elements)
+          let last =
+            Array.last(elements)
 
-            if (event.shiftKey && first == target) {
-              try {
-                Html.Event.preventDefault(event)
-                Dom.focus(last)
-              }
-            } else if (!event.shiftKey && last == target) {
-              try {
-                Html.Event.preventDefault(event)
-                Dom.focus(first)
-              }
-            } else {
-              next { }
-            }
+          if (event.shiftKey && first == target) {
+            Html.Event.preventDefault(event)
+            Dom.focus(last)
+          } else if (!event.shiftKey && last == target) {
+            Html.Event.preventDefault(event)
+            Dom.focus(first)
+          } else {
+            next { }
           }
         } else {
           next { }

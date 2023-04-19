@@ -1,7 +1,7 @@
 /* A sortable table component, which collapses into a definition list on small screens. */
 component Ui.Table {
   /* The handler for the order change event. */
-  property onOrderChange : Function(Tuple(String, String), Promise(Never, Void)) = Promise.never1
+  property onOrderChange : Function(Tuple(String, String), Promise(Void)) = Promise.never1
 
   /* The data for the rows. */
   property rows : Array(Tuple(String, Array(Ui.Cell))) = []
@@ -29,8 +29,8 @@ component Ui.Table {
 
   /* We are using this provider to update the `width` state. */
   use Provider.ElementSize {
-    changes = updateWidth,
-    element = base
+    changes: updateWidth,
+    element: base
   }
 
   /* The style for the table. */
@@ -92,7 +92,7 @@ component Ui.Table {
 
   /* Updates the `width` state based on the dimensions and breakpoint. */
   fun updateWidth (dimensions : Dom.Dimensions) {
-    next { width = dimensions.width }
+    next { width: dimensions.width }
   }
 
   /* Renders the table. */
@@ -100,7 +100,7 @@ component Ui.Table {
     <div as base>
       if (mobile) {
         <Ui.DefinitionList
-          headers={Array.map(.label, headers)}
+          headers={Array.map(headers, (header : Ui.Table.Header) { header.label })}
           size={size}
           rows={rows}/>
       } else {
@@ -117,18 +117,16 @@ component Ui.Table {
 
           <tbody>
             for (row of rows) {
-              try {
-                {summary, cells} =
-                  row
+              let {summary, cells} =
+                row
 
-                <tr>
-                  for (cell of cells) {
-                    <td>
-                      <Ui.Cell cell={cell}/>
-                    </td>
-                  }
-                </tr>
-              }
+              <tr>
+                for (cell of cells) {
+                  <td>
+                    <Ui.Cell cell={cell}/>
+                  </td>
+                }
+              </tr>
             }
           </tbody>
         </table>

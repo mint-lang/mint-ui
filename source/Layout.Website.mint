@@ -84,15 +84,13 @@ component Ui.Layout.Website {
     ]
     |> Array.map(
       (item : Tuple(Html, String)) {
-        try {
-          {html, ratio} =
-            item
+        let {html, ratio} =
+          item
 
-          if (Html.isNotEmpty(html)) {
-            Maybe::Just(ratio)
-          } else {
-            Maybe::Nothing
-          }
+        if (Html.isNotEmpty(html)) {
+          Maybe::Just(ratio)
+        } else {
+          Maybe::Nothing
         }
       })
     |> Array.compact
