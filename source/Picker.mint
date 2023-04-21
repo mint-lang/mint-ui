@@ -127,7 +127,7 @@ component Ui.Picker {
     status == Ui.Picker.Status::Open
   }
 
-  /* Returns if the picker is focued. */
+  /* Returns if the picker is focused. */
   get focused : Bool {
     status == Ui.Picker.Status::Focused ||
       status == Ui.Picker.Status::Open

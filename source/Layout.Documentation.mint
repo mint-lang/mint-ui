@@ -8,7 +8,7 @@ component Ui.Layout.Documentation {
   /* The size of the component. */
   property size : Ui.Size = Ui.Size::Inherit
 
-  /* The items groupped by a string. */
+  /* The items grouped by a string. */
   property items : Array(Ui.NavItem) = []
 
   /* The breakpoint to render the table of contents. */

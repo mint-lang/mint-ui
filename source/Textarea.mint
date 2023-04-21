@@ -236,7 +236,7 @@ component Ui.Textarea {
                     })
                   |> Maybe.withDefault(<></>)
 
-                /* Map lines into spans spearated by line breaks. */
+                /* Map lines into spans separated by line breaks. */
                 let spans =
                   lines
                   |> Array.map(

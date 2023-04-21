@@ -1,4 +1,4 @@
-/* A Card is used to display data in sematically grouped way. */
+/* A Card is used to display data in semantically grouped way. */
 component Ui.Card {
   /* The click event handler. */
   property onClick : Maybe(Function(Html.Event, Promise(Void))) = Maybe::Nothing
