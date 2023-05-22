@@ -111,7 +111,7 @@ component Ui.Toggle {
     }
   }
 
-  /* Toggles the componnet. */
+  /* Toggles the component. */
   fun toggle : Promise(Void) {
     onChange(!checked)
   }

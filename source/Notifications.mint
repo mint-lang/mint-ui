@@ -15,7 +15,7 @@ global component Ui.Notifications {
     display: flex;
 
     @media (max-width: 900px) {
-      width: cacl(100vw - 1em);
+      width: calc(100vw - 1em);
       left: 1em;
     }
   }

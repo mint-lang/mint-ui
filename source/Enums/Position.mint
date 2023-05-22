@@ -17,7 +17,7 @@ enum Ui.Position {
   LeftTop
 }
 
-/* Utility functions for working with `Ui.Poisition`. */
+/* Utility functions for working with `Ui.Position`. */
 module Ui.Position {
   /* Converts the given string value in to a position. */
   fun fromString (value : String) : Ui.Position {

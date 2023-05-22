@@ -9,10 +9,10 @@ component Ui.InteractiveList.Item {
   /* The content to render. */
   property children : Array(Html) = []
 
-  /* Whether or not the item is inteded. */
+  /* Whether or not the item is intended. */
   property intended : Bool = false
 
-  /* Whether or not the item is slected. */
+  /* Whether or not the item is selected. */
   property selected : Bool = false
 
   /* Styles for the base. */

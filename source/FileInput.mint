@@ -74,7 +74,7 @@ component Ui.FileInput {
     opacity: 0.75;
   }
 
-  /* Styles for the fileds container. */
+  /* Styles for the fields container. */
   style infos {
     border-bottom: 0.0625em solid var(--file-input-border);
     margin-bottom: 0.5em;
