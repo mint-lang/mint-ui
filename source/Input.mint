@@ -79,7 +79,7 @@ component Ui.Input {
     position: relative;
     width: 100%;
 
-    if (disabled) {
+    if disabled {
       filter: saturate(0) brightness(0.8) contrast(0.5);
       cursor: not-allowed;
     }
@@ -107,12 +107,12 @@ component Ui.Input {
     /* This gets rid of the autofill. */
     filter: none;
 
-    if (showIcon) {
+    if showIcon {
       padding-right: 2.125em;
     }
 
     &:focus {
-      if (invalid) {
+      if invalid {
         border-color: var(--input-invalid-border);
         background: var(--input-invalid-color);
         color: var(--input-invalid-text);
@@ -123,7 +123,7 @@ component Ui.Input {
       }
     }
 
-    if (invalid) {
+    if invalid {
       border-color: var(--input-invalid-border);
       background: var(--input-invalid-color);
       color: var(--input-invalid-text);
@@ -147,13 +147,13 @@ component Ui.Input {
     cursor: pointer;
     display: grid;
 
-    if (iconInteractive && !disabled) {
+    if iconInteractive && !disabled {
       pointer-events: auto;
     } else {
       pointer-events: none;
     }
 
-    if (invalid) {
+    if invalid {
       color: var(--input-invalid-text);
     } else {
       color: var(--input-text);
@@ -176,7 +176,7 @@ component Ui.Input {
 
   /* Handles the `input` and `change` events. */
   fun handleChange (event : Html.Event) {
-    if (inputDelay == 0) {
+    if inputDelay == 0 {
       next { currentValue: Maybe::Nothing }
       onChange(Dom.getValue(event.target))
     } else {
@@ -221,7 +221,7 @@ component Ui.Input {
         list={list}
         type={type}/>
 
-      if (showIcon) {
+      if showIcon {
         <div::icon onClick={onIconClick}>
           <Ui.Icon icon={icon}/>
         </div>

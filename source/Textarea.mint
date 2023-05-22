@@ -90,7 +90,7 @@ component Ui.Textarea {
     outline: none;
     margin: 0;
 
-    case (behavior) {
+    case behavior {
       "grow" =>
         position: absolute;
         overflow: hidden;
@@ -102,7 +102,7 @@ component Ui.Textarea {
       =>
     }
 
-    case (behavior) {
+    case behavior {
       "resize-horizontal" => resize: horizontal;
       "resize-vertical" => resize: vertical;
       "resize-both" => resize: both;
@@ -110,7 +110,7 @@ component Ui.Textarea {
     }
 
     &:focus {
-      if (invalid) {
+      if invalid {
         border-color: var(--input-invalid-border);
         background: var(--input-invalid-color);
         color: var(--input-invalid-text);
@@ -121,7 +121,7 @@ component Ui.Textarea {
       }
     }
 
-    if (invalid) {
+    if invalid {
       border-color: var(--input-invalid-border);
       background: var(--input-invalid-color);
       color: var(--input-invalid-text);
@@ -176,7 +176,7 @@ component Ui.Textarea {
 
   /* Handles the `input` and `change` events. */
   fun handleChange (event : Html.Event) {
-    if (inputDelay == 0) {
+    if inputDelay == 0 {
       next { currentValue: Maybe::Nothing }
 
       onChange(Dom.getValue(event.target))
@@ -207,7 +207,7 @@ component Ui.Textarea {
   /* Renders the textarea. */
   fun render : Html {
     <div::base>
-      case (behavior) {
+      case behavior {
         "grow" =>
           <div::common::mirror>
             <{
@@ -226,7 +226,7 @@ component Ui.Textarea {
                   Array.last(lines)
                   |> Maybe.map(
                     (item : String) {
-                      if (String.isBlank(item)) {
+                      if String.isBlank(item) {
                         <>
                           " "
                         </>

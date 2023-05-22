@@ -31,13 +31,13 @@ component Ui.ScrollToTop {
     font-size: #{Ui.Size.toString(size)};
     z-index: #{zIndex};
 
-    if (global) {
+    if global {
       position: fixed;
     } else {
       position: static;
     }
 
-    if (mobile) {
+    if mobile {
       bottom: 1rem;
       right: 1rem;
     } else {
@@ -45,7 +45,7 @@ component Ui.ScrollToTop {
       right: 1.5rem;
     }
 
-    if (scrollPosition < threshold) {
+    if scrollPosition < threshold {
       transform: scale(0);
       opacity: 0;
     } else {
@@ -74,7 +74,7 @@ component Ui.ScrollToTop {
           type="secondary"/>
       </div>
 
-    if (global) {
+    if global {
       <Html.Portals.Body>
         <{ base }>
       </Html.Portals.Body>

@@ -62,7 +62,7 @@ global component Ui.ActionSheet {
     flex-direction: column;
     display: flex;
 
-    if (open) {
+    if open {
       transition: visibility 1ms, opacity 320ms;
       visibility: visibilie;
       opacity: 1;
@@ -94,7 +94,7 @@ global component Ui.ActionSheet {
     grid-gap: 0.75em;
     display: grid;
 
-    if (group) {
+    if group {
       background: var(--content-faded-color);
       color: var(--content-faded-text);
       font-weight: bold;
@@ -106,7 +106,7 @@ global component Ui.ActionSheet {
   style item-interactive (group : Bool) {
     &:hover,
     &:focus {
-      if (!group) {
+      if !group {
         color: var(--primary-color);
       }
     }
@@ -128,7 +128,7 @@ global component Ui.ActionSheet {
     overflow: auto;
     min-height: 0;
 
-    if (open) {
+    if open {
       transform: translateY(0);
       opacity: 1;
     } else {
@@ -156,7 +156,7 @@ global component Ui.ActionSheet {
       border-top: 0.0625em solid var(--content-faded-border);
     }
 
-    if (mobile) {
+    if mobile {
       display: block;
     } else {
       display: inline-block;
@@ -205,9 +205,7 @@ global component Ui.ActionSheet {
 
   /* Hides the component. */
   fun hide : Promise(Void) {
-    if (!open) {
-      next { }
-    } else {
+    if open {
       await next { open: false }
 
       await Timer.timeout(320)
@@ -226,9 +224,7 @@ global component Ui.ActionSheet {
 
   /* Shows the component with the given items and options. */
   fun showWithOptions (size : Ui.Size, items : Array(Ui.NavItem)) : Promise(Void) {
-    if (Array.isEmpty(items)) {
-      next { }
-    } else {
+    if Array.size(items) > 0 {
       let {resolve, promise} =
         Promise.create()
 
@@ -240,6 +236,7 @@ global component Ui.ActionSheet {
           size: size
         }
 
+      /* This is needed so the things happen after the promise is returned. */
       {
         /* We need to wait for the component to be rendered before showing it. */
         await Timer.timeout(10)
@@ -248,12 +245,12 @@ global component Ui.ActionSheet {
         /* We need to wait for the element to be settled before we can focus it. */
         await Timer.timeout(100)
 
-        case (container) {
+        case container {
           Maybe::Just(element) => Dom.focusFirst(element)
           Maybe::Nothing => next { }
         }
 
-        case (scrollContainer) {
+        case scrollContainer {
           Maybe::Just(element) => Dom.scrollTo(element, 0, 0)
           Maybe::Nothing => next { }
         }
@@ -275,15 +272,11 @@ global component Ui.ActionSheet {
 
   /* The close event handler. */
   fun handleClose (event : Html.Event) : Promise(Void) {
-    case (container) {
-      Maybe::Nothing => next { }
-
-      Maybe::Just(base) =>
-        if (Dom.contains(base, event.target)) {
-          next { }
-        } else {
-          hide()
-        }
+    if let Maybe::Just(base) = container {
+      /* If the events target is outside of the container. */
+      if !Dom.contains(base, event.target) {
+        hide()
+      }
     }
   }
 
@@ -298,12 +291,10 @@ global component Ui.ActionSheet {
 
   /* The link click event handler. */
   fun handleLinkClick (href : String, event : Html.Event) {
-    if (String.isNotBlank(href) && !event.ctrlKey) {
+    if String.isNotBlank(href) && !event.ctrlKey {
       /* Wait for navigation to complete. */
       await Timer.timeout(10)
       hide()
-    } else {
-      next { }
     }
   }
 
@@ -319,22 +310,22 @@ global component Ui.ActionSheet {
   ) {
     let contents =
       <>
-        if (Html.isNotEmpty(iconBefore)) {
+        if Html.isNotEmpty(iconBefore) {
           <Ui.Icon icon={iconBefore}/>
         }
 
         <{ label }>
 
-        if (Html.isNotEmpty(iconAfter)) {
+        if Html.isNotEmpty(iconAfter) {
           <Ui.Icon icon={iconAfter}/>
         }
       </>
 
-    if (group) {
+    if group {
       <div::item(group)::item-interactive(group) onClick={onClick}>
         <{ contents }>
       </div>
-    } else if (String.isNotBlank(href)) {
+    } else if String.isNotBlank(href) {
       <a::item(group)::item-interactive(group)
         onClick={onClick}
         target={target}
@@ -354,7 +345,7 @@ global component Ui.ActionSheet {
 
   /* Renders the given navigation item. */
   fun renderItem (item : Ui.NavItem) : Html {
-    case (item) {
+    case item {
       Ui.NavItem::Html(content) =>
         <div::html>
           <{ content }>
@@ -399,7 +390,7 @@ global component Ui.ActionSheet {
             <div::gutter/>
 
             <div::group-items>
-              for (item of items) {
+              for item of items {
                 renderItem(item)
               }
             </div>
@@ -414,7 +405,7 @@ global component Ui.ActionSheet {
       <div::base as base onClick={handleClose}>
         <div::container as scrollContainer>
           <div::items as container>
-            for (item of items) {
+            for item of items {
               renderItem(item)
             }
           </div>

@@ -14,7 +14,7 @@ component Ui.Layout.Centered {
     place-content: center;
     display: grid;
 
-    if (mobile) {
+    if mobile {
       padding: 2em 1em;
     } else {
       padding: 2em;

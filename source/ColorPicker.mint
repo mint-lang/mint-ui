@@ -36,7 +36,7 @@ component Ui.ColorPicker {
     background-color: var(--checker-color-2);
     background-size: 1.25em 1.25em;
 
-    if (darkMode) {
+    if darkMode {
       border: 0.0625em solid rgba(0,0,0,0.30);
     } else {
       border: 0.0625em solid rgba(0,0,0,0.15);

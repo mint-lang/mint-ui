@@ -30,7 +30,7 @@ component Ui.InteractiveList.Item {
     grid-gap: 0.25em;
     display: grid;
 
-    if (selected) {
+    if selected {
       background: var(--primary-color);
       color: var(--primary-text);
     } else {
@@ -42,7 +42,7 @@ component Ui.InteractiveList.Item {
       background: var(--primary-color);
       color: var(--primary-text);
 
-      if (selected) {
+      if selected {
         filter: brightness(0.8) contrast(1.5);
       }
     }
@@ -51,7 +51,7 @@ component Ui.InteractiveList.Item {
   /* Renders the item. */
   fun render : Html {
     <div::base onClick={onClick}>
-      if (intended) {
+      if intended {
         <Ui.Icon icon={Ui.Icons:CHEVRON_RIGHT}/>
       }
 

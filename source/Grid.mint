@@ -27,7 +27,7 @@ component Ui.Grid {
   }
 
   get columnWidth : Ui.Size {
-    if (mobile) {
+    if mobile {
       mobileWidth
     } else {
       width

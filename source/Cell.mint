@@ -26,7 +26,7 @@ component Ui.Cell {
     white-space: pre;
     word-break: normal;
 
-    if (mobile || breakSpaces) {
+    if mobile || breakSpaces {
       white-space: break-spaces;
     }
   }
@@ -34,7 +34,7 @@ component Ui.Cell {
   /* Renders the cell. */
   fun render : Html {
     <div::base>
-      case (cell) {
+      case cell {
         Ui.Cell::Number(value) => <{ Number.toString(value) }>
         Ui.Cell::String(value) => <{ value }>
         Ui.Cell::Html(value) => value
@@ -45,7 +45,7 @@ component Ui.Cell {
           </code>
 
         Ui.Cell::HtmlItems(items, breakOnMobile) =>
-          if (mobile && breakOnMobile) {
+          if mobile && breakOnMobile {
             <Ui.Column>
               <{ items }>
             </Ui.Column>

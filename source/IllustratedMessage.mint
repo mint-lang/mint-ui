@@ -25,7 +25,7 @@ component Ui.IllustratedMessage {
     display: flex;
     flex: 1;
 
-    if (mobile) {
+    if mobile {
       padding: 3em 1em;
     } else {
       padding: 4em 0;
@@ -39,7 +39,7 @@ component Ui.IllustratedMessage {
     font-weight: bold;
     margin-top: 1em;
 
-    if (mobile) {
+    if mobile {
       font-size: 1.5em;
     } else {
       font-size: 2em;
@@ -53,7 +53,7 @@ component Ui.IllustratedMessage {
 
     text-align: center;
 
-    if (mobile) {
+    if mobile {
       font-size: 1em;
     } else {
       font-size: 1.25em;
@@ -70,7 +70,7 @@ component Ui.IllustratedMessage {
     grid-auto-flow: column;
     display: grid;
 
-    if (mobile) {
+    if mobile {
       grid-auto-flow: row;
       grid-gap: 1em;
     } else {
@@ -82,25 +82,25 @@ component Ui.IllustratedMessage {
   /* Renders the component. */
   fun render : Html {
     <div::base>
-      if (Html.isNotEmpty(image)) {
+      if Html.isNotEmpty(image) {
         <div::image>
           <{ image }>
         </div>
       }
 
-      if (Html.isNotEmpty(title)) {
+      if Html.isNotEmpty(title) {
         <div::title>
           <{ title }>
         </div>
       }
 
-      if (Html.isNotEmpty(subtitle)) {
+      if Html.isNotEmpty(subtitle) {
         <div::subtitle>
           <{ subtitle }>
         </div>
       }
 
-      if (Html.isNotEmpty(actions)) {
+      if Html.isNotEmpty(actions) {
         <div::actions>
           <{ actions }>
         </div>

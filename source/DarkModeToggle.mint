@@ -60,7 +60,7 @@ component Ui.DarkModeToggle {
     align-items: center;
     display: flex;
 
-    if (darkMode) {
+    if darkMode {
       transform: rotate(0);
       left: 0.125em;
     } else {
@@ -89,7 +89,7 @@ component Ui.DarkModeToggle {
         <div::icon>
           <Ui.Icon
             icon={
-              if (darkMode) {
+              if darkMode {
                 Ui.Icons:MOON
               } else {
                 Ui.Icons:SUN

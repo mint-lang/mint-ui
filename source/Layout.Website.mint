@@ -38,9 +38,9 @@ component Ui.Layout.Website {
     box-sizing: border-box;
     padding: 1em 2.5em 0;
 
-    if (mobile) {
+    if mobile {
       padding: 0.5em 1em 0;
-    } else if (centered) {
+    } else if centered {
       width: clamp(20em, 100%, 100em);
       margin-right: auto;
       margin-left: auto;
@@ -68,7 +68,7 @@ component Ui.Layout.Website {
     padding: 1em 0;
     display: grid;
 
-    if (alignContentToTop) {
+    if alignContentToTop {
       align-content: start;
     }
   }
@@ -87,7 +87,7 @@ component Ui.Layout.Website {
         let {html, ratio} =
           item
 
-        if (Html.isNotEmpty(html)) {
+        if Html.isNotEmpty(html) {
           Maybe::Just(ratio)
         } else {
           Maybe::Nothing
@@ -100,31 +100,31 @@ component Ui.Layout.Website {
   /* Renders the component. */
   fun render : Html {
     <div::base>
-      if (Html.isNotEmpty(notification)) {
+      if Html.isNotEmpty(notification) {
         <div>
           <{ notification }>
         </div>
       }
 
-      if (Html.isNotEmpty(header)) {
+      if Html.isNotEmpty(header) {
         <div>
           <{ header }>
         </div>
       }
 
-      if (Html.isNotEmpty(breadcrumbs)) {
+      if Html.isNotEmpty(breadcrumbs) {
         <div::breadcrumbs>
           <{ breadcrumbs }>
         </div>
       }
 
-      if (Html.isNotEmpty(content)) {
+      if Html.isNotEmpty(content) {
         <div::content>
           <{ content }>
         </div>
       }
 
-      if (Html.isNotEmpty(footer)) {
+      if Html.isNotEmpty(footer) {
         <div>
           <{ footer }>
         </div>

@@ -93,7 +93,7 @@ component Ui.ScrollPanel {
       border-left: 0.0625em solid;
       left: 0;
 
-      if (scrollPosition == 0) {
+      if scrollPosition == 0 {
         opacity: 0;
       } else {
         opacity: 1;
@@ -106,14 +106,14 @@ component Ui.ScrollPanel {
       border-right: 0.0625em solid;
       right: 0;
 
-      if (scrollPosition == (scrollSize - clientSize)) {
+      if scrollPosition == (scrollSize - clientSize) {
         opacity: 0;
       } else {
         opacity: 1;
       }
     }
 
-    if (scrollSize != clientSize) {
+    if scrollSize != clientSize {
       padding-bottom: #{extraPadding}px;
     }
   }
@@ -138,7 +138,7 @@ component Ui.ScrollPanel {
       border-top: 0.0625em solid;
       top: 0;
 
-      if (scrollPosition == 0) {
+      if scrollPosition == 0 {
         opacity: 0;
       } else {
         opacity: 1;
@@ -151,19 +151,19 @@ component Ui.ScrollPanel {
       border-bottom: 0.0625em solid;
       bottom: 0;
 
-      if (scrollPosition == (scrollSize - clientSize)) {
+      if scrollPosition == (scrollSize - clientSize) {
         opacity: 0;
       } else {
         opacity: 1;
       }
     }
 
-    if (scrollSize != clientSize) {
+    if scrollSize != clientSize {
       padding-right: #{extraPadding}px;
     }
 
     @supports (-moz-appearance:none) {
-      if (scrollSize != clientSize) {
+      if scrollSize != clientSize {
         padding-right: calc(12px + #{extraPadding}px);
       }
     }
@@ -179,44 +179,28 @@ component Ui.ScrollPanel {
 
   /* Sets the state variables from the current state of the element. */
   fun recalculate : Promise(Void) {
-    if (orientation == "horizontal") {
+    if orientation == "horizontal" {
+      if let Maybe::Just(element) = horizontal {
+        next
+          {
+            scrollPosition: Dom.getScrollLeft(element),
+            clientSize: Dom.getClientWidth(element),
+            scrollSize: Dom.getScrollWidth(element)
+          }
+      }
+    } else if let Maybe::Just(element) = vertical {
       next
         {
-          scrollPosition:
-            horizontal
-            |> Maybe.map(Dom.getScrollLeft)
-            |> Maybe.withDefault(0),
-          clientSize:
-            horizontal
-            |> Maybe.map(Dom.getClientWidth)
-            |> Maybe.withDefault(0),
-          scrollSize:
-            horizontal
-            |> Maybe.map(Dom.getScrollWidth)
-            |> Maybe.withDefault(0)
-        }
-    } else {
-      next
-        {
-          scrollPosition:
-            vertical
-            |> Maybe.map(Dom.getScrollTop)
-            |> Maybe.withDefault(0),
-          clientSize:
-            vertical
-            |> Maybe.map(Dom.getClientHeight)
-            |> Maybe.withDefault(0),
-          scrollSize:
-            vertical
-            |> Maybe.map(Dom.getScrollHeight)
-            |> Maybe.withDefault(0)
+          scrollPosition: Dom.getScrollTop(element),
+          clientSize: Dom.getClientHeight(element),
+          scrollSize: Dom.getScrollHeight(element)
         }
     }
   }
 
   /* Renders the component. */
   fun render : Html {
-    if (orientation == "horizontal") {
+    if orientation == "horizontal" {
       <div::base::horizontal as horizontal onScroll={recalculate}>
         <{ children }>
       </div>

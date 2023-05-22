@@ -44,7 +44,7 @@ component Ui.Table {
     font-family: var(--font-family);
     line-height: 170%;
 
-    if (bordered) {
+    if bordered {
       border: 0.0625em solid var(--input-border);
       background: var(--content-color);
       color: var(--content-text);
@@ -58,7 +58,7 @@ component Ui.Table {
 
     td + td,
     th + th {
-      if (bordered) {
+      if bordered {
         border-left: 0.0625em solid var(--input-border);
       }
     }
@@ -70,7 +70,7 @@ component Ui.Table {
     th {
       border-bottom: 0.125em solid var(--input-border);
 
-      if (bordered) {
+      if bordered {
         background: var(--input-color);
         color: var(--input-text);
       }
@@ -98,7 +98,7 @@ component Ui.Table {
   /* Renders the table. */
   fun render : Html {
     <div as base>
-      if (mobile) {
+      if mobile {
         <Ui.DefinitionList
           headers={Array.map(headers, (header : Ui.Table.Header) { header.label })}
           size={size}
@@ -106,7 +106,7 @@ component Ui.Table {
       } else {
         <table::base as table>
           <thead>
-            for (header of headers) {
+            for header of headers {
               <Ui.Table.Header
                 orderDirection={orderDirection}
                 onOrderChange={onOrderChange}
@@ -116,12 +116,12 @@ component Ui.Table {
           </thead>
 
           <tbody>
-            for (row of rows) {
+            for row of rows {
               let {summary, cells} =
                 row
 
               <tr>
-                for (cell of cells) {
+                for cell of cells {
                   <td>
                     <Ui.Cell cell={cell}/>
                   </td>

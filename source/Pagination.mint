@@ -56,7 +56,7 @@ component Ui.Pagination {
       data
 
     let type =
-      if (active) {
+      if active {
         "primary"
       } else {
         "faded"
@@ -92,22 +92,22 @@ component Ui.Pagination {
         align="stretch">
 
         /* First page button */
-        if (!mobile && !Array.contains(buttonRange, 0)) {
+        if !mobile && !Array.contains(buttonRange, 0) {
           renderButton({0, false, "", Ui.Icons:DOUBLE_CHEVRON_LEFT})
         }
 
         /* Previous button */
-        if (page > 0) {
+        if page > 0 {
           renderButton({page - 1, false, "", Ui.Icons:CHEVRON_LEFT})
         }
 
         /* Left ellipsis */
-        if (!mobile && sidePages < (page - 1) && pages > 0) {
+        if !mobile && sidePages < (page - 1) && pages > 0 {
           <span::ellipsis/>
         }
 
-        if (mobile) {
-          if (page != pages) {
+        if mobile {
+          if page != pages {
             [
               <div::mobile-indicator>
                 <{ Number.toString(page + 1) }>
@@ -119,23 +119,23 @@ component Ui.Pagination {
             []
           }
         } else {
-          for (index of buttonRange) {
+          for index of buttonRange {
             renderButton({index, index == page, Number.toString(index + 1), <></>})
           }
         }
 
         /* Right ellipsis */
-        if (!mobile && (page + sidePages + 1 < pages) && pages > 0) {
+        if !mobile && (page + sidePages + 1 < pages) && pages > 0 {
           <span::ellipsis/>
         }
 
         /* Next page button */
-        if (page < pages && pages > 0) {
+        if page < pages && pages > 0 {
           renderButton({page + 1, false, "", Ui.Icons:CHEVRON_RIGHT})
         }
 
         /* Last page button */
-        if (!mobile && page < pages && !Array.contains(buttonRange, pages)) {
+        if !mobile && page < pages && !Array.contains(buttonRange, pages) {
           renderButton({pages, false, "", Ui.Icons:DOUBLE_CHEVRON_RIGHT})
         }
 

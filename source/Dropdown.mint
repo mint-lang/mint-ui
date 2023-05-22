@@ -58,11 +58,11 @@ component Ui.Dropdown {
 
   /* Style for the panel. */
   style panel {
-    if (matchWidth) {
+    if matchWidth {
       width: #{width}px;
     }
 
-    if (open) {
+    if open {
       transition: transform 150ms 0ms ease,
                   visibility 1ms 0ms ease,
                   opacity 150ms 0ms ease;
@@ -82,17 +82,14 @@ component Ui.Dropdown {
 
   /* Updates the dimensions of the panel if `matchWidth` is true. */
   fun updateDimensions (timestamp : Number) : Promise(Void) {
-    case (stickyPanel) {
-      Maybe::Just(panel) =>
-        next { width: Dom.getDimensions(`#{panel}.base`).width }
-
-      Maybe::Nothing => next { }
+    if let Maybe::Just(panel) = stickyPanel {
+      next { width: Dom.getDimensions(`#{panel}.base`).width }
     }
   }
 
   /* Renders the dropdown. */
   fun render : Html {
-    if (mobile) {
+    if mobile {
       <>
         <{ element }>
 

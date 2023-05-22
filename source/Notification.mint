@@ -14,7 +14,7 @@ component Ui.Notification {
     height: #{height}px;
     overflow: visible;
 
-    if (shown) {
+    if shown {
       transition: transform 320ms;
       transform: translateX(0);
       margin-bottom: 10px;
@@ -72,7 +72,7 @@ component Ui.Notification {
 
   /* Returns the height of the component in pixels. */
   get height : Number {
-    if (shown) {
+    if shown {
       base
       |> Maybe.map(Dom.getDimensions)
       |> Maybe.map((dimensions : Dom.Dimensions) { dimensions.height })

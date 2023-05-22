@@ -73,7 +73,7 @@ component Ui.Button {
     margin: 0;
     border: 0;
 
-    case (type) {
+    case type {
       "warning" =>
         background-color: var(--warning-color);
         color: var(--warning-text);
@@ -115,7 +115,7 @@ component Ui.Button {
       left: 0.1875em;
       top: 0.1875em;
 
-      case (type) {
+      case type {
         "secondary" => border: 0.125em solid var(--secondary-focus-ring);
         "success" => border: 0.125em solid var(--success-focus-ring);
         "warning" => border: 0.125em solid var(--warning-focus-ring);
@@ -128,7 +128,7 @@ component Ui.Button {
 
     &:hover,
     &:focus {
-      case (type) {
+      case type {
         "secondary" => background-color: var(--secondary-hover);
         "warning" => background-color: var(--warning-hover);
         "success" => background-color: var(--success-hover);
@@ -160,9 +160,9 @@ component Ui.Button {
     padding-bottom: 0.05em;
     line-height: 1.2;
 
-    if (breakWords) {
+    if breakWords {
       word-break: break-word;
-    } else if (ellipsis) {
+    } else if ellipsis {
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
@@ -186,17 +186,17 @@ component Ui.Button {
           gap={Ui.Size::Em(0.625)}
           justify="start">
 
-          if (Html.isNotEmpty(iconBefore)) {
+          if Html.isNotEmpty(iconBefore) {
             <Ui.Icon icon={iconBefore}/>
           }
 
-          if (String.isNotBlank(label)) {
+          if String.isNotBlank(label) {
             <div::label>
               <{ label }>
             </div>
           }
 
-          if (Html.isNotEmpty(iconAfter)) {
+          if Html.isNotEmpty(iconAfter) {
             <Ui.Icon icon={iconAfter}/>
           }
 
@@ -212,7 +212,7 @@ component Ui.Button {
     let clickHandler =
       Ui.disabledHandler(disabled, onClick)
 
-    if (String.isNotBlank(href) && !disabled) {
+    if String.isNotBlank(href) && !disabled {
       <a::styles as anchor
         onMouseDown={mouseDownHandler}
         onMouseUp={mouseUpHandler}

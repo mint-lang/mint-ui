@@ -41,7 +41,7 @@ component Ui.DatePicker {
 
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
-    case (event.keyCode) {
+    case event.keyCode {
       37 => onChange(`new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() - 1)`)
 
       38 =>

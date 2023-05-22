@@ -24,7 +24,7 @@ component Ui.ContentHint {
     align-items: center;
     display: grid;
 
-    case (type) {
+    case type {
       "primary" =>
         background: var(--primary-light-color);
         color: var(--primary-light-text);
@@ -64,7 +64,7 @@ component Ui.ContentHint {
     padding: 0.5em 0.75em;
     font-size: 2em;
 
-    case (type) {
+    case type {
       "primary" =>
         background: var(--primary-color);
         color: var(--primary-text);
@@ -98,7 +98,7 @@ component Ui.ContentHint {
     line-height: 150%;
     padding: 1.25em;
 
-    if (mobile) {
+    if mobile {
       padding: 0.75em;
     }
   }

@@ -43,7 +43,7 @@ component Ui.Example {
     grid-gap: 0.5em;
     display: grid;
 
-    if (mobile || !Html.isNotEmpty(controls)) {
+    if mobile || !Html.isNotEmpty(controls) {
       grid-template-columns: 1fr;
     } else {
       grid-template-columns: 1fr auto;
@@ -71,25 +71,25 @@ component Ui.Example {
 
   /* The style for the demo-area wrapper. */
   style demo-area-wrapper {
-    if (horizontalSpacing > 0 && !mobile) {
+    if horizontalSpacing > 0 && !mobile {
       grid-gap: #{horizontalSpacing}px;
       grid-auto-flow: column;
       align-items: center;
     }
 
-    if (fullWidth) {
+    if fullWidth {
       width: 100%;
     }
 
-    if (mobile) {
+    if mobile {
       grid-gap: #{horizontalSpacing}px;
     }
 
-    if (mobile && !fullWidth) {
+    if mobile && !fullWidth {
       justify-items: center;
     }
 
-    if (verticalSpacing > 0) {
+    if verticalSpacing > 0 {
       grid-gap: #{verticalSpacing}px;
     }
 
@@ -100,7 +100,7 @@ component Ui.Example {
   style code {
     display: grid;
 
-    if (mobile || !Html.isNotEmpty(controls)) {
+    if mobile || !Html.isNotEmpty(controls) {
       grid-column: 1;
     } else {
       grid-column: span 2;
@@ -121,7 +121,7 @@ component Ui.Example {
     grid-gap: 1em;
     display: grid;
 
-    if (mobile) {
+    if mobile {
       min-width: 0;
     } else {
       min-width: 16em;
@@ -144,7 +144,7 @@ component Ui.Example {
       data
 
     <div::base as base>
-      if (Html.isNotEmpty(warning)) {
+      if Html.isNotEmpty(warning) {
         <{ warning }>
       }
 
@@ -154,7 +154,7 @@ component Ui.Example {
         </div>
       </div>
 
-      if (Html.isNotEmpty(controls)) {
+      if Html.isNotEmpty(controls) {
         <div::controls>
           <{ controls }>
         </div>

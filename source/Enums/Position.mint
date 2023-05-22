@@ -21,7 +21,7 @@ enum Ui.Position {
 module Ui.Position {
   /* Converts the given string value in to a position. */
   fun fromString (value : String) : Ui.Position {
-    case (value) {
+    case value {
       "BottomCenter" => Ui.Position::BottomCenter
       "BottomRight" => Ui.Position::BottomRight
       "BottomLeft" => Ui.Position::BottomLeft
@@ -44,7 +44,7 @@ module Ui.Position {
 
   /* Returns the string representation of a position. */
   fun toString (position : Ui.Position) : String {
-    case (position) {
+    case position {
       Ui.Position::BottomCenter => "BottomCenter"
       Ui.Position::BottomRight => "BottomRight"
       Ui.Position::BottomLeft => "BottomLeft"
@@ -65,7 +65,7 @@ module Ui.Position {
 
   /* Returns the inverse position of the given position. */
   fun inverse (position : Ui.Position) : Ui.Position {
-    case (position) {
+    case position {
       Ui.Position::BottomCenter => Ui.Position::TopCenter
       Ui.Position::BottomRight => Ui.Position::TopRight
       Ui.Position::BottomLeft => Ui.Position::TopLeft

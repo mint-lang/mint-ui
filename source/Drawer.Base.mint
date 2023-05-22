@@ -46,7 +46,7 @@ component Ui.Drawer.Base {
     left: 0;
     top: 0;
 
-    if (open) {
+    if open {
       transition: opacity #{transitionDuration}ms 0ms ease,
                   visibility 1ms 0ms ease;
 
@@ -76,7 +76,7 @@ component Ui.Drawer.Base {
     right: 0;
     top: 0;
 
-    if (open) {
+    if open {
       transform: translateX(0);
     } else {
       transform: translateX(3em);

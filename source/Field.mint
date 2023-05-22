@@ -22,7 +22,7 @@ component Ui.Field {
 
   /* The style for the control. */
   style control {
-    case (orientation) {
+    case orientation {
       Ui.Field::HorizontalReverse =>
         flex-direction: row;
         align-items: center;
@@ -70,7 +70,7 @@ component Ui.Field {
     font-size: 0.875em;
     font-weight: bold;
 
-    case (orientation) {
+    case orientation {
       Ui.Field::HorizontalReverse =>
         flex: 0 0 auto;
 
@@ -81,7 +81,7 @@ component Ui.Field {
         flex: 0 0 auto;
     }
 
-    if (singleLineLabel) {
+    if singleLineLabel {
       white-space: nowrap;
       line-height: 1;
     }
@@ -102,15 +102,12 @@ component Ui.Field {
         </div>
       </div>
 
-      case (error) {
-        Maybe::Just(message) =>
-          <div::error>
-            <Ui.Icon icon={Ui.Icons:ALERT}/>
-            <div::gap/>
-            <{ message }>
-          </div>
-
-        => <{  }>
+      if let Maybe::Just(message) = error {
+        <div::error>
+          <Ui.Icon icon={Ui.Icons:ALERT}/>
+          <div::gap/>
+          <{ message }>
+        </div>
       }
     </div>
   }

@@ -101,12 +101,12 @@ component Ui.Picker {
   - on SPACE key it shows the dropdown
   */
   fun handleKeyDown (event : Html.Event) {
-    case (event.keyCode) {
+    case event.keyCode {
       Html.Event:ESCAPE =>
         hideDropdown()
 
       Html.Event:ENTER =>
-        if (onEnter(event)) {
+        if onEnter(event) {
           hideDropdown()
         } else {
           next { }
@@ -154,7 +154,7 @@ component Ui.Picker {
 
     display: grid;
 
-    if (disabled) {
+    if disabled {
       filter: saturate(0) brightness(0.8) contrast(0.5);
       cursor: not-allowed;
       user-select: none;
@@ -162,11 +162,11 @@ component Ui.Picker {
       cursor: pointer;
     }
 
-    if (invalid) {
+    if invalid {
       border-color: var(--input-invalid-border);
       background: var(--input-invalid-color);
       color: var(--input-invalid-text);
-    } else if (open || focused) {
+    } else if open || focused {
       border-color: var(--input-focus-border);
       background: var(--input-focus-color);
       color: var(--input-focus-text);
@@ -189,7 +189,7 @@ component Ui.Picker {
     grid-gap: 0.625em;
     display: grid;
 
-    if (Html.isNotEmpty(icon)) {
+    if Html.isNotEmpty(icon) {
       grid-template-columns: 1fr min-content;
     }
   }
@@ -211,7 +211,7 @@ component Ui.Picker {
             </div>)
         }>
 
-        if (Html.isNotEmpty(icon)) {
+        if Html.isNotEmpty(icon) {
           <Ui.Icon icon={icon}/>
         } else {
           <></>
@@ -219,7 +219,7 @@ component Ui.Picker {
       </div>
 
     let html =
-      if (disabled) {
+      if disabled {
         <div::element>
           <{ grid }>
         </div>

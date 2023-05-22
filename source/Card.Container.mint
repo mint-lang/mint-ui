@@ -31,7 +31,7 @@ component Ui.Card.Container {
     color: var(--content-text);
     text-align: #{textAlign};
 
-    if (hasImage) {
+    if hasImage {
       grid-template-columns: auto 1fr;
     } else {
       grid-template-columns: 1fr;
@@ -70,7 +70,7 @@ component Ui.Card.Container {
 
   /* Styles for the content. */
   style content {
-    if (hasImage) {
+    if hasImage {
       grid-column: span 2;
     }
   }
@@ -100,9 +100,9 @@ component Ui.Card.Container {
   /* Renders the component. */
   fun render : Html {
     <div::base>
-      if (hasImage) {
+      if hasImage {
         <div::image>
-          if (Html.isNotEmpty(image)) {
+          if Html.isNotEmpty(image) {
             image
           } else {
             <Ui.Image
@@ -113,19 +113,19 @@ component Ui.Card.Container {
         </div>
       }
 
-      if (Html.isNotEmpty(title)) {
+      if Html.isNotEmpty(title) {
         <div::title>
           <{ title }>
         </div>
       }
 
-      if (Html.isNotEmpty(subtitle)) {
+      if Html.isNotEmpty(subtitle) {
         <div::subtitle>
           <{ subtitle }>
         </div>
       }
 
-      if (Html.isNotEmpty(content)) {
+      if Html.isNotEmpty(content) {
         <div::content>
           <Ui.Content>
             <{ content }>

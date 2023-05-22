@@ -13,7 +13,7 @@ component Ui.Theme.Root {
 
   fun render : Html {
     let fontSize =
-      if (mobile) {
+      if mobile {
         "14px"
       } else {
         "16px"

@@ -121,7 +121,7 @@ component Ui.Tabs {
       opacity: 1;
     }
 
-    if (active) {
+    if active {
       border-bottom: 0.1875em solid var(--content-text);
       opacity: 1;
     } else {
@@ -142,7 +142,7 @@ component Ui.Tabs {
 
   /* The event handler for the tab select. */
   fun handleSelect (key : String) : Promise(Void) {
-    if (key == active) {
+    if key == active {
       next { }
     } else {
       onChange(key)
@@ -152,13 +152,13 @@ component Ui.Tabs {
   /* Renders a tabs contents. */
   fun renderTab (tab : Ui.Tab) {
     <div::tab-inner>
-      if (Html.isNotEmpty(tab.iconBefore)) {
+      if Html.isNotEmpty(tab.iconBefore) {
         <Ui.Icon icon={tab.iconBefore}/>
       }
 
       <{ tab.label }>
 
-      if (Html.isNotEmpty(tab.iconAfter)) {
+      if Html.isNotEmpty(tab.iconAfter) {
         <Ui.Icon icon={tab.iconAfter}/>
       }
     </div>
@@ -167,9 +167,9 @@ component Ui.Tabs {
   /* Renders the component. */
   fun render : Html {
     <div::base as base>
-      if (mobile) {
+      if mobile {
         let navItems =
-          for (tab of items) {
+          for tab of items {
             Ui.NavItem::Item(
               action: (event : Html.Event) { handleSelect(tab.key) },
               iconBefore: tab.iconBefore,
@@ -193,7 +193,7 @@ component Ui.Tabs {
         </button>
       } else {
         <div::tabs>
-          for (tab of items) {
+          for tab of items {
             <button::button-reset::tab(tab.key == active) onClick={() { handleSelect(tab.key) }}>
               <{ renderTab(tab) }>
             </button>

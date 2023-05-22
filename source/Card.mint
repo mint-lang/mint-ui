@@ -59,7 +59,7 @@ component Ui.Card {
 
     &:hover,
     &:focus {
-      if (bordered) {
+      if bordered {
         border: 0.0625em solid var(--primary-color);
 
         box-shadow: 0 0 0 0.125em var(--primary-color),
@@ -94,16 +94,16 @@ component Ui.Card {
   style common {
     box-sizing: border-box;
 
-    if (bordered) {
+    if bordered {
       border: 0.0625em solid var(--content-border);
     }
 
-    if (active && bordered) {
+    if active && bordered {
       border: 0.0625em solid var(--primary-color);
 
       box-shadow: 0 0 0 0.125em var(--primary-color),
                   0 0 0.625em var(--shadow-color);
-    } else if (active) {
+    } else if active {
       box-shadow: 0 0 0 0.1875em var(--primary-color),
                   0 0 0.625em var(--shadow-color);
     } else {
@@ -113,8 +113,8 @@ component Ui.Card {
 
   /* Renders the card. */
   fun render : Html {
-    if (String.isBlank(href)) {
-      case (onClick) {
+    if String.isBlank(href) {
+      case onClick {
         Maybe::Just(handler) =>
           <button::common::button::focus onClick={handler}>
             <div::base>

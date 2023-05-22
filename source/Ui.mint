@@ -93,7 +93,7 @@ store Ui {
 
   /* Whether or not to show dark mode. */
   state darkMode : Bool =
-    case (Storage.Local.get("ui.dark-mode")) {
+    case Storage.Local.get("ui.dark-mode") {
       Result::Err => Window.matchesMediaQuery("(prefers-color-scheme: dark)")
       Result::Ok(value) => value == "true"
     }
@@ -110,7 +110,7 @@ store Ui {
 
   /* Sets the dark mode state. */
   fun setDarkMode (value : Bool) : Promise(Void) {
-    case (Storage.Local.set("ui.dark-mode", Bool.toString(value))) {
+    case Storage.Local.set("ui.dark-mode", Bool.toString(value)) {
       Result::Err => Debug.log("Could not save dark mode setting to LocalStorage!")
       Result::Ok => ""
     }
@@ -123,7 +123,7 @@ store Ui {
     disabled : Bool,
     handler : Function(a, Promise(Void))
   ) : Function(a, Promise(Void)) {
-    if (disabled) {
+    if disabled {
       Promise.never1
     } else {
       handler
@@ -208,7 +208,7 @@ store Ui {
   TODO: Move to core library.
   */
   fun scrollIntoViewIfNeeded (element : Dom.Element) : Promise(Void) {
-    if (isVisible(element)) {
+    if isVisible(element) {
       next { }
     } else {
       `

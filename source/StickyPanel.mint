@@ -1,8 +1,5 @@
 /* A panel that sticks to the given element. */
 component Ui.StickyPanel {
-  /* The dummy element. */
-  const DUMMY = Dom.createElement("div")
-
   /* The position of the panel. */
   property position : Ui.Position = Ui.Position::BottomLeft
 
@@ -43,7 +40,7 @@ component Ui.StickyPanel {
     left: #{left}px;
     top: #{top}px;
 
-    if (passThrough) {
+    if passThrough {
       pointer-events: none;
     }
   }
@@ -55,7 +52,7 @@ component Ui.StickyPanel {
     panel : Dom.Dimensions
   ) : Dom.Dimensions {
     let top =
-      case (position) {
+      case position {
         Ui.Position::BottomCenter => dimensions.bottom + offset
         Ui.Position::BottomRight => dimensions.bottom + offset
         Ui.Position::BottomLeft => dimensions.bottom + offset
@@ -74,7 +71,7 @@ component Ui.StickyPanel {
       }
 
     let left =
-      case (position) {
+      case position {
         Ui.Position::BottomCenter => dimensions.left + (dimensions.width / 2) - (panel.width / 2)
         Ui.Position::BottomRight => dimensions.right - panel.width
         Ui.Position::BottomLeft => dimensions.left
@@ -104,40 +101,39 @@ component Ui.StickyPanel {
 
   /* Calculates the position of the panel. */
   fun updateDimensions (timestamp : Number) : Promise(Void) {
-    let panelDimensions =
-      panel
-      |> Maybe.withDefault(DUMMY)
-      |> Dom.getDimensions()
+    if let Maybe::Just(element) = panel {
+      let panelDimensions =
+        Dom.getDimensions(element)
 
-    let dimensions =
-      `this.base`
-      |> Dom.getDimensions()
+      let dimensions =
+        Dom.getDimensions(`this.base`)
 
-    let favoredPosition =
-      calculatePosition(position, dimensions, panelDimensions)
+      let favoredPosition =
+        calculatePosition(position, dimensions, panelDimensions)
 
-    let finalPosition =
-      if (Ui.isFullyVisible(favoredPosition)) {
-        favoredPosition
-      } else {
-        let inversePosition =
-          calculatePosition(
-            Ui.Position.inverse(position),
-            dimensions,
-            panelDimensions)
-
-        if (Ui.isFullyVisible(inversePosition)) {
-          inversePosition
-        } else {
+      let finalPosition =
+        if Ui.isFullyVisible(favoredPosition) {
           favoredPosition
-        }
-      }
+        } else {
+          let inversePosition =
+            calculatePosition(
+              Ui.Position.inverse(position),
+              dimensions,
+              panelDimensions)
 
-    next
-      {
-        left: finalPosition.left,
-        top: finalPosition.top
-      }
+          if Ui.isFullyVisible(inversePosition) {
+            inversePosition
+          } else {
+            favoredPosition
+          }
+        }
+
+      next
+        {
+          left: finalPosition.left,
+          top: finalPosition.top
+        }
+    }
   }
 
   /* Renders the element and the panel. */

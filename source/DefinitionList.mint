@@ -28,13 +28,13 @@ component Ui.DefinitionList {
   /* The styles for the details element. */
   style details (open : Bool) {
     &:not(:last-of-type) {
-      if (open) {
+      if open {
         border-bottom: 0.1875em solid var(--content-border);
       }
     }
 
     &:last-of-type {
-      if (open) {
+      if open {
         border-bottom: 0.0625em solid var(--content-border);
       }
     }
@@ -64,7 +64,7 @@ component Ui.DefinitionList {
     }
 
     svg {
-      if (open) {
+      if open {
         transform: rotate(90deg);
       }
     }
@@ -96,7 +96,7 @@ component Ui.DefinitionList {
 
   fun handleClick (index : Number) : Function(Promise(Void)) {
     () {
-      if (Set.has(data, index)) {
+      if Set.has(data, index) {
         next { data: Set.delete(data, index) }
       } else {
         next { data: Set.add(data, index) }
@@ -107,7 +107,7 @@ component Ui.DefinitionList {
   /* Renders the list. */
   fun render : Html {
     <div::base>
-      for (row, index of rows) {
+      for row, index of rows {
         let {summary, cells} =
           row
 
@@ -124,9 +124,9 @@ component Ui.DefinitionList {
               </div>
             </div>
 
-            if (open) {
+            if open {
               <div>
-                for (cell of cells) {
+                for cell of cells {
                   let header =
                     headers[Array.indexOf(cells, cell) or 0]
                     |> Maybe.withDefault("")

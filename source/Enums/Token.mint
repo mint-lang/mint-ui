@@ -11,11 +11,11 @@ enum Ui.Token {
 module Ui.Token {
   /* Resolves the token using the dark mode param. */
   fun resolve (token : Ui.Token, darkMode : Bool) : Array(String) {
-    case (token) {
+    case token {
       Ui.Token::Schemed(name, light, dark) =>
         {
           let value =
-            if (darkMode) {
+            if darkMode {
               "var(--dark-#{name})"
             } else {
               "var(--light-#{name})"
@@ -47,7 +47,7 @@ module Ui.Token {
 
   /* Gets the name of the token. */
   fun getName (token : Ui.Token) : String {
-    case (token) {
+    case token {
       Ui.Token::Schemed(name) => name
       Ui.Token::Simple(name) => name
     }

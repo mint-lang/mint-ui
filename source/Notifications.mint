@@ -42,7 +42,7 @@ global component Ui.Notifications {
   /* Renders the notifications. */
   fun render : Html {
     <div::base>
-      for (id, notification of notifications) {
+      for id, notification of notifications {
         let {content, duration} =
           notification
 

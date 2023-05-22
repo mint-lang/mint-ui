@@ -160,44 +160,42 @@ component Ui.FileInput {
   /* Renders the component. */
   fun render : Html {
     <button::base as base onClick={handleSelect}>
-      case (value) {
-        Maybe::Just(file) =>
-          <>
-            <div::infos>
-              <Ui.Field label="Name">
-                <div::name>
-                  <{ File.name(file) }>
-                </div>
-              </Ui.Field>
+      if let Maybe::Just(file) = value {
+        <>
+          <div::infos>
+            <Ui.Field label="Name">
+              <div::name>
+                <{ File.name(file) }>
+              </div>
+            </Ui.Field>
 
-              <Ui.Field label="Content-Type">
-                <div::data>
-                  <{ File.mimeType(file) }>
-                </div>
-              </Ui.Field>
+            <Ui.Field label="Content-Type">
+              <div::data>
+                <{ File.mimeType(file) }>
+              </div>
+            </Ui.Field>
 
-              <Ui.Field label="Size">
-                <div::data>
-                  <{ FileSize.format(File.size(file)) }>
-                </div>
-              </Ui.Field>
-            </div>
-
-            <div::hint>
-              <{ selectAnotherLabel }>
-
-              <a onClick={handleClear}>
-                <{ clearLabel }>
-                <Ui.Icon icon={Ui.Icons:X}/>
-              </a>
-            </div>
-          </>
-
-        Maybe::Nothing =>
-          <div::select>
-            <Ui.Icon icon={Ui.Icons:CLOUD_UPLOAD}/>
-            <{ selectLabel }>
+            <Ui.Field label="Size">
+              <div::data>
+                <{ FileSize.format(File.size(file)) }>
+              </div>
+            </Ui.Field>
           </div>
+
+          <div::hint>
+            <{ selectAnotherLabel }>
+
+            <a onClick={handleClear}>
+              <{ clearLabel }>
+              <Ui.Icon icon={Ui.Icons:X}/>
+            </a>
+          </div>
+        </>
+      } else {
+        <div::select>
+          <Ui.Icon icon={Ui.Icons:CLOUD_UPLOAD}/>
+          <{ selectLabel }>
+        </div>
       }
     </button>
   }

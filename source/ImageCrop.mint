@@ -59,7 +59,7 @@ component Ui.ImageCrop {
       border-radius: 0.375em;
     }
 
-    if (!embedded) {
+    if !embedded {
       border: 0.0625em solid var(--input-border);
       background: var(--input-color);
       color: var(--input-text);
@@ -70,7 +70,7 @@ component Ui.ImageCrop {
     &:focus {
       outline: 0;
 
-      if (!embedded) {
+      if !embedded {
         border-color: var(--input-focus-border);
         background: var(--input-focus-color);
         color: var(--input-focus-text);
@@ -84,11 +84,11 @@ component Ui.ImageCrop {
     width: calc(#{position.currentWidth}px + 1px);
     position: absolute;
 
-    if (overflow) {
+    if overflow {
       overflow: hidden;
     }
 
-    if (!embedded) {
+    if !embedded {
       left: calc(#{position.left}px + 1em + 1px);
       top: calc(#{position.top}px + 1em + 1px);
     } else {
@@ -133,13 +133,13 @@ component Ui.ImageCrop {
     height: var(--size);
     width: var(--size);
 
-    if (mobile) {
+    if mobile {
       --size: 1.5em;
     } else {
       --size: 0.75em;
     }
 
-    case (corner) {
+    case corner {
       "top-left" =>
         left: calc((var(--size) / 2 + 1px) * -1);
         top: calc((var(--size) / 2 + 1px) * -1);
@@ -171,7 +171,7 @@ component Ui.ImageCrop {
     startSize : Number,
     distance : Number
   ) {
-    case (direction) {
+    case direction {
       Ui.ImageCrop.Direction::Backward =>
         {
           /* Clamp the distance to the minimum and maximum possible values. */
@@ -229,48 +229,40 @@ component Ui.ImageCrop {
 
   /* Handles the move event. */
   fun moves (event : Html.Event) : Promise(Void) {
-    case (base) {
-      Maybe::Just(element) =>
-        case (status) {
-          Ui.ImageCrop.Status::Dragging(directions, startValue, startEvent) =>
-            {
-              /* Calculate the moved distance as a percentage of the image. */
-              let distance =
-                {
-                  (event.pageX - startEvent.pageX) / position.currentWidth,
-                  (event.pageY - startEvent.pageY) / position.currentHeight
-                }
+    if let Maybe::Just(element) = base {
+      if let Ui.ImageCrop.Status::Dragging(directions, startValue, startEvent) = status {
+        /* Calculate the moved distance as a percentage of the image. */
+        let distance =
+          {
+            (event.pageX - startEvent.pageX) / position.currentWidth,
+            (event.pageY - startEvent.pageY) / position.currentHeight
+          }
 
-              /* Calculate the new values for the horizontal axis. */
-              let {x, width} =
-                calculateAxis(
-                  directions[0],
-                  startValue.x,
-                  startValue.width,
-                  distance[0])
+        /* Calculate the new values for the horizontal axis. */
+        let {x, width} =
+          calculateAxis(
+            directions[0],
+            startValue.x,
+            startValue.width,
+            distance[0])
 
-              /* Calculate the new values for the vertical axis. */
-              let {y, height} =
-                calculateAxis(
-                  directions[1],
-                  startValue.y,
-                  startValue.height,
-                  distance[1])
+        /* Calculate the new values for the vertical axis. */
+        let {y, height} =
+          calculateAxis(
+            directions[1],
+            startValue.y,
+            startValue.height,
+            distance[1])
 
-              /* Call the change event handler with the new value. */
-              onChange(
-                { value |
-                  height: Math.abs(height),
-                  width: Math.abs(width),
-                  y: y,
-                  x: x
-                })
-            }
-
-          => next { }
-        }
-
-      => next { }
+        /* Call the change event handler with the new value. */
+        onChange(
+          { value |
+            height: Math.abs(height),
+            width: Math.abs(width),
+            y: y,
+            x: x
+          })
+      }
     }
   }
 
@@ -299,7 +291,7 @@ component Ui.ImageCrop {
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
     let updatedValue =
-      case (event.keyCode) {
+      case event.keyCode {
         Html.Event:DOWN_ARROW =>
           Maybe::Just({ value | y: Math.clamp(value.y + 0.005, 0, 1 - value.height) })
 
@@ -315,14 +307,9 @@ component Ui.ImageCrop {
         => Maybe::Nothing
       }
 
-    case (updatedValue) {
-      Maybe::Just(newValue) =>
-        {
-          Html.Event.preventDefault(event)
-          onChange(newValue)
-        }
-
-      Maybe::Nothing => next { }
+    if let Maybe::Just(newValue) = updatedValue {
+      Html.Event.preventDefault(event)
+      onChange(newValue)
     }
   }
 

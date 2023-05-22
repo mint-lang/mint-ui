@@ -47,7 +47,7 @@ component Ui.Image {
     element: base,
     callback:
       (ratio : Number) {
-        if (ratio > 0) {
+        if ratio > 0 {
           next { visible: true }
         } else {
           next { }
@@ -68,7 +68,7 @@ component Ui.Image {
     display: block;
     width: inherit;
 
-    if (Set.has(images, src) || loaded) {
+    if Set.has(images, src) || loaded {
       opacity: 1;
     } else {
       opacity: 0;
@@ -77,23 +77,23 @@ component Ui.Image {
 
   /* The style for the base. */
   style base {
-    if (!transparent) {
+    if !transparent {
       background: var(--content-faded-color);
     }
 
-    if (fullHeight) {
+    if fullHeight {
       height: 100%;
     } else {
       height: #{Ui.Size.toString(height)};
     }
 
-    if (fullWidth) {
+    if fullWidth {
       width: 100%;
     } else {
       width: #{Ui.Size.toString(width)};
     }
 
-    if (String.isBlank(borderRadius)) {
+    if String.isBlank(borderRadius) {
       border-radius: 0.15em;
     } else {
       border-radius: #{borderRadius};
@@ -102,7 +102,7 @@ component Ui.Image {
 
   /* The load event handler. */
   fun handleLoad : Promise(Void) {
-    if (Set.has(images, src)) {
+    if Set.has(images, src) {
       next { }
     } else {
       await setImageLoaded(src)
@@ -112,7 +112,7 @@ component Ui.Image {
 
   /* The drag start event handler. */
   fun handleDragStart (event : Html.Event) : Void {
-    if (draggable) {
+    if draggable {
       void
     } else {
       Html.Event.preventDefault(event)
@@ -122,7 +122,7 @@ component Ui.Image {
   /* Renders the image. */
   fun render : Html {
     <div::base as base>
-      if (visible) {
+      if visible {
         <img::image
           onDragStart={handleDragStart}
           onLoad={handleLoad}

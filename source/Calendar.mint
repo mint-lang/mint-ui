@@ -44,7 +44,7 @@ component Ui.Calendar {
     grid-gap: 1em;
     display: grid;
 
-    if (!embedded) {
+    if !embedded {
       border: 0.0625em solid var(--input-border);
       background: var(--input-color);
       color: var(--input-text);
@@ -52,7 +52,7 @@ component Ui.Calendar {
       padding: 0.75em 1.25em;
     }
 
-    if (disabled) {
+    if disabled {
       filter: saturate(0) brightness(0.8) contrast(0.5);
       cursor: not-allowed;
       user-select: none;
@@ -68,7 +68,7 @@ component Ui.Calendar {
     display: grid;
     width: 100%;
 
-    if (disabled) {
+    if disabled {
       pointer-events: none;
     }
   }
@@ -107,7 +107,7 @@ component Ui.Calendar {
 
   /* Event handler for the cell click. */
   fun handleCellClick (day : Time) : Promise(Void) {
-    if (changeMonthOnSelect && Time.month(day) != Time.month(month)) {
+    if changeMonthOnSelect && Time.month(day) != Time.month(month) {
       await onMonthChange(Time.atBeginningOfMonth(day))
       onChange(day)
     } else {
@@ -152,7 +152,7 @@ component Ui.Calendar {
             let range =
               Time.range(Time.atBeginningOfWeek(day), Time.atEndOfWeek(day))
 
-            for (day of range) {
+            for day of range {
               <div::dayName>
                 <{ Time.format(day, language, "%a") }>
               </div>
@@ -183,7 +183,7 @@ component Ui.Calendar {
               |> Time.range(Time.atEndOfMonth(month))
 
             let actualDays =
-              case (Array.size(days)) {
+              case Array.size(days) {
                 28 =>
                   Time.range(
                     Time.previousWeek(startDate),
@@ -200,7 +200,7 @@ component Ui.Calendar {
             let normalizedDay =
               Time.atBeginningOfDay(day)
 
-            for (cell of actualDays) {
+            for cell of actualDays {
               let normalizedCell =
                 Time.atBeginningOfDay(cell)
 
@@ -208,7 +208,7 @@ component Ui.Calendar {
                 Set.map(selectedDays, Time.atBeginningOfDay)
 
               let selected =
-                if (Set.size(normalizedDays) == 0) {
+                if Set.size(normalizedDays) == 0 {
                   normalizedDay == normalizedCell
                 } else {
                   Set.has(normalizedDays, normalizedCell)

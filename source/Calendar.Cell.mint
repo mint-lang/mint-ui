@@ -39,13 +39,13 @@ component Ui.Calendar.Cell {
     height: 100%;
     width: 100%;
 
-    if (active) {
+    if active {
       opacity: 1;
     } else {
       opacity: 0.2;
     }
 
-    if (disabled || readonly) {
+    if disabled || readonly {
       pointer-events: none;
     }
 
@@ -54,7 +54,7 @@ component Ui.Calendar.Cell {
       color: var(--primary-text);
     }
 
-    if (selected) {
+    if selected {
       background: var(--primary-color);
       color: var(--primary-text);
     }

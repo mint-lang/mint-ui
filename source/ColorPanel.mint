@@ -56,7 +56,7 @@ component Ui.ColorPanel {
     font-size: #{Ui.Size.toString(size)};
     user-select: none;
 
-    if (embedded) {
+    if embedded {
       padding: 0.25em;
     } else {
       border: 0.0625em solid var(--input-border);
@@ -136,7 +136,7 @@ component Ui.ColorPanel {
 
       padding: 0.2em 0 0 0;
 
-      if (!embedded) {
+      if !embedded {
         background: var(--content-color);
       } else {
         background: var(--input-color);
@@ -158,7 +158,7 @@ component Ui.ColorPanel {
     pointer-events: none;
     position: absolute;
 
-    if (darkMode) {
+    if darkMode {
       box-shadow: 0 0 0 0.125em rgba(255,255,255,0.75);
     } else {
       box-shadow: 0 0 0 0.125em rgba(0,0,0,0.45);
@@ -214,7 +214,7 @@ component Ui.ColorPanel {
 
   /* The pointer move event handler. */
   fun moves (event : Html.Event) : Promise(Void) {
-    case (status) {
+    case status {
       Ui.ColorPanel.Status::ValueSaturationDragging(element) =>
         {
           let dimensions =

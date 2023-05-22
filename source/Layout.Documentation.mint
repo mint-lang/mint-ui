@@ -45,11 +45,11 @@ component Ui.Layout.Documentation {
     font-size: #{Ui.Size.toString(size)};
     font-family: var(--font-family);
 
-    if (showToc) {
+    if showToc {
       grid-template-columns: 18em 1fr 16em;
     }
 
-    if (mobile) {
+    if mobile {
       grid-template-rows: min-content 1fr;
       grid-template-columns: 1fr;
       grid-gap: 0;
@@ -94,7 +94,7 @@ component Ui.Layout.Documentation {
     position: sticky;
     top: 2em;
 
-    if (!showToc) {
+    if !showToc {
       display: none;
     }
   }
@@ -161,19 +161,14 @@ component Ui.Layout.Documentation {
 
   /* Updates the table of contents. */
   fun updateToc {
-    case (content) {
-      Maybe::Just(element) =>
-        {
-          let items =
-            Dom.getElementsBySelector(element, "a[name]")
+    if let Maybe::Just(element) = content {
+      let items =
+        Dom.getElementsBySelector(element, "a[name]")
 
-          let tocItems =
-            Array.map(items, getTocData)
+      let tocItems =
+        Array.map(items, getTocData)
 
-          next { tocItems: tocItems }
-        }
-
-      => next { }
+      next { tocItems: tocItems }
     }
   }
 
@@ -185,7 +180,7 @@ component Ui.Layout.Documentation {
   /* Renders the layout. */
   fun render : Html {
     <div::base as base>
-      if (!mobile) {
+      if !mobile {
         <Ui.Box>
           <Ui.NavItems items={items}/>
         </Ui.Box>
@@ -202,10 +197,10 @@ component Ui.Layout.Documentation {
         <{ children }>
       </div>
 
-      if (!mobile) {
+      if !mobile {
         <div::toc>
           <Ui.Box label=<{ "Contents" }>>
-            for (item of tocItems) {
+            for item of tocItems {
               <div>
                 <a::toc-item href="##{item[0]}">
                   <{ item[1] }>

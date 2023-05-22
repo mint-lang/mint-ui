@@ -49,7 +49,7 @@ component Ui.Dropdown.Panel {
   /* Renders the panel. */
   fun render : Html {
     <div::base as base>
-      if (Html.isNotEmpty(title)) {
+      if Html.isNotEmpty(title) {
         <div::title>
           <{ title }>
         </div>

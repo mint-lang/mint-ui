@@ -29,12 +29,12 @@ component Ui.InteractiveList {
     font-size: #{Ui.Size.toString(size)};
     outline: none;
 
-    if (interactive) {
+    if interactive {
       padding: 0.125em;
     }
 
     &:focus {
-      if (interactive) {
+      if interactive {
         outline: 0.125em solid var(--primary-color);
       }
     }
@@ -81,7 +81,7 @@ component Ui.InteractiveList {
       Array.select(
         items,
         (item : Ui.ListItem) {
-          case (item) {
+          case item {
             Ui.ListItem::Divider => false
             Ui.ListItem::Item => true
           }
@@ -91,13 +91,13 @@ component Ui.InteractiveList {
       Array.indexBy(itemsOnly, intended, Ui.ListItem.key)
 
     let nextIndex =
-      if (forward) {
-        if (index == Array.size(itemsOnly) - 1) {
+      if forward {
+        if index == Array.size(itemsOnly) - 1 {
           0
         } else {
           index + 1
         }
-      } else if (index == 0) {
+      } else if index == 0 {
         Array.size(itemsOnly) - 1
       } else {
         index - 1
@@ -108,22 +108,22 @@ component Ui.InteractiveList {
       |> Maybe.map(Ui.ListItem.key)
       |> Maybe.withDefault("")
 
-    if (intendable) {
+    if intendable {
       intend(nextKey)
     } else {
       handleSelect(nextKey)
     }
 
-    case (container) {
-      Maybe::Just(element) => Ui.scrollIntoViewIfNeeded(`#{element}.children[#{nextIndex}]`)
-      => next { }
+    if let Maybe::Just(element) = container {
+      Ui.scrollIntoViewIfNeeded(`#{element}.children[#{nextIndex}]`)
     }
   }
 
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
-    case (event.keyCode) {
-      Html.Event:ENTER => onSelect(intended)
+    case event.keyCode {
+      Html.Event:ENTER =>
+        onSelect(intended)
 
       Html.Event:SPACE =>
         {
@@ -150,7 +150,7 @@ component Ui.InteractiveList {
   /* Renders the list. */
   fun render : Html {
     let tabIndex =
-      if (interactive) {
+      if interactive {
         "0"
       } else {
         "-1"
@@ -162,8 +162,8 @@ component Ui.InteractiveList {
 
       <Ui.ScrollPanel>
         <div::items as container>
-          for (item of items) {
-            case (item) {
+          for item of items {
+            case item {
               Ui.ListItem::Item(key, content) =>
                 <Ui.InteractiveList.Item
                   onClick={(event : Html.Event) { handleClickSelect(key) }}

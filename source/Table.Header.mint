@@ -14,7 +14,7 @@ component Ui.Table.Header {
 
   /* Style for the base. */
   style base {
-    if (data.shrink) {
+    if data.shrink {
       white-space: nowrap;
       width: 1%;
     } else {
@@ -35,7 +35,7 @@ component Ui.Table.Header {
   style icon {
     line-height: 0;
 
-    if (orderBy == data.sortKey) {
+    if orderBy == data.sortKey {
       opacity: 1;
     } else {
       opacity: 0.5;
@@ -51,8 +51,8 @@ component Ui.Table.Header {
   /* The handler for the icon. */
   fun handleSort : Promise(Void) {
     let nextOrderDirection =
-      if (orderBy == data.sortKey) {
-        if (orderDirection == "asc") {
+      if orderBy == data.sortKey {
+        if orderDirection == "asc" {
           "desc"
         } else {
           "asc"
@@ -72,10 +72,10 @@ component Ui.Table.Header {
           <{ data.label }>
         </span>
 
-        if (data.sortable) {
+        if data.sortable {
           <div::icon onClick={handleSort}>
-            if (orderBy == data.sortKey) {
-              if (orderDirection == "desc") {
+            if orderBy == data.sortKey {
+              if orderDirection == "desc" {
                 <Ui.Icon icon={Ui.Icons:TRIANGLE_DOWN}/>
               } else {
                 <Ui.Icon icon={Ui.Icons:TRIANGLE_UP}/>

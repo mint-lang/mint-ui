@@ -42,7 +42,7 @@ component Ui.Brand {
   fun render : Html {
     let content =
       <>
-        if (Html.isNotEmpty(icon)) {
+        if Html.isNotEmpty(icon) {
           <Ui.Icon icon={icon}/>
         }
 
@@ -51,7 +51,7 @@ component Ui.Brand {
         </div>
       </>
 
-    if (String.isEmpty(href)) {
+    if String.isEmpty(href) {
       <div::base href={href}>
         <{ content }>
       </div>

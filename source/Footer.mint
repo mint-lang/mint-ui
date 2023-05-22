@@ -26,7 +26,7 @@ component Ui.Footer {
     margin-top: 2em;
     padding: 3em 0;
 
-    if (mobile) {
+    if mobile {
       grid-template-columns: 1fr;
       margin-top: 1em;
       padding: 1em 0;
@@ -46,7 +46,7 @@ component Ui.Footer {
     flex-wrap: wrap;
     display: flex;
 
-    if (mobile) {
+    if mobile {
       padding-right: 0;
     } else {
       padding-right: 1em;
@@ -71,7 +71,7 @@ component Ui.Footer {
       </div>
 
       <div::categories>
-        for (item of navitems) {
+        for item of navitems {
           <div::category>
             <strong>
               <{ item[0] }>

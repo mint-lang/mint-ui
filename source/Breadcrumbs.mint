@@ -61,15 +61,13 @@ component Ui.Breadcrumbs {
 
   /* Renders the component. */
   fun render : Html {
-    if (mobile) {
-      <></>
-    } else {
+    if !mobile {
       let content =
-        for (item of items) {
+        for item of items {
           let {href, content} =
             item
 
-          if (String.isBlank(href)) {
+          if String.isBlank(href) {
             <span::breadcrumb aria-label="breadcrumb">
               <{ content }>
             </span>

@@ -27,7 +27,7 @@ component Ui.NavItem {
     color: inherit;
     outline: none;
 
-    if (active) {
+    if active {
       color: var(--primary-color);
     }
 
@@ -75,13 +75,13 @@ component Ui.NavItem {
   /* Renders the contents of an item. */
   fun renderContents (iconBefore : Html, iconAfter : Html, label : String) {
     <>
-      if (Html.isNotEmpty(iconBefore)) {
+      if Html.isNotEmpty(iconBefore) {
         <Ui.Icon icon={iconBefore}/>
       }
 
       <{ label }>
 
-      if (Html.isNotEmpty(iconAfter)) {
+      if Html.isNotEmpty(iconAfter) {
         <Ui.Icon icon={iconAfter}/>
       }
     </>
@@ -89,7 +89,7 @@ component Ui.NavItem {
 
   /* Renders the item. */
   fun render : Html {
-    case (item) {
+    case item {
       Ui.NavItem::Group(iconBefore, iconAfter, label, items) =>
         <div::group>
           <strong::group-item::row>

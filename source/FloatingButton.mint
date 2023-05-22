@@ -36,7 +36,7 @@ component Ui.FloatingButton {
     align-items: center;
     display: flex;
 
-    case (type) {
+    case type {
       "secondary" =>
         background: var(--secondary-color);
         color: var(--secondary-text);
@@ -74,7 +74,7 @@ component Ui.FloatingButton {
       left: 0.1875rem;
       top: 0.1875rem;
 
-      case (type) {
+      case type {
         "secondary" => border: 0.125rem solid var(--secondary-focus-ring);
         "success" => border: 0.125rem solid var(--success-focus-ring);
         "warning" => border: 0.125rem solid var(--warning-focus-ring);

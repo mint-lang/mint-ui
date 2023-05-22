@@ -42,7 +42,7 @@ component Ui.Native.Select {
     align-items: center;
     display: grid;
 
-    if (disabled) {
+    if disabled {
       filter: saturate(0) brightness(0.8) contrast(0.5);
       cursor: not-allowed;
       user-select: none;
@@ -50,11 +50,11 @@ component Ui.Native.Select {
       cursor: pointer;
     }
 
-    if (invalid) {
+    if invalid {
       border: 0.0625em solid var(--input-invalid-border);
       background: var(--input-invalid-color);
       color: var(--input-invalid-text);
-    } else if (focused) {
+    } else if focused {
       border: 0.0625em solid var(--input-focus-border);
       background: var(--input-focus-color);
       color: var(--input-focus-text);
@@ -84,7 +84,7 @@ component Ui.Native.Select {
     left: 0;
     top: 0;
 
-    if (disabled) {
+    if disabled {
       pointer-events: none;
     }
   }
@@ -145,8 +145,8 @@ component Ui.Native.Select {
         disabled={disabled}
         value={value}>
 
-        for (item of items) {
-          case (item) {
+        for item of items {
+          case item {
             Ui.ListItem::Divider =>
               <option
                 disabled={true}

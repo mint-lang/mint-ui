@@ -37,7 +37,7 @@ component Ui.Native.AutoComplete {
         list={id}/>
 
       <datalist id={id}>
-        for (option of options) {
+        for option of options {
           <option value={option}/>
         }
       </datalist>

@@ -11,11 +11,8 @@ Some of its features:
   (which is usually the one that opened the drawer).
 */
 global component Ui.Drawer {
-  /* The reject function. */
-  state reject : Function(Ui.Drawer.Cancelled, Void) = (error : Ui.Drawer.Cancelled) { void }
-
   /* The resolve function. */
-  state resolve : Function(Void, Void) = (value : Void) { void }
+  state resolve : Function(Maybe(Void), Void) = (value : Maybe(Void)) { void }
 
   /* The previously focused element. */
   state focusedElement : Maybe(Dom.Element) = Maybe::Nothing
@@ -55,9 +52,8 @@ global component Ui.Drawer {
       240,
       "0",
       () {
-        case (base) {
-          Maybe::Just(item) => item.focusFirst()
-          Maybe::Nothing => next { }
+        if let Maybe::Just(item) = base {
+          item.focusFirst()
         }
       })
   }
@@ -97,14 +93,12 @@ global component Ui.Drawer {
     await next { open: false }
 
     await Timer.timeout(transitionDuration)
-
-    /* await reject(`null` as Ui.Drawer.Cancelled) */
+    await resolve(Maybe::Nothing)
     await Dom.focus(focusedElement)
 
     next
       {
-        reject: (error : Ui.Drawer.Cancelled) { void },
-        resolve: (value : Void) { void },
+        resolve: (value : Maybe(Void)) { void },
         focusedElement: Maybe::Nothing,
         content: <{  }>
       }
@@ -115,13 +109,12 @@ global component Ui.Drawer {
     await next { open: false }
 
     await Timer.timeout(transitionDuration)
-    await resolve(void)
+    await resolve(Maybe::Just(void))
     await Dom.focus(focusedElement)
 
     next
       {
-        reject: (error : Ui.Drawer.Cancelled) { void },
-        resolve: (value : Void) { void },
+        resolve: (value : Maybe(Void)) { void },
         focusedElement: Maybe::Nothing,
         content: <{  }>
       }

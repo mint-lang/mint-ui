@@ -32,9 +32,8 @@ component Ui.Select {
 
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
-    case (list) {
-      Maybe::Just(item) => item.handleKeyDown(event)
-      Maybe::Nothing => next { }
+    if let Maybe::Just(item) = list {
+      item.handleKeyDown(event)
     }
   }
 
@@ -42,9 +41,8 @@ component Ui.Select {
   fun handleClickSelect (value : String) : Promise(Void) {
     await onChange(value)
 
-    case (picker) {
-      Maybe::Just(item) => item.hideDropdown()
-      Maybe::Nothing => next { }
+    if let Maybe::Just(item) = picker {
+      item.hideDropdown()
     }
   }
 

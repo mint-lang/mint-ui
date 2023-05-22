@@ -68,7 +68,7 @@ component Ui.Header {
     cursor: pointer;
     outline: none;
 
-    if (active) {
+    if active {
       color: var(--primary-color);
     } else {
       color: inherit;
@@ -117,7 +117,7 @@ component Ui.Header {
   /* Renders the contents of an item. */
   fun renderItem (iconBefore : Html, iconAfter : Html, label : String) {
     <>
-      if (Html.isNotEmpty(iconBefore)) {
+      if Html.isNotEmpty(iconBefore) {
         <div::icon>
           <Ui.Icon icon={iconBefore}/>
         </div>
@@ -127,7 +127,7 @@ component Ui.Header {
         <{ label }>
       </span>
 
-      if (Html.isNotEmpty(iconAfter)) {
+      if Html.isNotEmpty(iconAfter) {
         <div::icon>
           <Ui.Icon icon={iconAfter}/>
         </div>
@@ -141,7 +141,7 @@ component Ui.Header {
       <{ brand }>
 
       <Ui.Container gap={gap}>
-        if (width < breakpoint) {
+        if width < breakpoint {
           <div onClick={handleClick}>
             <Ui.Icon
               size={Ui.Size::Em(2)}
@@ -150,8 +150,8 @@ component Ui.Header {
           </div>
         } else {
           <{
-            for (item of items) {
-              case (item) {
+            for item of items {
+              case item {
                 Ui.NavItem::Divider => <div::divider/>
                 Ui.NavItem::Html(content) => content
 
@@ -161,7 +161,7 @@ component Ui.Header {
                       String.parameterize(label)
 
                     let open =
-                      Map.getWithDefault(openDropdowns, key, false )
+                      Map.getWithDefault(openDropdowns, key, false)
 
                     <Ui.Dropdown
                       onClose={() { next { openDropdowns: Map.set(openDropdowns, key, false) } }}

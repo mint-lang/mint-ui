@@ -137,7 +137,7 @@ component Ui.Book {
       </>
 
     <div::base>
-      if (String.isBlank(href)) {
+      if String.isBlank(href) {
         <a::book>
           <{ contents }>
         </a>

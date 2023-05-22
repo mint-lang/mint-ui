@@ -94,7 +94,7 @@ component Ui.CircularProgress {
 
   /* Returns the current percentage. */
   get percent : Number {
-    if (max == 0) {
+    if max == 0 {
       0
     } else {
       Math.clamp(0, 1, current / max)

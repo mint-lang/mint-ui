@@ -60,7 +60,7 @@ component Ui.Modal.Content {
     margin-right: auto;
     font-weight: bold;
 
-    if (mobile) {
+    if mobile {
       font-size: 1em;
     }
   }
@@ -74,7 +74,7 @@ component Ui.Modal.Content {
     padding: 1em;
     flex: 1;
 
-    if (mobile) {
+    if mobile {
       min-width: 0;
     }
   }
@@ -113,7 +113,7 @@ component Ui.Modal.Content {
   fun render : Html {
     <div::base>
       <div::header>
-        if (Html.isNotEmpty(icon)) {
+        if Html.isNotEmpty(icon) {
           <div::icon>
             <Ui.Icon
               size={Ui.Size::Em(1.375)}
@@ -135,7 +135,7 @@ component Ui.Modal.Content {
         <{ content }>
       </div>
 
-      if (Html.isNotEmpty(actions)) {
+      if Html.isNotEmpty(actions) {
         <div::actions>
           <{ actions }>
         </div>

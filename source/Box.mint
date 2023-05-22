@@ -23,7 +23,7 @@ component Ui.Box {
     border-radius: 0.5em;
     padding: 1.25em;
 
-    if (fitContent) {
+    if fitContent {
       display: grid;
     }
   }
@@ -54,7 +54,7 @@ component Ui.Box {
     grid-gap: 0.5em;
     display: grid;
 
-    if (Html.isNotEmpty(label)) {
+    if Html.isNotEmpty(label) {
       grid-template-rows: auto 1fr;
     }
   }
@@ -62,14 +62,14 @@ component Ui.Box {
   /* Renders the box. */
   fun render {
     <div::wrapper>
-      if (Html.isNotEmpty(label)) {
+      if Html.isNotEmpty(label) {
         <div::label>
           <{ label }>
         </div>
       }
 
       <div::base>
-        if (Html.isNotEmpty(title)) {
+        if Html.isNotEmpty(title) {
           <div::title>
             <{ title }>
           </div>

@@ -113,7 +113,7 @@ component Ui.PricingItem {
   /* Renders the component. */
   fun render : Html {
     <div::base>
-      if (Html.isNotEmpty(image)) {
+      if Html.isNotEmpty(image) {
         <div::image>
           <{ image }>
         </div>
@@ -125,24 +125,20 @@ component Ui.PricingItem {
 
       <hr::hr/>
 
-      case (price) {
-        Maybe::Just(item) =>
-          <div::price>
-            <div::currency>
-              <{ item[0] }>
-            </div>
-
-            <div::value>
-              <{ item[1] }>
-            </div>
-
-            <div::period>
-              <{ item[2] }>
-            </div>
+      if let Maybe::Just(item) = price {
+        <div::price>
+          <div::currency>
+            <{ item[0] }>
           </div>
 
-        Maybe::Nothing =>
-          <></>
+          <div::value>
+            <{ item[1] }>
+          </div>
+
+          <div::period>
+            <{ item[2] }>
+          </div>
+        </div>
       }
 
       <div::description>

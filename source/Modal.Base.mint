@@ -48,7 +48,7 @@ component Ui.Modal.Base {
     left: 0;
     top: 0;
 
-    if (open) {
+    if open {
       transition: opacity #{transitionDuration}ms 0ms ease,
                   visibility 1ms 0ms ease;
 
@@ -71,7 +71,7 @@ component Ui.Modal.Base {
     padding: 1em;
     margin: auto;
 
-    if (open) {
+    if open {
       transform: translateY(0);
     } else {
       transform: translateY(-3em);
@@ -80,9 +80,9 @@ component Ui.Modal.Base {
 
   /* Focuses the first focusable element in the modal. */
   fun focusFirst : Promise(Void) {
-    wrapper
-    |> Maybe.map(Dom.focusFirst)
-    |> Maybe.withDefault(Promise.never())
+    if let Maybe::Just(element) = wrapper {
+      Dom.focusFirst(element)
+    }
   }
 
   /* Renders the modal. */

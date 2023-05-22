@@ -19,7 +19,7 @@ enum Ui.ListItem {
 module Ui.ListItem {
   /* Creates list items form an array of strings. */
   fun fromStringArray (array : Array(String)) : Array(Ui.ListItem) {
-    for (item of array) {
+    for item of array {
       fromString(item)
     }
   }
@@ -34,25 +34,22 @@ module Ui.ListItem {
 
   /* Returns the `content` of a list item. */
   fun content (item : Ui.ListItem) : Html {
-    case (item) {
-      Ui.ListItem::Item(content) => content
-      Ui.ListItem::Divider => <></>
+    if let Ui.ListItem::Item(content) = item {
+      content
     }
   }
 
   /* Returns the `matchString` of a list item. */
   fun matchString (item : Ui.ListItem) : String {
-    case (item) {
-      Ui.ListItem::Item(matchString) => matchString
-      Ui.ListItem::Divider => ""
+    if let Ui.ListItem::Item(matchString) = item {
+      matchString
     }
   }
 
   /* Returns the `key` of a list item. */
   fun key (item : Ui.ListItem) : String {
-    case (item) {
-      Ui.ListItem::Item(key) => key
-      Ui.ListItem::Divider => ""
+    if let Ui.ListItem::Item(key) = item {
+      key
     }
   }
 }

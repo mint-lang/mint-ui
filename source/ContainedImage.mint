@@ -40,59 +40,51 @@ component Ui.ContainedImage {
 
   /* Sets the position and size of the image to be contained in the container. */
   fun update : Promise(Void) {
-    case (base) {
-      Maybe::Just(root) =>
-        {
-          let dimensions =
-            Dom.getDimensions(root)
+    let Maybe::Just(root) =
+      base or return next { }
 
-          case (image) {
-            Maybe::Just(element) =>
-              {
-                let imageDimensions =
-                  Dom.getDimensions(element)
+    let dimensions =
+      Dom.getDimensions(root)
 
-                let naturalWidth =
-                  `#{element}.naturalWidth`
+    let Maybe::Just(element) =
+      image or return next { }
 
-                let naturalHeight =
-                  `#{element}.naturalHeight`
+    let imageDimensions =
+      Dom.getDimensions(element)
 
-                let height =
-                  Math.min(Math.min(dimensions.width * (naturalHeight / naturalWidth), dimensions.height), naturalHeight) - (padding * 2)
+    let naturalWidth =
+      `#{element}.naturalWidth`
 
-                let width =
-                  Math.min(Math.min(dimensions.height * (naturalWidth / naturalHeight), dimensions.width), naturalWidth) - (padding * 2)
+    let naturalHeight =
+      `#{element}.naturalHeight`
 
-                let left =
-                  (dimensions.width - width) / 2
+    let height =
+      Math.min(Math.min(dimensions.width * (naturalHeight / naturalWidth), dimensions.height), naturalHeight) - (padding * 2)
 
-                let top =
-                  (dimensions.height - height) / 2
+    let width =
+      Math.min(Math.min(dimensions.height * (naturalWidth / naturalHeight), dimensions.width), naturalWidth) - (padding * 2)
 
-                element
-                |> Dom.setStyle("height", "#{height}px")
-                |> Dom.setStyle("width", "#{width}px")
-                |> Dom.setStyle("left", "#{left}px")
-                |> Dom.setStyle("top", "#{top}px")
+    let left =
+      (dimensions.width - width) / 2
 
-                onUpdate(
-                  {
-                    originalHeight: naturalHeight,
-                    originalWidth: naturalWidth,
-                    currentWidth: width,
-                    currentHeight: height,
-                    left: left,
-                    top: top
-                  })
-              }
+    let top =
+      (dimensions.height - height) / 2
 
-            Maybe::Nothing => next { }
-          }
-        }
+    element
+    |> Dom.setStyle("height", "#{height}px")
+    |> Dom.setStyle("width", "#{width}px")
+    |> Dom.setStyle("left", "#{left}px")
+    |> Dom.setStyle("top", "#{top}px")
 
-      Maybe::Nothing => next { }
-    }
+    onUpdate(
+      {
+        originalHeight: naturalHeight,
+        originalWidth: naturalWidth,
+        currentWidth: width,
+        currentHeight: height,
+        left: left,
+        top: top
+      })
   }
 
   /* Renders the component. */

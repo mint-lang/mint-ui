@@ -30,12 +30,12 @@ component Ui.Icon {
 
     &:focus,
     &:hover {
-      if (actuallyInteractive) {
+      if actuallyInteractive {
         color: var(--primary-color);
       }
     }
 
-    if (disabled) {
+    if disabled {
       cursor: not-allowed;
       opacity: 0.5;
     }
@@ -46,7 +46,7 @@ component Ui.Icon {
       height: 1em;
       width: 1em;
 
-      if (actuallyInteractive) {
+      if actuallyInteractive {
         pointer-events: auto;
         cursor: pointer;
       } else {
@@ -54,7 +54,7 @@ component Ui.Icon {
         cursor: auto;
       }
 
-      if (disabled) {
+      if disabled {
         pointer-events: none;
       }
     }
@@ -84,11 +84,11 @@ component Ui.Icon {
   }
 
   fun render : Html {
-    if (String.isNotBlank(href)) {
+    if String.isNotBlank(href) {
       <a::base::link href={href}>
         <{ icon }>
       </a>
-    } else if (actuallyInteractive) {
+    } else if actuallyInteractive {
       <button::base::button onClick={Ui.disabledHandler(disabled, onClick)}>
         <{ icon }>
       </button>

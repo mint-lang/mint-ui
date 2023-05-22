@@ -28,7 +28,7 @@ component Ui.Toggle {
     -webkit-appearance: none;
     appearance: none;
 
-    if (checked) {
+    if checked {
       background-color: var(--primary-color);
       border-color: var(--primary-color);
       color: var(--primary-text);
@@ -61,7 +61,7 @@ component Ui.Toggle {
     }
 
     &:focus {
-      if (checked) {
+      if checked {
         box-shadow: 0 0 0 0.125em var(--primary-focus-ring) inset;
         background-color: var(--primary-color);
         border-color: var(--primary-color);
@@ -86,7 +86,7 @@ component Ui.Toggle {
     font-size: 0.875em;
     width: 50%;
 
-    if (shown) {
+    if shown {
       opacity: 1;
     } else {
       opacity: 0;
@@ -104,7 +104,7 @@ component Ui.Toggle {
 
     transition: left 120ms;
 
-    if (checked) {
+    if checked {
       left: calc(100% / 2 + 0.25em);
     } else {
       left: 0.25em;

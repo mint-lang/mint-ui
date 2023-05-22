@@ -15,7 +15,7 @@ component Ui.NavItems {
 
   fun render : Html {
     <div::base>
-      for (item of items) {
+      for item of items {
         <Ui.NavItem item={item}/>
       }
     </div>

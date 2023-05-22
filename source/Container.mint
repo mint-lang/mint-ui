@@ -26,7 +26,7 @@ component Ui.Container {
     align-items: #{align};
     display: flex;
 
-    if (orientation == "horizontal") {
+    if orientation == "horizontal" {
       flex-direction: row;
     } else {
       flex-direction: column;

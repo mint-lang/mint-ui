@@ -33,7 +33,7 @@ component Ui.Checkbox {
     height: 2.125em;
     width: 2.125em;
 
-    if (checked) {
+    if checked {
       background-color: var(--primary-color);
       border-color: var(--primary-color);
       color: var(--primary-text);
@@ -48,7 +48,7 @@ component Ui.Checkbox {
     }
 
     &:focus {
-      if (checked) {
+      if checked {
         box-shadow: 0 0 0 0.125em var(--primary-focus-ring) inset;
         background-color: var(--primary-color);
         border-color: var(--primary-color);
@@ -87,7 +87,7 @@ component Ui.Checkbox {
       <Ui.Icon
         icon={Ui.Icons:CHECK}
         opacity={
-          if (checked) {
+          if checked {
             1
           } else {
             0.25

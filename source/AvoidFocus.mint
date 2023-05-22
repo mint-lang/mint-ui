@@ -22,7 +22,7 @@ component Ui.AvoidFocus {
 
   /* Style for the base element. */
   style base {
-    if (disableCursor) {
+    if disableCursor {
       pointer-events: none;
     }
 
@@ -33,16 +33,13 @@ component Ui.AvoidFocus {
 
   /* Sets `tabindex="-1"` on all child elements. */
   fun update : Promise(Void) {
-    case (base) {
-      Maybe::Just(element) =>
-        for (element of Dom.getElementsBySelector(element, "*")) {
-          Dom.setAttribute(element, "tabindex", "-1")
-        }
+    if let Maybe::Just(element) = base {
+      for element of Dom.getElementsBySelector(element, "*") {
+        Dom.setAttribute(element, "tabindex", "-1")
+      }
 
-      Maybe::Nothing => []
+      next { }
     }
-
-    next { }
   }
 
   /* Renders the component. */
