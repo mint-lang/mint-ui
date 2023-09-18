@@ -55,8 +55,9 @@ component Ui.Picker {
       status == Ui.Picker.Status::Open) && !mobile
   }
 
-  use Provider.Keydown {
-    keydowns: handleKeyDown
+  use Provider.Keyboard {
+    ups: (event : Html.Event) { next { } },
+    downs: handleKeyDown
   } when {
     status == Ui.Picker.Status::Focused ||
       status == Ui.Picker.Status::Open
