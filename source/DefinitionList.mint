@@ -120,7 +120,7 @@ component Ui.DefinitionList {
               <Ui.Icon icon={Ui.Icons:CHEVRON_RIGHT}/>
 
               <div::cell>
-                <{ summary }>
+                summary
               </div>
             </div>
 
@@ -133,7 +133,7 @@ component Ui.DefinitionList {
 
                   <div::item>
                     <div::label>
-                      <{ header }>
+                      header
                     </div>
 
                     <div>

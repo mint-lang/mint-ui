@@ -24,7 +24,7 @@ component Ui.Row {
       size={size}
       gap={gap}>
 
-      <{ children }>
+      children
 
     </Ui.Container>
   }

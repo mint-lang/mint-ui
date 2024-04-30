@@ -12,7 +12,7 @@ component Ui.Content {
   connect Ui exposing { mobile }
 
   /* The size of the content. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* Whether or not to fit the content to the extent of the base element. */
   property fitContent : Bool = false
@@ -22,6 +22,8 @@ component Ui.Content {
 
   /* Where to align the text. */
   property textAlign : String = ""
+
+  property key : String = ""
 
   /* The styles for the contents. */
   style base {
@@ -123,8 +125,8 @@ component Ui.Content {
 
   /* Renders the content. */
   fun render : Html {
-    <div::base>
-      <{ children }>
+    <div::base key={key}>
+      children
     </div>
   }
 }

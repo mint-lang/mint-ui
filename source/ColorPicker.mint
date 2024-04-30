@@ -67,7 +67,7 @@ component Ui.ColorPicker {
       Maybe::Just(
         <div::base>
           <span>
-            <{ Color.toCSSHex(value) }>
+            Color.toCSSHex(value)
           </span>
 
           <div::rect/>

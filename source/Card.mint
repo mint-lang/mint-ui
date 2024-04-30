@@ -118,13 +118,13 @@ component Ui.Card {
         Maybe::Just(handler) =>
           <button::common::button::focus onClick={handler}>
             <div::base>
-              <{ children }>
+              children
             </div>
           </button>
 
         Maybe::Nothing =>
           <a::common::base>
-            <{ children }>
+            children
           </a>
       }
     } else {
@@ -133,7 +133,7 @@ component Ui.Card {
         target={target}
         href={href}>
 
-        <{ children }>
+        children
 
       </a>
     }

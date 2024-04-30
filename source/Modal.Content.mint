@@ -122,7 +122,7 @@ component Ui.Modal.Content {
         }
 
         <div::title>
-          <{ title }>
+          title
         </div>
 
         <Ui.Icon
@@ -132,12 +132,12 @@ component Ui.Modal.Content {
       </div>
 
       <div::content>
-        <{ content }>
+        content
       </div>
 
       if Html.isNotEmpty(actions) {
         <div::actions>
-          <{ actions }>
+          actions
         </div>
       }
     </div>

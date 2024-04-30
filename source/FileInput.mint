@@ -165,28 +165,28 @@ component Ui.FileInput {
           <div::infos>
             <Ui.Field label="Name">
               <div::name>
-                <{ File.name(file) }>
+                File.name(file)
               </div>
             </Ui.Field>
 
             <Ui.Field label="Content-Type">
               <div::data>
-                <{ File.mimeType(file) }>
+                File.mimeType(file)
               </div>
             </Ui.Field>
 
             <Ui.Field label="Size">
               <div::data>
-                <{ FileSize.format(File.size(file)) }>
+                FileSize.format(File.size(file))
               </div>
             </Ui.Field>
           </div>
 
           <div::hint>
-            <{ selectAnotherLabel }>
+            selectAnotherLabel
 
             <a onClick={handleClear}>
-              <{ clearLabel }>
+              clearLabel
               <Ui.Icon icon={Ui.Icons:X}/>
             </a>
           </div>
@@ -194,7 +194,7 @@ component Ui.FileInput {
       } else {
         <div::select>
           <Ui.Icon icon={Ui.Icons:CLOUD_UPLOAD}/>
-          <{ selectLabel }>
+          selectLabel
         </div>
       }
     </button>

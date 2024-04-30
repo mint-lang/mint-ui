@@ -139,14 +139,14 @@ component Ui.Book {
     <div::base>
       if String.isBlank(href) {
         <a::book>
-          <{ contents }>
+         contents
         </a>
       } else {
         <a::book
           target={target}
           href={href}>
 
-          <{ contents }>
+         contents
 
         </a>
       }

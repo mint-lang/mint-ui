@@ -125,11 +125,11 @@ component Ui.Toggle {
       role="checkbox">
 
       <div::label(checked) aria-hidden="true">
-        <{ onLabel }>
+        onLabel
       </div>
 
       <div::label(!checked) aria-hidden="true">
-        <{ offLabel }>
+        offLabel
       </div>
 
       <div::overlay aria-hidden="true"/>

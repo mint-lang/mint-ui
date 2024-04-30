@@ -24,7 +24,7 @@ component Ui.Column {
       size={size}
       gap={gap}>
 
-      <{ children }>
+      children
 
     </Ui.Container>
   }

@@ -51,12 +51,12 @@ component Ui.Dropdown.Panel {
     <div::base as base>
       if Html.isNotEmpty(title) {
         <div::title>
-          <{ title }>
+          title
         </div>
       }
 
       <div::content>
-        <{ children }>
+        children
       </div>
     </div>
   }

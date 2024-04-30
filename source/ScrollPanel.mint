@@ -202,11 +202,11 @@ component Ui.ScrollPanel {
   fun render : Html {
     if orientation == "horizontal" {
       <div::base::horizontal as horizontal onScroll={recalculate}>
-        <{ children }>
+        children
       </div>
     } else {
       <div::base::vertical as vertical onScroll={recalculate}>
-        <{ children }>
+        children
       </div>
     }
   }

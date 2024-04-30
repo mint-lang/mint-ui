@@ -79,7 +79,7 @@ component Ui.NavItem {
         <Ui.Icon icon={iconBefore}/>
       }
 
-      <{ label }>
+      label
 
       if Html.isNotEmpty(iconAfter) {
         <Ui.Icon icon={iconAfter}/>
@@ -93,7 +93,7 @@ component Ui.NavItem {
       Ui.NavItem::Group(iconBefore, iconAfter, label, items) =>
         <div::group>
           <strong::group-item::row>
-            <{ renderContents(iconBefore, iconAfter, label) }>
+            renderContents(iconBefore, iconAfter, label)
           </strong>
 
           <Ui.NavItems items={items}/>
@@ -104,13 +104,13 @@ component Ui.NavItem {
           target={target}
           href={href}>
 
-          <{ renderContents(iconBefore, iconAfter, label) }>
+          renderContents(iconBefore, iconAfter, label)
 
         </a>
 
       Ui.NavItem::Item(iconBefore, iconAfter, label, action) =>
         <div::row::item(false) onClick={action}>
-          <{ renderContents(iconBefore, iconAfter, label) }>
+          renderContents(iconBefore, iconAfter, label)
         </div>
 
       Ui.NavItem::Divider => <div::divider/>

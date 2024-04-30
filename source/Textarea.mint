@@ -210,7 +210,6 @@ component Ui.Textarea {
       case behavior {
         "grow" =>
           <div::common::mirror>
-            <{
               {
                 /* Get the value as lines. */
                 let lines =
@@ -242,17 +241,16 @@ component Ui.Textarea {
                   |> Array.map(
                     (line : String) : Html {
                       <span>
-                        <{ line }>
+                       line
                       </span>
                     })
                   |> Array.intersperse(<br/>)
 
                 <>
-                  <{ spans }>
-                  <{ last }>
+                  spans
+                  last
                 </>
               }
-            }>
           </div>
 
         => <></>

@@ -192,7 +192,7 @@ component Ui.Button {
 
           if String.isNotBlank(label) {
             <div::label>
-              <{ label }>
+              label
             </div>
           }
 
@@ -220,7 +220,7 @@ component Ui.Button {
         target={target}
         href={href}>
 
-        <{ content }>
+         content
 
       </a>
     } else {
@@ -230,7 +230,7 @@ component Ui.Button {
         onClick={clickHandler}
         disabled={disabled}>
 
-        <{ content }>
+        content
 
       </button>
     }

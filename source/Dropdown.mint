@@ -24,10 +24,10 @@ component Ui.Dropdown {
   property matchWidth : Bool = false
 
   /* The element which trigger the dropdown. */
-  property element : Html = <{  }>
+  property element : Html = <></>
 
   /* The content to show in the dropdown. */
-  property content : Html = <{  }>
+  property content : Html = <></>
 
   /* The offset from the side of the element. */
   property offset : Number = 5
@@ -82,8 +82,10 @@ component Ui.Dropdown {
 
   /* Updates the dimensions of the panel if `matchWidth` is true. */
   fun updateDimensions (timestamp : Number) : Promise(Void) {
-    if let Maybe::Just(panel) = stickyPanel {
-      next { width: Dom.getDimensions(`#{panel}.base`).width }
+    if let Maybe.Just(panel) = stickyPanel {
+      if let Maybe.Just(base) = Ui.getElementFromVNode(`#{element}`) {
+        next { width: Dom.getDimensions(base).width }
+      }
     }
   }
 
@@ -91,14 +93,14 @@ component Ui.Dropdown {
   fun render : Html {
     if mobile {
       <>
-        <{ element }>
+        element
 
         <Ui.Modal.Base
           closeOnOutsideClick={closeOnOutsideClick}
           onClose={onClose}
           open={open}>
 
-          <{ content }>
+          content
 
         </Ui.Modal.Base>
       </>
@@ -112,7 +114,7 @@ component Ui.Dropdown {
         zIndex={zIndex}
         content={
           <div::panel as panel onClick={onClick}>
-            <{ content }>
+            content
           </div>
         }/>
     }

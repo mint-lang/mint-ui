@@ -69,7 +69,7 @@ component Ui.Table.Header {
     <th::base>
       <div::wrap>
         <span>
-          <{ data.label }>
+          data.label
         </span>
 
         if data.sortable {

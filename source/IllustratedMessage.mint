@@ -84,25 +84,25 @@ component Ui.IllustratedMessage {
     <div::base>
       if Html.isNotEmpty(image) {
         <div::image>
-          <{ image }>
+          image
         </div>
       }
 
       if Html.isNotEmpty(title) {
         <div::title>
-          <{ title }>
+          title
         </div>
       }
 
       if Html.isNotEmpty(subtitle) {
         <div::subtitle>
-          <{ subtitle }>
+          subtitle
         </div>
       }
 
       if Html.isNotEmpty(actions) {
         <div::actions>
-          <{ actions }>
+          actions
         </div>
       }
     </div>

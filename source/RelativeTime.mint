@@ -28,7 +28,7 @@ component Ui.RelativeTime {
   /* Renders the component. */
   fun render : Html {
     <time::base title={titleFormatter(language, date)}>
-      <{ formatter(date, now, language) }>
+      formatter(date, now, language)
     </time>
   }
 }

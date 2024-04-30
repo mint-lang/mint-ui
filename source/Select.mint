@@ -67,7 +67,7 @@ component Ui.Select {
       |> Maybe.map(
         (item : Ui.ListItem) {
           <div>
-            <{ Ui.ListItem.content(item) }>
+            Ui.ListItem.content(item)
           </div>
         })
 

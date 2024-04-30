@@ -100,7 +100,7 @@ global component Ui.Drawer {
       {
         resolve: (value : Maybe(Void)) { void },
         focusedElement: Maybe::Nothing,
-        content: <{  }>
+        content: <></>
       }
   }
 
@@ -116,7 +116,7 @@ global component Ui.Drawer {
       {
         resolve: (value : Maybe(Void)) { void },
         focusedElement: Maybe::Nothing,
-        content: <{  }>
+        content: <></>
       }
   }
 
@@ -129,7 +129,7 @@ global component Ui.Drawer {
       zIndex={zIndex}
       open={open}>
 
-      <{ content }>
+      content
 
     </Ui.Drawer.Base>
   }

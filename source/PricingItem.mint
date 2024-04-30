@@ -10,7 +10,7 @@ component Ui.PricingItem {
   property size : Ui.Size = Ui.Size::Inherit
 
   /* The slot for the image at the top. */
-  property image : Html = <{  }>
+  property image : Html = <></>
 
   /* The slot for the description of the item. */
   property description : Html
@@ -115,12 +115,12 @@ component Ui.PricingItem {
     <div::base>
       if Html.isNotEmpty(image) {
         <div::image>
-          <{ image }>
+          image
         </div>
       }
 
       <div::name>
-        <{ name }>
+         name
       </div>
 
       <hr::hr/>
@@ -128,29 +128,29 @@ component Ui.PricingItem {
       if let Maybe::Just(item) = price {
         <div::price>
           <div::currency>
-            <{ item[0] }>
+             item[0]
           </div>
 
           <div::value>
-            <{ item[1] }>
+             item[1]
           </div>
 
           <div::period>
-            <{ item[2] }>
+             item[2]
           </div>
         </div>
       }
 
       <div::description>
         <Ui.Content>
-          <{ description }>
+           description
         </Ui.Content>
       </div>
 
       <hr::hr/>
 
       <div::actions>
-        <{ actions }>
+         actions
       </div>
     </div>
   }

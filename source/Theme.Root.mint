@@ -103,17 +103,17 @@ component Ui.Theme.Root {
     let styles =
       <>
         <style>
-          <{ css }>
+          css
         </style>
 
         <style>
-          <{ ":root { #{resolvedTokens} } " }>
+          ":root { #{resolvedTokens} } "
         </style>
       </>
 
-    <{
-      `_createPortal(#{styles}, document.head)`
+    <>
+      `#{%createPortal%}(#{styles}, document.head)`
       children
-    }>
+    </>
   }
 }

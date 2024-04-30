@@ -3,7 +3,7 @@ component Ui.Layout.Documentation {
   connect Ui exposing { mobile }
 
   /* The content to display in the mobile navigation select. */
-  property mobileNavigationLabel : Html = <{ "Pages" }>
+  property mobileNavigationLabel : Html = <>"Pages"</>
 
   /* The size of the component. */
   property size : Ui.Size = Ui.Size::Inherit
@@ -187,23 +187,23 @@ component Ui.Layout.Documentation {
       } else {
         <button::button-reset onClick={openActionSheet}>
           <div::button>
-            <{ mobileNavigationLabel }>
+            mobileNavigationLabel
             <Ui.Icon icon={Ui.Icons:CHEVRON_DOWN}/>
           </div>
         </button>
       }
 
       <div::content as content>
-        <{ children }>
+        children
       </div>
 
       if !mobile {
         <div::toc>
-          <Ui.Box label=<{ "Contents" }>>
+          <Ui.Box label="Contents">
             for item of tocItems {
               <div>
                 <a::toc-item href="##{item[0]}">
-                  <{ item[1] }>
+                  item[1]
                 </a>
               </div>
             }

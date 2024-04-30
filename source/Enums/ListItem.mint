@@ -29,7 +29,7 @@ module Ui.ListItem {
     Ui.ListItem::Item(
       matchString: String.toLowerCase(value),
       key: String.parameterize(value),
-      content: <{ value }>)
+      content: value)
   }
 
   /* Returns the `content` of a list item. */

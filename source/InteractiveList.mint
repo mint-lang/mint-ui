@@ -171,7 +171,7 @@ component Ui.InteractiveList {
                   selected={Set.has(selected, key)}
                   key={key}>
 
-                  <{ content }>
+                  content
 
                 </Ui.InteractiveList.Item>
 

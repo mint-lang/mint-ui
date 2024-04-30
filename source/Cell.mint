@@ -35,23 +35,23 @@ component Ui.Cell {
   fun render : Html {
     <div::base>
       case cell {
-        Ui.Cell::Number(value) => <{ Number.toString(value) }>
-        Ui.Cell::String(value) => <{ value }>
+        Ui.Cell::Number(value) => <>Number.toString(value)</>
+        Ui.Cell::String(value) => <>value</>
         Ui.Cell::Html(value) => value
 
         Ui.Cell::Code(code, breakSpaces) =>
           <code::code(breakSpaces)>
-            <{ code }>
+            code
           </code>
 
         Ui.Cell::HtmlItems(items, breakOnMobile) =>
           if mobile && breakOnMobile {
             <Ui.Column>
-              <{ items }>
+              items
             </Ui.Column>
           } else {
             <Ui.Row justify="start">
-              <{ items }>
+              items
             </Ui.Row>
           }
       }

@@ -115,20 +115,20 @@ component Ui.Card.Container {
 
       if Html.isNotEmpty(title) {
         <div::title>
-          <{ title }>
+          title
         </div>
       }
 
       if Html.isNotEmpty(subtitle) {
         <div::subtitle>
-          <{ subtitle }>
+          subtitle
         </div>
       }
 
       if Html.isNotEmpty(content) {
         <div::content>
           <Ui.Content>
-            <{ content }>
+            content
           </Ui.Content>
         </div>
       }

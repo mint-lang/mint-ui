@@ -122,17 +122,17 @@ component Ui.Native.Select {
       |> Maybe.map(
         (item : Ui.ListItem) {
           <div>
-            <{ Ui.ListItem.content(item) }>
+            Ui.ListItem.content(item)
           </div>
         })
       |> Maybe.withDefault(
         <div::placeholder>
-          <{ placeholder }>
+          placeholder
         </div>)
 
     let grid =
       <div::grid>
-        <{ label }>
+        label
 
         <Ui.Icon icon={Ui.Icons:CHEVRON_DOWN}/>
       </div>
@@ -154,14 +154,14 @@ component Ui.Native.Select {
 
             Ui.ListItem::Item(content, key) =>
               <option value={key}>
-                <{ content }>
+                content
               </option>
           }
         }
 
       </select>
 
-      <{ grid }>
+      grid
     </div>
   }
 }

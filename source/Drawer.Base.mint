@@ -95,7 +95,7 @@ component Ui.Drawer.Base {
       <Ui.FocusTrap>
         <div::base>
           <div::drawer as drawer>
-            <{ children }>
+            children
           </div>
         </div>
       </Ui.FocusTrap>

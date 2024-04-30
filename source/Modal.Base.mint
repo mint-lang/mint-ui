@@ -90,7 +90,7 @@ component Ui.Modal.Base {
     <Ui.FocusTrap>
       <div::base>
         <div::wrapper as wrapper>
-          <{ children }>
+          children
         </div>
       </div>
     </Ui.FocusTrap>

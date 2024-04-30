@@ -101,38 +101,40 @@ component Ui.StickyPanel {
 
   /* Calculates the position of the panel. */
   fun updateDimensions (timestamp : Number) : Promise(Void) {
-    if let Maybe::Just(element) = panel {
-      let panelDimensions =
-        Dom.getDimensions(element)
+    if let Maybe.Just(base) = Ui.getElementFromVNode(`#{element}`) {
+      if let Maybe.Just(element) = panel {
+        let panelDimensions =
+          Dom.getDimensions(element)
 
-      let dimensions =
-        Dom.getDimensions(`this.base`)
+        let dimensions =
+          Dom.getDimensions(base)
 
-      let favoredPosition =
-        calculatePosition(position, dimensions, panelDimensions)
+        let favoredPosition =
+          calculatePosition(position, dimensions, panelDimensions)
 
-      let finalPosition =
-        if Ui.isFullyVisible(favoredPosition) {
-          favoredPosition
-        } else {
-          let inversePosition =
-            calculatePosition(
-              Ui.Position.inverse(position),
-              dimensions,
-              panelDimensions)
-
-          if Ui.isFullyVisible(inversePosition) {
-            inversePosition
-          } else {
+        let finalPosition =
+          if Ui.isFullyVisible(favoredPosition) {
             favoredPosition
-          }
-        }
+          } else {
+            let inversePosition =
+              calculatePosition(
+                Ui.Position.inverse(position),
+                dimensions,
+                panelDimensions)
 
-      next
-        {
-          left: finalPosition.left,
-          top: finalPosition.top
-        }
+            if Ui.isFullyVisible(inversePosition) {
+              inversePosition
+            } else {
+              favoredPosition
+            }
+          }
+
+        next
+          {
+            left: finalPosition.left,
+            top: finalPosition.top
+          }
+      }
     }
   }
 
@@ -142,7 +144,7 @@ component Ui.StickyPanel {
       element,
       <Html.Portals.Body>
         <div::panel as panel>
-          <{ content }>
+          content
         </div>
       </Html.Portals.Body>
     ]

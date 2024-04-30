@@ -1,7 +1,7 @@
 /* A component to display and example, controls and source code of a component. */
 component Ui.Example {
   /* Highlights the given code (converts it to `Html`). */
-  property highlight : Function(String, Html) = (code : String) { <{ code }> }
+  property highlight : Function(String, Html) = (code : String) { <>code</> }
 
   /* Controls the horizontal spacing between the elements. */
   property horizontalSpacing : Number = 0
@@ -145,23 +145,23 @@ component Ui.Example {
 
     <div::base as base>
       if Html.isNotEmpty(warning) {
-        <{ warning }>
+        warning
       }
 
       <div::demo-area>
         <div::demo-area-wrapper>
-          <{ content }>
+          content
         </div>
       </div>
 
       if Html.isNotEmpty(controls) {
         <div::controls>
-          <{ controls }>
+          controls
         </div>
       }
 
       <div::code>
-        <{ highlight(code) }>
+        highlight(code)
       </div>
     </div>
   }

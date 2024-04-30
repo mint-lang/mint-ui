@@ -156,7 +156,7 @@ component Ui.Tabs {
         <Ui.Icon icon={tab.iconBefore}/>
       }
 
-      <{ tab.label }>
+      tab.label
 
       if Html.isNotEmpty(tab.iconAfter) {
         <Ui.Icon icon={tab.iconAfter}/>
@@ -179,12 +179,11 @@ component Ui.Tabs {
 
         <button::button-reset::button-mobile>
           <div::mobile onClick={() { Ui.ActionSheet.show(navItems) }}>
-            <{
+
               items
               |> Array.find((tab : Ui.Tab) { tab.key == active })
               |> Maybe.map(renderTab)
               |> Maybe.withDefault(<></>)
-            }>
 
             <Ui.Icon
               icon={Ui.Icons:CHEVRON_DOWN}
@@ -195,19 +194,18 @@ component Ui.Tabs {
         <div::tabs>
           for tab of items {
             <button::button-reset::tab(tab.key == active) onClick={() { handleSelect(tab.key) }}>
-              <{ renderTab(tab) }>
+              renderTab(tab)
             </button>
           }
         </div>
       }
 
       <div::content>
-        <{
+
           items
           |> Array.find((tab : Ui.Tab) { tab.key == active })
           |> Maybe.map((tab : Ui.Tab) { tab.content })
           |> Maybe.withDefault(<></>)
-        }>
       </div>
     </div>
   }

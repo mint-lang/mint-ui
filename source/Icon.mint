@@ -86,15 +86,15 @@ component Ui.Icon {
   fun render : Html {
     if String.isNotBlank(href) {
       <a::base::link href={href}>
-        <{ icon }>
+        icon
       </a>
     } else if actuallyInteractive {
       <button::base::button onClick={Ui.disabledHandler(disabled, onClick)}>
-        <{ icon }>
+        icon
       </button>
     } else {
       <div::base onClick={Ui.disabledHandler(disabled, onClick)}>
-        <{ icon }>
+        icon
       </div>
     }
   }

@@ -47,17 +47,17 @@ component Ui.Brand {
         }
 
         <div::name>
-          <{ name }>
+          name
         </div>
       </>
 
     if String.isEmpty(href) {
       <div::base href={href}>
-        <{ content }>
+        content
       </div>
     } else {
       <a::base::link href={href}>
-        <{ content }>
+        content
       </a>
     }
   }

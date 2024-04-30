@@ -110,9 +110,9 @@ component Ui.Pagination {
           if page != pages {
             [
               <div::mobile-indicator>
-                <{ Number.toString(page + 1) }>
+                Number.toString(page + 1)
                 " of "
-                <{ Number.toString(pages + 1) }>
+                Number.toString(pages + 1)
               </div>
             ]
           } else {

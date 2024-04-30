@@ -55,7 +55,7 @@ component Ui.InteractiveList.Item {
         <Ui.Icon icon={Ui.Icons:CHEVRON_RIGHT}/>
       }
 
-      <{ children }>
+      children
     </div>
   }
 }

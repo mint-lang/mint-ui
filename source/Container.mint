@@ -43,11 +43,9 @@ component Ui.Container {
   /* Renders the component. */
   fun render : Html {
     <div::base>
-      <{
         children
         |> Html.flatten
         |> Array.intersperse(<div::gap/>)
-      }>
     </div>
   }
 }

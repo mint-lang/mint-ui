@@ -45,7 +45,7 @@ component Ui.AvoidFocus {
   /* Renders the component. */
   fun render : Html {
     <div::base as base aria-hidden="true">
-      <{ children }>
+      children
     </div>
   }
 }

@@ -84,7 +84,7 @@ component Ui.DatePicker {
     let label =
       Maybe::Just(
         <div::label>
-          <{ formatter(value, language, format) }>
+          formatter(value, language, format)
         </div>)
 
     <Ui.Picker as picker

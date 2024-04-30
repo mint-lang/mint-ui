@@ -314,7 +314,7 @@ global component Ui.ActionSheet {
           <Ui.Icon icon={iconBefore}/>
         }
 
-        <{ label }>
+        label
 
         if Html.isNotEmpty(iconAfter) {
           <Ui.Icon icon={iconAfter}/>
@@ -323,7 +323,7 @@ global component Ui.ActionSheet {
 
     if group {
       <div::item(group)::item-interactive(group) onClick={onClick}>
-        <{ contents }>
+        contents
       </div>
     } else if String.isNotBlank(href) {
       <a::item(group)::item-interactive(group)
@@ -331,13 +331,13 @@ global component Ui.ActionSheet {
         target={target}
         href={href}>
 
-        <{ contents }>
+        contents
 
       </a>
     } else {
       <button::reset::item(group)::item-interactive(group) onClick={onClick}>
         <div::item(group)>
-          <{ contents }>
+          contents
         </div>
       </button>
     }
@@ -348,7 +348,7 @@ global component Ui.ActionSheet {
     case item {
       Ui.NavItem::Html(content) =>
         <div::html>
-          <{ content }>
+          content
         </div>
 
       Ui.NavItem::Divider => <div::divider/>
@@ -375,7 +375,7 @@ global component Ui.ActionSheet {
 
       Ui.NavItem::Group(iconAfter, iconBefore, label, items) =>
         <>
-          <{
+
             renderContents(
               iconAfter,
               iconBefore,
@@ -384,7 +384,6 @@ global component Ui.ActionSheet {
               "",
               "",
               Promise.never1)
-          }>
 
           <div::group>
             <div::gutter/>

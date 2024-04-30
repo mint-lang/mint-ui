@@ -199,18 +199,16 @@ component Ui.Picker {
   fun render : Html {
     let content =
       <Ui.Dropdown.Panel as dropdown size={size}>
-        <{ panel }>
+        panel
       </Ui.Dropdown.Panel>
 
     let grid =
       <div::grid>
-        <{
-          Maybe.withDefault(
-            label,
-            <div::placeholder>
-              <{ placeholder }>
-            </div>)
-        }>
+        Maybe.withDefault(
+          label,
+          <div::placeholder>
+            placeholder
+          </div>)
 
         if Html.isNotEmpty(icon) {
           <Ui.Icon icon={icon}/>
@@ -222,14 +220,14 @@ component Ui.Picker {
     let html =
       if disabled {
         <div::element>
-          <{ grid }>
+          grid
         </div>
       } else {
         <div::element as element
           onMouseUp={handleFocus}
           tabindex="0">
 
-          <{ grid }>
+          grid
 
         </div>
       }

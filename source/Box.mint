@@ -64,19 +64,19 @@ component Ui.Box {
     <div::wrapper>
       if Html.isNotEmpty(label) {
         <div::label>
-          <{ label }>
+         label
         </div>
       }
 
       <div::base>
         if Html.isNotEmpty(title) {
           <div::title>
-            <{ title }>
+           title
           </div>
         }
 
         <Ui.Content fitContent={fitContent}>
-          <{ children }>
+         children
         </Ui.Content>
       </div>
     </div>

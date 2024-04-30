@@ -69,14 +69,14 @@ component Ui.Breadcrumbs {
 
           if String.isBlank(href) {
             <span::breadcrumb aria-label="breadcrumb">
-              <{ content }>
+              content
             </span>
           } else {
             <a::breadcrumb::link
               aria-label="breadcrumb"
               href={href}>
 
-              <{ content }>
+              content
 
             </a>
           }
@@ -84,11 +84,11 @@ component Ui.Breadcrumbs {
 
       let span =
         <span::separator aria-hidden="true">
-          <{ separator }>
+          separator
         </span>
 
       <nav::base as base>
-        <{ Array.intersperse(content, span) }>
+        Array.intersperse(content, span)
       </nav>
     }
   }

@@ -102,7 +102,7 @@ global component Ui.Modal {
       {
         resolve: (value : Maybe(Void)) { void },
         focusedElement: Maybe::Nothing,
-        content: <{  }>
+        content: <></>
       }
   }
 
@@ -118,7 +118,7 @@ global component Ui.Modal {
       {
         resolve: (value : Maybe(Void)) { void },
         focusedElement: Maybe::Nothing,
-        content: <{  }>
+        content: <></>
       }
   }
 
@@ -129,7 +129,7 @@ global component Ui.Modal {
       zIndex={zIndex}
       open={open}>
 
-      <{ content }>
+      content
 
     </Ui.Modal.Base>
   }

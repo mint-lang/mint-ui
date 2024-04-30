@@ -71,7 +71,7 @@ component Ui.Calendar.Cell {
       title={Time.format(day, language, "%Y-%m-%d")}
       onClick={handleClick}>
 
-      <{ Time.format(day, language, "%d") }>
+      Time.format(day, language, "%d")
 
     </div>
   }

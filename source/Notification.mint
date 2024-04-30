@@ -1,7 +1,7 @@
 /* A component for displaying a notification. */
 component Ui.Notification {
   /* The content to display in the notification. */
-  property content : Html = <{  }>
+  property content : Html = <></>
 
   /* The duration of the notification. */
   property duration : Number = 0
@@ -102,7 +102,7 @@ component Ui.Notification {
   fun render : Html {
     <div::base>
       <div::content as base onClick={handleClick}>
-        <{ content }>
+        content
       </div>
     </div>
   }

@@ -111,7 +111,7 @@ component Ui.ContentHint {
       </div>
 
       <div::content>
-        <{ children }>
+        children
       </div>
     </div>
   }

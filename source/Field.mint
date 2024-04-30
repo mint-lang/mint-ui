@@ -92,13 +92,13 @@ component Ui.Field {
     <div::base>
       <div::control>
         <div::label>
-          <{ label }>
+          label
         </div>
 
         <div::gap/>
 
         <div>
-          <{ children }>
+          children
         </div>
       </div>
 
@@ -106,7 +106,7 @@ component Ui.Field {
         <div::error>
           <Ui.Icon icon={Ui.Icons:ALERT}/>
           <div::gap/>
-          <{ message }>
+          message
         </div>
       }
     </div>

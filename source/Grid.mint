@@ -37,7 +37,7 @@ component Ui.Grid {
   /* Renders the grid. */
   fun render : Html {
     <div::base>
-      <{ children }>
+      children
     </div>
   }
 }

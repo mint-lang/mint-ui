@@ -24,7 +24,7 @@ component Ui.Layout.Centered {
   /* Renders the page. */
   fun render : Html {
     <div::base as base>
-      <{ children }>
+      children
     </div>
   }
 }

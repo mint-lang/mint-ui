@@ -33,7 +33,7 @@ component Ui.FocusTrap {
   /* Renders the component. */
   fun render : Html {
     <div as base onKeyDown={handleKeyDown}>
-      <{ children }>
+      children
     </div>
   }
 }

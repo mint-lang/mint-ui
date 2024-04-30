@@ -76,7 +76,7 @@ component Ui.ScrollToTop {
 
     if global {
       <Html.Portals.Body>
-        <{ base }>
+        base
       </Html.Portals.Body>
     } else {
       base

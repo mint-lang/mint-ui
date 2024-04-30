@@ -12,7 +12,7 @@ component Ui.Footer {
   property size : Ui.Size = Ui.Size::Inherit
 
   /* The content to display on the left side. */
-  property infos : Html = <{  }>
+  property infos : Html = <></>
 
   /* Styles for the base element. */
   style base {
@@ -67,14 +67,14 @@ component Ui.Footer {
   fun render : Html {
     <div::base>
       <div::infos>
-        <{ infos }>
+        infos
       </div>
 
       <div::categories>
         for item of navitems {
           <div::category>
             <strong>
-              <{ item[0] }>
+              item[0]
             </strong>
 
             <Ui.NavItems items={item[1]}/>

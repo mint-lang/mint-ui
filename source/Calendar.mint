@@ -136,7 +136,7 @@ component Ui.Calendar {
           interactive={true}/>
 
         <div::text>
-          <{ Time.format(month, language, "%B - %Y") }>
+          Time.format(month, language, "%B - %Y")
         </div>
 
         <Ui.Icon
@@ -147,22 +147,19 @@ component Ui.Calendar {
       </div>
 
       <div::dayNames>
-        <{
-          {
+        {
             let range =
               Time.range(Time.atBeginningOfWeek(day), Time.atEndOfWeek(day))
 
             for day of range {
               <div::dayName>
-                <{ Time.format(day, language, "%a") }>
+                 Time.format(day, language, "%a")
               </div>
             }
           }
-        }>
       </div>
 
       <div::table>
-        <{
           {
             let startDate =
               month
@@ -222,7 +219,6 @@ component Ui.Calendar {
                 readonly={readonly}/>
             }
           }
-        }>
       </div>
     </div>
   }

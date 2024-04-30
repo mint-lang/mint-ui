@@ -124,7 +124,7 @@ component Ui.Header {
       }
 
       <span::label>
-        <{ label }>
+        label
       </span>
 
       if Html.isNotEmpty(iconAfter) {
@@ -138,7 +138,7 @@ component Ui.Header {
   /* Renders the component. */
   fun render : Html {
     <div::base as base>
-      <{ brand }>
+      brand
 
       <Ui.Container gap={gap}>
         if width < breakpoint {
@@ -149,7 +149,6 @@ component Ui.Header {
               icon={icon}/>
           </div>
         } else {
-          <{
             for item of items {
               case item {
                 Ui.NavItem::Divider => <div::divider/>
@@ -174,7 +173,7 @@ component Ui.Header {
                           onClick={() { next { openDropdowns: Map.set(openDropdowns, key, true) } }}
                           tabIndex="0">
 
-                          <{ renderItem(iconBefore, iconAfter, label) }>
+                          renderItem(iconBefore, iconAfter, label)
 
                         </div>
                       }
@@ -187,7 +186,7 @@ component Ui.Header {
 
                 Ui.NavItem::Item(iconBefore, iconAfter, label, action) =>
                   <div::item(false) onClick={action}>
-                    <{ renderItem(iconBefore, iconAfter, label) }>
+                    renderItem(iconBefore, iconAfter, label)
                   </div>
 
                 Ui.NavItem::Link(iconBefore, iconAfter, label, href, target) =>
@@ -195,12 +194,11 @@ component Ui.Header {
                     target={target}
                     href={href}>
 
-                    <{ renderItem(iconBefore, iconAfter, label) }>
+                    renderItem(iconBefore, iconAfter, label)
 
                   </a>
               }
             }
-          }>
         }
       </Ui.Container>
     </div>
