@@ -8,7 +8,7 @@ component Ui.Tabs {
   property onChange : Function(String, Promise(Void)) = Promise.never1
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The breakpoint for the mobile version. */
   property breakpoint : Number = 1000
@@ -170,7 +170,7 @@ component Ui.Tabs {
       if mobile {
         let navItems =
           for tab of items {
-            Ui.NavItem::Item(
+            Ui.NavItem.Item(
               action: (event : Html.Event) { handleSelect(tab.key) },
               iconBefore: tab.iconBefore,
               iconAfter: tab.iconAfter,
@@ -179,15 +179,14 @@ component Ui.Tabs {
 
         <button::button-reset::button-mobile>
           <div::mobile onClick={() { Ui.ActionSheet.show(navItems) }}>
-
-              items
-              |> Array.find((tab : Ui.Tab) { tab.key == active })
-              |> Maybe.map(renderTab)
-              |> Maybe.withDefault(<></>)
+            items
+            |> Array.find((tab : Ui.Tab) { tab.key == active })
+            |> Maybe.map(renderTab)
+            |> Maybe.withDefault(<></>)
 
             <Ui.Icon
-              icon={Ui.Icons:CHEVRON_DOWN}
-              size={Ui.Size::Em(1.5)}/>
+              icon={Ui.Icons.CHEVRON_DOWN}
+              size={Ui.Size.Em(1.5)}/>
           </div>
         </button>
       } else {
@@ -201,11 +200,10 @@ component Ui.Tabs {
       }
 
       <div::content>
-
-          items
-          |> Array.find((tab : Ui.Tab) { tab.key == active })
-          |> Maybe.map((tab : Ui.Tab) { tab.content })
-          |> Maybe.withDefault(<></>)
+        items
+        |> Array.find((tab : Ui.Tab) { tab.key == active })
+        |> Maybe.map((tab : Ui.Tab) { tab.content })
+        |> Maybe.withDefault(<></>)
       </div>
     </div>
   }

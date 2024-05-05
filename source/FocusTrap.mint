@@ -5,10 +5,10 @@ component Ui.FocusTrap {
 
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
-    if let Maybe::Just(element) = base {
+    if let Maybe.Just(element) = base {
       if event.keyCode == 9 {
         let target =
-          Maybe::Just(event.target)
+          Maybe.Just(event.target)
 
         let elements =
           Dom.getFocusableElements(element)

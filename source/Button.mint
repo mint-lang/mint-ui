@@ -46,7 +46,7 @@ component Ui.Button {
   property iconAfter : Html = <></>
 
   /* The size of the button. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* Styles for the button. */
   style styles {
@@ -183,7 +183,7 @@ component Ui.Button {
     let content =
       <div::container>
         <Ui.Container
-          gap={Ui.Size::Em(0.625)}
+          gap={Ui.Size.Em(0.625)}
           justify="start">
 
           if Html.isNotEmpty(iconBefore) {
@@ -220,7 +220,7 @@ component Ui.Button {
         target={target}
         href={href}>
 
-         content
+        content
 
       </a>
     } else {

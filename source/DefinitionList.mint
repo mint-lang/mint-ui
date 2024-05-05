@@ -4,7 +4,7 @@ component Ui.DefinitionList {
   property rows : Array(Tuple(String, Array(Ui.Cell))) = []
 
   /* The size of the list. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The data for the headers. */
   property headers : Array(String) = []
@@ -117,7 +117,7 @@ component Ui.DefinitionList {
         <>
           <div::details(open)>
             <div::summary(open) onClick={handleClick(index)}>
-              <Ui.Icon icon={Ui.Icons:CHEVRON_RIGHT}/>
+              <Ui.Icon icon={Ui.Icons.CHEVRON_RIGHT}/>
 
               <div::cell>
                 summary

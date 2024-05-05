@@ -3,7 +3,7 @@ component Ui.DarkModeToggle {
   connect Ui exposing { darkMode, setDarkMode }
 
   /* The size of the content. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* Styles for the button. */
   style button {
@@ -79,20 +79,20 @@ component Ui.DarkModeToggle {
     <button::button onClick={toggle}>
       <div::button-content>
         <Ui.Icon
-          icon={Ui.Icons:MOON}
+          icon={Ui.Icons.MOON}
           opacity={0.5}/>
 
         <Ui.Icon
-          icon={Ui.Icons:SUN}
+          icon={Ui.Icons.SUN}
           opacity={0.5}/>
 
         <div::icon>
           <Ui.Icon
             icon={
               if darkMode {
-                Ui.Icons:MOON
+                Ui.Icons.MOON
               } else {
-                Ui.Icons:SUN
+                Ui.Icons.SUN
               }
             }/>
         </div>

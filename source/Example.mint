@@ -19,7 +19,7 @@ component Ui.Example {
   property fullWidth : Bool = false
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The controls to display on the right. */
   property controls : Html = <></>

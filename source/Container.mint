@@ -10,10 +10,10 @@ component Ui.Container {
   property align : String = "center"
 
   /* The size of the grid. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The gap between the children. */
-  property gap : Ui.Size = Ui.Size::Em(0.5)
+  property gap : Ui.Size = Ui.Size.Em(0.5)
 
   /* The children to render. */
   property children : Array(Html) = []
@@ -43,9 +43,9 @@ component Ui.Container {
   /* Renders the component. */
   fun render : Html {
     <div::base>
-        children
-        |> Html.flatten
-        |> Array.intersperse(<div::gap/>)
+      children
+      |> Html.flatten
+      |> Array.intersperse(<div::gap/>)
     </div>
   }
 }

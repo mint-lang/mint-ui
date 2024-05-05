@@ -7,7 +7,7 @@ component Ui.Calendar {
   property onChange : Function(Time, Promise(Void)) = Promise.never1
 
   /* The language to use for time formatting. */
-  property language : Time.Format.Language = Time.Format:ENGLISH
+  property language : Time.Format.Language = Time.Format.ENGLISH
 
   /* The days to highlight as selected. */
   property selectedDays : Set(Time) = Set.empty()
@@ -16,7 +16,7 @@ component Ui.Calendar {
   property changeMonthOnSelect : Bool = false
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The month to display. */
   property month : Time = Time.today()
@@ -131,7 +131,7 @@ component Ui.Calendar {
       <div::header>
         <Ui.Icon
           onClick={handleChevronLeftClick}
-          icon={Ui.Icons:CHEVRON_LEFT}
+          icon={Ui.Icons.CHEVRON_LEFT}
           disabled={disabled}
           interactive={true}/>
 
@@ -141,84 +141,84 @@ component Ui.Calendar {
 
         <Ui.Icon
           onClick={handleChevronRightClick}
-          icon={Ui.Icons:CHEVRON_RIGHT}
+          icon={Ui.Icons.CHEVRON_RIGHT}
           disabled={disabled}
           interactive={true}/>
       </div>
 
       <div::dayNames>
         {
-            let range =
-              Time.range(Time.atBeginningOfWeek(day), Time.atEndOfWeek(day))
+          let range =
+            Time.range(Time.atBeginningOfWeek(day), Time.atEndOfWeek(day))
 
-            for day of range {
-              <div::dayName>
-                 Time.format(day, language, "%a")
-              </div>
-            }
+          for day of range {
+            <div::dayName>
+              Time.format(day, language, "%a")
+            </div>
           }
+        }
       </div>
 
       <div::table>
-          {
-            let startDate =
-              month
-              |> Time.atBeginningOfMonth
-              |> Time.atBeginningOfWeek
+        {
+          let startDate =
+            month
+            |> Time.atBeginningOfMonth
+            |> Time.atBeginningOfWeek
 
-            let endDate =
-              month
-              |> Time.atEndOfMonth
-              |> Time.atEndOfWeek
+          let endDate =
+            month
+            |> Time.atEndOfMonth
+            |> Time.atEndOfWeek
 
-            let days =
-              Time.range(startDate, endDate)
+          let days =
+            Time.range(startDate, endDate)
 
-            let range =
-              month
-              |> Time.atBeginningOfMonth
-              |> Time.range(Time.atEndOfMonth(month))
+          let range =
+            month
+            |> Time.atBeginningOfMonth
+            |> Time.range(Time.atEndOfMonth(month))
 
-            let actualDays =
-              case Array.size(days) {
-                28 =>
-                  Time.range(
-                    Time.previousWeek(startDate),
-                    Time.nextWeek(endDate))
+          let actualDays =
+            case Array.size(days) {
+              28 =>
+                Time.range(
+                  Time.previousWeek(startDate),
+                  Time.nextWeek(endDate))
 
-                35 =>
-                  Time.range(
-                    startDate,
-                    Time.nextWeek(endDate))
+              35 =>
+                Time.range(
+                  startDate,
+                  Time.nextWeek(endDate))
 
-                => days
+              => days
+            }
+
+          let normalizedDay =
+            Time.atBeginningOfDay(day)
+
+          for cell of actualDays {
+            let normalizedCell =
+              Time.atBeginningOfDay(cell)
+
+            let normalizedDays =
+              Set.map(selectedDays, Time.atBeginningOfDay)
+
+            let selected =
+              if Set.size(normalizedDays) == 0 {
+                normalizedDay == normalizedCell
+              } else {
+                Set.has(normalizedDays, normalizedCell)
               }
 
-            let normalizedDay =
-              Time.atBeginningOfDay(day)
-
-            for cell of actualDays {
-              let normalizedCell =
-                Time.atBeginningOfDay(cell)
-
-              let normalizedDays =
-                Set.map(selectedDays, Time.atBeginningOfDay)
-
-              let selected =
-                if Set.size(normalizedDays) == 0 {
-                  normalizedDay == normalizedCell
-                } else {
-                  Set.has(normalizedDays, normalizedCell)
-                }
-
-              <Ui.Calendar.Cell
-                active={Array.contains(range, normalizedCell)}
-                onClick={handleCellClick}
-                day={normalizedCell}
-                selected={selected}
-                readonly={readonly}/>
-            }
+            <Ui.Calendar.Cell
+              active={Array.contains(range, normalizedCell)}
+              onClick={handleCellClick}
+              day={normalizedCell}
+              selected={selected}
+              readonly={readonly}/>
           }
+        }
       </div>
     </div>
   }

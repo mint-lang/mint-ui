@@ -1,5 +1,5 @@
 /* Represents font configuration. */
-record Ui.FontConfiguration {
+type Ui.FontConfiguration {
   titleWoff2 : String,
   titleWoff : String,
   titleName : String,

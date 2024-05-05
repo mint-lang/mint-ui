@@ -3,13 +3,13 @@ component Ui.Modal.Content {
   connect Ui exposing { mobile }
 
   /* The minimum width of the modal. */
-  property minWidth : Ui.Size = Ui.Size::Em(17.5)
+  property minWidth : Ui.Size = Ui.Size.Em(17.5)
 
   /* The maximum width of the modal. */
-  property maxWidth : Ui.Size = Ui.Size::Em(30)
+  property maxWidth : Ui.Size = Ui.Size.Em(30)
 
   /* The size of the modal. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The content to display in the body of the modal. */
   property content : Html = <></>
@@ -116,7 +116,7 @@ component Ui.Modal.Content {
         if Html.isNotEmpty(icon) {
           <div::icon>
             <Ui.Icon
-              size={Ui.Size::Em(1.375)}
+              size={Ui.Size.Em(1.375)}
               icon={icon}/>
           </div>
         }
@@ -128,7 +128,7 @@ component Ui.Modal.Content {
         <Ui.Icon
           onClick={(event : Html.Event) { Ui.Modal.cancel() }}
           interactive={true}
-          icon={Ui.Icons:X}/>
+          icon={Ui.Icons.X}/>
       </div>
 
       <div::content>

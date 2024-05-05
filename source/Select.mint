@@ -4,10 +4,10 @@ component Ui.Select {
   property onChange : Function(String, Promise(Void)) = Promise.never1
 
   /* The position of the dropdown. */
-  property position : Ui.Position = Ui.Position::BottomRight
+  property position : Ui.Position = Ui.Position.BottomRight
 
   /* The size of the select. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The items to show. */
   property items : Array(Ui.ListItem) = []
@@ -32,7 +32,7 @@ component Ui.Select {
 
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
-    if let Maybe::Just(item) = list {
+    if let Maybe.Just(item) = list {
       item.handleKeyDown(event)
     }
   }
@@ -41,7 +41,7 @@ component Ui.Select {
   fun handleClickSelect (value : String) : Promise(Void) {
     await onChange(value)
 
-    if let Maybe::Just(item) = picker {
+    if let Maybe.Just(item) = picker {
       item.hideDropdown()
     }
   }
@@ -72,7 +72,7 @@ component Ui.Select {
         })
 
     <Ui.Picker as picker
-      icon={Ui.Icons:CHEVRON_DOWN}
+      icon={Ui.Icons.CHEVRON_DOWN}
       onKeyDown={handleKeyDown}
       placeholder={placeholder}
       matchWidth={matchWidth}

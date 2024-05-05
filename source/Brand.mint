@@ -1,7 +1,7 @@
 /* A component to display a brand image, which behaves like a link. */
 component Ui.Brand {
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Em(1.25)
+  property size : Ui.Size = Ui.Size.Em(1.25)
 
   /* The SVG icon to display before the text. */
   property icon : Html = <></>

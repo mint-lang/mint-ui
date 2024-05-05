@@ -6,7 +6,7 @@ Represents a navigation item, it is used in certain components:
 - `Ui.Header`
 - `Ui.Footer`
 */
-enum Ui.NavItem {
+type Ui.NavItem {
   /* A divider between items. */
   Divider
 

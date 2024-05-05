@@ -2,7 +2,7 @@ component Ui.IllustratedMessage {
   connect Ui exposing { mobile }
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The subtitle to display. */
   property subtitle : Html = <></>

@@ -3,7 +3,7 @@ component Ui.Cell {
   connect Ui exposing { mobile }
 
   /* The size of the cell. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The cell itself. */
   property cell : Ui.Cell
@@ -35,16 +35,16 @@ component Ui.Cell {
   fun render : Html {
     <div::base>
       case cell {
-        Ui.Cell::Number(value) => <>Number.toString(value)</>
-        Ui.Cell::String(value) => <>value</>
-        Ui.Cell::Html(value) => value
+        Ui.Cell.Number(value) => <>Number.toString(value)</>
+        Ui.Cell.String(value) => <>value</>
+        Ui.Cell.Html(value) => value
 
-        Ui.Cell::Code(code, breakSpaces) =>
+        Ui.Cell.Code(code, breakSpaces) =>
           <code::code(breakSpaces)>
             code
           </code>
 
-        Ui.Cell::HtmlItems(items, breakOnMobile) =>
+        Ui.Cell.HtmlItems(items, breakOnMobile) =>
           if mobile && breakOnMobile {
             <Ui.Column>
               items

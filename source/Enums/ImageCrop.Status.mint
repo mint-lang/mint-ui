@@ -1,5 +1,5 @@
 /* An enum for tracking the status of the dragging for the image cropper. */
-enum Ui.ImageCrop.Status {
+type Ui.ImageCrop.Status {
   /* The cropper is being dragged (manipulated). */
   Dragging(
     directions : Tuple(Ui.ImageCrop.Direction, Ui.ImageCrop.Direction),

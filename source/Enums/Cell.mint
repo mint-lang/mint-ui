@@ -1,10 +1,14 @@
 /* Represents a table cell. */
-enum Ui.Cell {
+type Ui.Cell {
   /* A list of Html items, separated by some space. */
-  HtmlItems(items : Array(Html), breakOnMobile : Bool)
+  HtmlItems(
+    items : Array(Html),
+    breakOnMobile : Bool)
 
   /* A code. */
-  Code(breakSpaces : Bool, code : String)
+  Code(
+    breakSpaces : Bool,
+    code : String)
 
   /* A simple string value. */
   String(String)

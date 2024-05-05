@@ -22,10 +22,10 @@ global component Ui.ActionSheet {
   state resolve : Function(Void, Void) = (value : Void) { void }
 
   /* The previously focused element. */
-  state focusedElement : Maybe(Dom.Element) = Maybe::Nothing
+  state focusedElement : Maybe(Dom.Element) = Maybe.Nothing
 
   /* The base size of the component. */
-  state size : Ui.Size = Ui.Size::Inherit
+  state size : Ui.Size = Ui.Size.Inherit
 
   /* The displayed items. */
   state items : Array(Ui.NavItem) = []
@@ -39,7 +39,7 @@ global component Ui.ActionSheet {
     shortcuts:
       [
         {
-          shortcut: [Html.Event:ESCAPE],
+          shortcut: [Html.Event.ESCAPE],
           condition: () : Bool { true },
           bypassFocused: true,
           action: hide
@@ -215,8 +215,8 @@ global component Ui.ActionSheet {
       next
         {
           resolve: (value : Void) { void },
-          focusedElement: Maybe::Nothing,
-          size: Ui.Size::Inherit,
+          focusedElement: Maybe.Nothing,
+          size: Ui.Size.Inherit,
           items: []
         }
     }
@@ -246,13 +246,13 @@ global component Ui.ActionSheet {
         await Timer.timeout(100)
 
         case container {
-          Maybe::Just(element) => Dom.focusFirst(element)
-          Maybe::Nothing => next { }
+          Maybe.Just(element) => Dom.focusFirst(element)
+          Maybe.Nothing => next { }
         }
 
         case scrollContainer {
-          Maybe::Just(element) => Dom.scrollTo(element, 0, 0)
-          Maybe::Nothing => next { }
+          Maybe.Just(element) => Dom.scrollTo(element, 0, 0)
+          Maybe.Nothing => next { }
         }
       }
 
@@ -262,7 +262,7 @@ global component Ui.ActionSheet {
 
   /* Shows the component with the given items. */
   fun show (items : Array(Ui.NavItem)) : Promise(Void) {
-    showWithOptions(Ui.Size::Inherit, items)
+    showWithOptions(Ui.Size.Inherit, items)
   }
 
   /* The url change event handler. */
@@ -272,7 +272,7 @@ global component Ui.ActionSheet {
 
   /* The close event handler. */
   fun handleClose (event : Html.Event) : Promise(Void) {
-    if let Maybe::Just(base) = container {
+    if let Maybe.Just(base) = container {
       /* If the events target is outside of the container. */
       if !Dom.contains(base, event.target) {
         hide()
@@ -346,14 +346,14 @@ global component Ui.ActionSheet {
   /* Renders the given navigation item. */
   fun renderItem (item : Ui.NavItem) : Html {
     case item {
-      Ui.NavItem::Html(content) =>
+      Ui.NavItem.Html(content) =>
         <div::html>
           content
         </div>
 
-      Ui.NavItem::Divider => <div::divider/>
+      Ui.NavItem.Divider => <div::divider/>
 
-      Ui.NavItem::Item(iconAfter, iconBefore, label, action) =>
+      Ui.NavItem.Item(iconAfter, iconBefore, label, action) =>
         renderContents(
           iconAfter,
           iconBefore,
@@ -363,7 +363,7 @@ global component Ui.ActionSheet {
           "",
           (event : Html.Event) { handleItemClick(action, event) })
 
-      Ui.NavItem::Link(iconAfter, iconBefore, label, href, target) =>
+      Ui.NavItem.Link(iconAfter, iconBefore, label, href, target) =>
         renderContents(
           iconAfter,
           iconBefore,
@@ -373,17 +373,16 @@ global component Ui.ActionSheet {
           target,
           (event : Html.Event) { handleLinkClick(href, event) })
 
-      Ui.NavItem::Group(iconAfter, iconBefore, label, items) =>
+      Ui.NavItem.Group(iconAfter, iconBefore, label, items) =>
         <>
-
-            renderContents(
-              iconAfter,
-              iconBefore,
-              label,
-              true,
-              "",
-              "",
-              Promise.never1)
+          renderContents(
+            iconAfter,
+            iconBefore,
+            label,
+            true,
+            "",
+            "",
+            Promise.never1)
 
           <div::group>
             <div::gutter/>

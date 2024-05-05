@@ -180,7 +180,7 @@ component Ui.ScrollPanel {
   /* Sets the state variables from the current state of the element. */
   fun recalculate : Promise(Void) {
     if orientation == "horizontal" {
-      if let Maybe::Just(element) = horizontal {
+      if let Maybe.Just(element) = horizontal {
         next
           {
             scrollPosition: Dom.getScrollLeft(element),
@@ -188,7 +188,7 @@ component Ui.ScrollPanel {
             scrollSize: Dom.getScrollWidth(element)
           }
       }
-    } else if let Maybe::Just(element) = vertical {
+    } else if let Maybe.Just(element) = vertical {
       next
         {
           scrollPosition: Dom.getScrollTop(element),

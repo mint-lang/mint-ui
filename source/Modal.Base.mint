@@ -80,7 +80,7 @@ component Ui.Modal.Base {
 
   /* Focuses the first focusable element in the modal. */
   fun focusFirst : Promise(Void) {
-    if let Maybe::Just(element) = wrapper {
+    if let Maybe.Just(element) = wrapper {
       Dom.focusFirst(element)
     }
   }

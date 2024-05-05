@@ -4,7 +4,7 @@ component Ui.FloatingButton {
   property onClick : Function(Html.Event, Promise(Void)) = Promise.never1
 
   /* The size of the button. */
-  property size : Ui.Size = Ui.Size::Em(3)
+  property size : Ui.Size = Ui.Size.Em(3)
 
   /* The type of the button. */
   property type : String = "primary"
@@ -95,7 +95,7 @@ component Ui.FloatingButton {
   fun render : Html {
     <button::base onClick={onClick}>
       <Ui.Icon
-        size={Ui.Size::Em(0.5)}
+        size={Ui.Size.Em(0.5)}
         icon={icon}/>
     </button>
   }

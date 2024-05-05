@@ -1,5 +1,5 @@
 /* An enum which describes the dragging direction. */
-enum Ui.ImageCrop.Direction {
+type Ui.ImageCrop.Direction {
   /* Dragging the right or bottom side. */
   Backward
 

@@ -1,5 +1,5 @@
 /* Represents an item in a list. */
-enum Ui.ListItem {
+type Ui.ListItem {
   /*
   An item which consist of:
   - a key which should be unique
@@ -26,29 +26,29 @@ module Ui.ListItem {
 
   /* Creates list items form a string. */
   fun fromString (value : String) : Ui.ListItem {
-    Ui.ListItem::Item(
+    Ui.ListItem.Item(
       matchString: String.toLowerCase(value),
       key: String.parameterize(value),
-      content: value)
+      content: <>value</>)
   }
 
   /* Returns the `content` of a list item. */
   fun content (item : Ui.ListItem) : Html {
-    if let Ui.ListItem::Item(content) = item {
+    if let Ui.ListItem.Item(content) = item {
       content
     }
   }
 
   /* Returns the `matchString` of a list item. */
   fun matchString (item : Ui.ListItem) : String {
-    if let Ui.ListItem::Item(matchString) = item {
+    if let Ui.ListItem.Item(matchString) = item {
       matchString
     }
   }
 
   /* Returns the `key` of a list item. */
   fun key (item : Ui.ListItem) : String {
-    if let Ui.ListItem::Item(key) = item {
+    if let Ui.ListItem.Item(key) = item {
       key
     }
   }

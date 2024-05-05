@@ -6,7 +6,7 @@ component Ui.Pagination {
   property onChange : Function(Number, Promise(Void)) = Promise.never1
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* Whether or not the pagination is disabled. */
   property disabled : Bool = false
@@ -87,18 +87,18 @@ component Ui.Pagination {
 
     <div::base>
       <Ui.Container
-        gap={Ui.Size::Em(0.625)}
+        gap={Ui.Size.Em(0.625)}
         justify="start"
         align="stretch">
 
         /* First page button */
         if !mobile && !Array.contains(buttonRange, 0) {
-          renderButton({0, false, "", Ui.Icons:DOUBLE_CHEVRON_LEFT})
+          renderButton({0, false, "", Ui.Icons.DOUBLE_CHEVRON_LEFT})
         }
 
         /* Previous button */
         if page > 0 {
-          renderButton({page - 1, false, "", Ui.Icons:CHEVRON_LEFT})
+          renderButton({page - 1, false, "", Ui.Icons.CHEVRON_LEFT})
         }
 
         /* Left ellipsis */
@@ -131,12 +131,12 @@ component Ui.Pagination {
 
         /* Next page button */
         if page < pages && pages > 0 {
-          renderButton({page + 1, false, "", Ui.Icons:CHEVRON_RIGHT})
+          renderButton({page + 1, false, "", Ui.Icons.CHEVRON_RIGHT})
         }
 
         /* Last page button */
         if !mobile && page < pages && !Array.contains(buttonRange, pages) {
-          renderButton({pages, false, "", Ui.Icons:DOUBLE_CHEVRON_RIGHT})
+          renderButton({pages, false, "", Ui.Icons.DOUBLE_CHEVRON_RIGHT})
         }
 
       </Ui.Container>

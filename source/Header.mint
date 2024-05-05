@@ -5,19 +5,19 @@ navigation items.
 */
 component Ui.Header {
   /* The height of the component. */
-  property height : Ui.Size = Ui.Size::Em(3.5)
+  property height : Ui.Size = Ui.Size.Em(3.5)
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The menu icon. */
-  property icon : Html = Ui.Icons:THREE_BARS
+  property icon : Html = Ui.Icons.THREE_BARS
 
   /* The navigation items. */
   property items : Array(Ui.NavItem) = []
 
   /* The gap between the items. */
-  property gap : Ui.Size = Ui.Size::Em(2)
+  property gap : Ui.Size = Ui.Size.Em(2)
 
   /* The breakpoint for the mobile version. */
   property breakpoint : Number = 1000
@@ -142,63 +142,65 @@ component Ui.Header {
 
       <Ui.Container gap={gap}>
         if width < breakpoint {
-          <div onClick={handleClick}>
-            <Ui.Icon
-              size={Ui.Size::Em(2)}
-              interactive={true}
-              icon={icon}/>
-          </div>
+          [
+            <div onClick={handleClick}>
+              <Ui.Icon
+                size={Ui.Size.Em(2)}
+                interactive={true}
+                icon={icon}/>
+            </div>
+          ]
         } else {
-            for item of items {
-              case item {
-                Ui.NavItem::Divider => <div::divider/>
-                Ui.NavItem::Html(content) => content
+          for item of items {
+            case item {
+              Ui.NavItem.Divider => <div::divider/>
+              Ui.NavItem.Html(content) => content
 
-                Ui.NavItem::Group(iconBefore, iconAfter, label, items) =>
-                  {
-                    let key =
-                      String.parameterize(label)
+              Ui.NavItem.Group(iconBefore, iconAfter, label, items) =>
+                {
+                  let key =
+                    String.parameterize(label)
 
-                    let open =
-                      Map.getWithDefault(openDropdowns, key, false)
+                  let open =
+                    Map.getWithDefault(openDropdowns, key, false)
 
-                    <Ui.Dropdown
-                      onClose={() { next { openDropdowns: Map.set(openDropdowns, key, false) } }}
-                      position={Ui.Position::BottomRight}
-                      closeOnOutsideClick={true}
-                      offset={15}
-                      open={open}
-                      element={
-                        <div::item(false)
-                          onClick={() { next { openDropdowns: Map.set(openDropdowns, key, true) } }}
-                          tabIndex="0">
+                  <Ui.Dropdown
+                    onClose={() { next { openDropdowns: Map.set(openDropdowns, key, false) } }}
+                    position={Ui.Position.BottomRight}
+                    closeOnOutsideClick={true}
+                    offset={15}
+                    open={open}
+                    element={
+                      <div::item(false)
+                        onClick={() { next { openDropdowns: Map.set(openDropdowns, key, true) } }}
+                        tabIndex="0">
 
-                          renderItem(iconBefore, iconAfter, label)
+                        renderItem(iconBefore, iconAfter, label)
 
-                        </div>
-                      }
-                      content={
-                        <Ui.Dropdown.Panel>
-                          <Ui.NavItems items={items}/>
-                        </Ui.Dropdown.Panel>
-                      }/>
-                  }
+                      </div>
+                    }
+                    content={
+                      <Ui.Dropdown.Panel>
+                        <Ui.NavItems items={items}/>
+                      </Ui.Dropdown.Panel>
+                    }/>
+                }
 
-                Ui.NavItem::Item(iconBefore, iconAfter, label, action) =>
-                  <div::item(false) onClick={action}>
-                    renderItem(iconBefore, iconAfter, label)
-                  </div>
+              Ui.NavItem.Item(iconBefore, iconAfter, label, action) =>
+                <div::item(false) onClick={action}>
+                  renderItem(iconBefore, iconAfter, label)
+                </div>
 
-                Ui.NavItem::Link(iconBefore, iconAfter, label, href, target) =>
-                  <a::item(Window.isActiveURL(href))
-                    target={target}
-                    href={href}>
+              Ui.NavItem.Link(iconBefore, iconAfter, label, href, target) =>
+                <a::item(Window.isActiveURL(href))
+                  target={target}
+                  href={href}>
 
-                    renderItem(iconBefore, iconAfter, label)
+                  renderItem(iconBefore, iconAfter, label)
 
-                  </a>
-              }
+                </a>
             }
+          }
         }
       </Ui.Container>
     </div>

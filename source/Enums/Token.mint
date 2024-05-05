@@ -1,10 +1,15 @@
 /* Represents a design token. */
-enum Ui.Token {
+type Ui.Token {
   /* A token which has a different value on light and dark modes. */
-  Schemed(name : String, light : String, dark : String)
+  Schemed(
+    name : String,
+    light : String,
+    dark : String)
 
   /* A simple token which is the same in all modes. */
-  Simple(name : String, value : String)
+  Simple(
+    name : String,
+    value : String)
 }
 
 /* Utility functions for the Ui.Token enum. */
@@ -12,7 +17,7 @@ module Ui.Token {
   /* Resolves the token using the dark mode param. */
   fun resolve (token : Ui.Token, darkMode : Bool) : Array(String) {
     case token {
-      Ui.Token::Schemed(name, light, dark) =>
+      Ui.Token.Schemed(name, light, dark) =>
         {
           let value =
             if darkMode {
@@ -28,7 +33,7 @@ module Ui.Token {
           ]
         }
 
-      Ui.Token::Simple(name, value) =>
+      Ui.Token.Simple(name, value) =>
         [
           "--#{name}: #{value}"
         ]
@@ -48,8 +53,8 @@ module Ui.Token {
   /* Gets the name of the token. */
   fun getName (token : Ui.Token) : String {
     case token {
-      Ui.Token::Schemed(name) => name
-      Ui.Token::Simple(name) => name
+      Ui.Token.Schemed(name) => name
+      Ui.Token.Simple(name) => name
     }
   }
 

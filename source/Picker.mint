@@ -9,16 +9,16 @@ component Ui.Picker {
   property onEnter : Function(Html.Event, Bool) = (event : Html.Event) { true }
 
   /* The position of the dropdown. */
-  property position : Ui.Position = Ui.Position::BottomRight
+  property position : Ui.Position = Ui.Position.BottomRight
 
   /* The icon to display at the right side of the label. */
-  property icon : Html = Ui.Icons:CHEVRON_DOWN
+  property icon : Html = Ui.Icons.CHEVRON_DOWN
 
   /* The label to display if there is a value. */
-  property label : Maybe(Html) = Maybe::Nothing
+  property label : Maybe(Html) = Maybe.Nothing
 
   /* The size of the picker. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The placeholder to show when there is no value selected. */
   property placeholder : String = ""
@@ -39,7 +39,7 @@ component Ui.Picker {
   property offset : Number = 5
 
   /* Whether or not the dropdown is shown. */
-  state status : Ui.Picker.Status = Ui.Picker.Status::Idle
+  state status : Ui.Picker.Status = Ui.Picker.Status.Idle
 
   use Providers.TabFocus {
     onTabOut: handleClose,
@@ -51,48 +51,48 @@ component Ui.Picker {
     elements: [element, Maybe.flatten(Maybe.map(dropdown, (dropdown : Ui.Dropdown.Panel) { dropdown.base }))],
     clicks: handleClicks
   } when {
-    (status == Ui.Picker.Status::Focused ||
-      status == Ui.Picker.Status::Open) && !mobile
+    (status == Ui.Picker.Status.Focused ||
+      status == Ui.Picker.Status.Open) && !mobile
   }
 
   use Provider.Keyboard {
     ups: (event : Html.Event) { next { } },
     downs: handleKeyDown
   } when {
-    status == Ui.Picker.Status::Focused ||
-      status == Ui.Picker.Status::Open
+    status == Ui.Picker.Status.Focused ||
+      status == Ui.Picker.Status.Open
   }
 
   /* Handles the up events. */
   fun handleClicks : Promise(Void) {
-    next { status: Ui.Picker.Status::Idle }
+    next { status: Ui.Picker.Status.Idle }
   }
 
   /* Handler for the tab in event. */
   fun handleTabIn : Promise(Void) {
-    next { status: Ui.Picker.Status::Focused }
+    next { status: Ui.Picker.Status.Focused }
   }
 
   /* Handler for the close event. */
   fun handleClose : Promise(Void) {
-    next { status: Ui.Picker.Status::Idle }
+    next { status: Ui.Picker.Status.Idle }
   }
 
   /* Hides the dropdown. */
   fun hideDropdown : Promise(Void) {
-    next { status: Ui.Picker.Status::Focused }
+    next { status: Ui.Picker.Status.Focused }
   }
 
   /* Shows the dropdown. */
   fun showDropdown : Promise(Void) {
-    next { status: Ui.Picker.Status::Open }
+    next { status: Ui.Picker.Status.Open }
   }
 
   /* Handler for the focus event (shows the dropdown). */
   fun handleFocus (event : Html.Event) : Promise(Void) {
-    await next { status: Ui.Picker.Status::Focused }
+    await next { status: Ui.Picker.Status.Focused }
     await Timer.nextFrame()
-    next { status: Ui.Picker.Status::Open }
+    next { status: Ui.Picker.Status.Open }
   }
 
   /*
@@ -103,17 +103,17 @@ component Ui.Picker {
   */
   fun handleKeyDown (event : Html.Event) {
     case event.keyCode {
-      Html.Event:ESCAPE =>
+      Html.Event.ESCAPE =>
         hideDropdown()
 
-      Html.Event:ENTER =>
+      Html.Event.ENTER =>
         if onEnter(event) {
           hideDropdown()
         } else {
           next { }
         }
 
-      Html.Event:SPACE =>
+      Html.Event.SPACE =>
         {
           Html.Event.preventDefault(event)
           showDropdown()
@@ -125,13 +125,13 @@ component Ui.Picker {
 
   /* Returns if the picker is open. */
   get open : Bool {
-    status == Ui.Picker.Status::Open
+    status == Ui.Picker.Status.Open
   }
 
   /* Returns if the picker is focused. */
   get focused : Bool {
-    status == Ui.Picker.Status::Focused ||
-      status == Ui.Picker.Status::Open
+    status == Ui.Picker.Status.Focused ||
+      status == Ui.Picker.Status.Open
   }
 
   /* The styles for the element. */

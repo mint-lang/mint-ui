@@ -11,7 +11,7 @@ component Ui.ScrollToTop {
   use Provider.Scroll { scrolls: updatePosition }
 
   /* The size of the content. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The threshold (scroll position) to show the button. */
   property threshold : Number = 50
@@ -69,7 +69,7 @@ component Ui.ScrollToTop {
     let base =
       <div::base>
         <Ui.FloatingButton
-          icon={Ui.Icons:CHEVRON_UP}
+          icon={Ui.Icons.CHEVRON_UP}
           onClick={handleClick}
           type="secondary"/>
       </div>

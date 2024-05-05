@@ -7,7 +7,7 @@ component Ui.CircularProgress {
   property format : Function(Number, String) = Number.toString
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The thickness of the bar. */
   property thickness : Number = 0.3125

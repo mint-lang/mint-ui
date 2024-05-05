@@ -1,7 +1,7 @@
 /* A panel that sticks to the given element. */
 component Ui.StickyPanel {
   /* The position of the panel. */
-  property position : Ui.Position = Ui.Position::BottomLeft
+  property position : Ui.Position = Ui.Position.BottomLeft
 
   /* A flag that decides if the position should be calculated on animation frames. */
   property shouldCalculate : Bool = true
@@ -53,40 +53,40 @@ component Ui.StickyPanel {
   ) : Dom.Dimensions {
     let top =
       case position {
-        Ui.Position::BottomCenter => dimensions.bottom + offset
-        Ui.Position::BottomRight => dimensions.bottom + offset
-        Ui.Position::BottomLeft => dimensions.bottom + offset
+        Ui.Position.BottomCenter => dimensions.bottom + offset
+        Ui.Position.BottomRight => dimensions.bottom + offset
+        Ui.Position.BottomLeft => dimensions.bottom + offset
 
-        Ui.Position::TopCenter => dimensions.top - panel.height - offset
-        Ui.Position::TopRight => dimensions.top - panel.height - offset
-        Ui.Position::TopLeft => dimensions.top - panel.height - offset
+        Ui.Position.TopCenter => dimensions.top - panel.height - offset
+        Ui.Position.TopRight => dimensions.top - panel.height - offset
+        Ui.Position.TopLeft => dimensions.top - panel.height - offset
 
-        Ui.Position::RightCenter => dimensions.top + (dimensions.height / 2) - (panel.height / 2)
-        Ui.Position::RightBottom => dimensions.bottom - panel.height
-        Ui.Position::RightTop => dimensions.top
+        Ui.Position.RightCenter => dimensions.top + (dimensions.height / 2) - (panel.height / 2)
+        Ui.Position.RightBottom => dimensions.bottom - panel.height
+        Ui.Position.RightTop => dimensions.top
 
-        Ui.Position::LeftCenter => dimensions.top + (dimensions.height / 2) - (panel.height / 2)
-        Ui.Position::LeftBottom => dimensions.bottom - panel.height
-        Ui.Position::LeftTop => dimensions.top
+        Ui.Position.LeftCenter => dimensions.top + (dimensions.height / 2) - (panel.height / 2)
+        Ui.Position.LeftBottom => dimensions.bottom - panel.height
+        Ui.Position.LeftTop => dimensions.top
       }
 
     let left =
       case position {
-        Ui.Position::BottomCenter => dimensions.left + (dimensions.width / 2) - (panel.width / 2)
-        Ui.Position::BottomRight => dimensions.right - panel.width
-        Ui.Position::BottomLeft => dimensions.left
+        Ui.Position.BottomCenter => dimensions.left + (dimensions.width / 2) - (panel.width / 2)
+        Ui.Position.BottomRight => dimensions.right - panel.width
+        Ui.Position.BottomLeft => dimensions.left
 
-        Ui.Position::TopCenter => dimensions.left + (dimensions.width / 2) - (panel.width / 2)
-        Ui.Position::TopRight => dimensions.right - panel.width
-        Ui.Position::TopLeft => dimensions.left
+        Ui.Position.TopCenter => dimensions.left + (dimensions.width / 2) - (panel.width / 2)
+        Ui.Position.TopRight => dimensions.right - panel.width
+        Ui.Position.TopLeft => dimensions.left
 
-        Ui.Position::RightCenter => dimensions.right + offset
-        Ui.Position::RightBottom => dimensions.right + offset
-        Ui.Position::RightTop => dimensions.right + offset
+        Ui.Position.RightCenter => dimensions.right + offset
+        Ui.Position.RightBottom => dimensions.right + offset
+        Ui.Position.RightTop => dimensions.right + offset
 
-        Ui.Position::LeftCenter => dimensions.left - panel.width - offset
-        Ui.Position::LeftBottom => dimensions.left - panel.width - offset
-        Ui.Position::LeftTop => dimensions.left - panel.width - offset
+        Ui.Position.LeftCenter => dimensions.left - panel.width - offset
+        Ui.Position.LeftBottom => dimensions.left - panel.width - offset
+        Ui.Position.LeftTop => dimensions.left - panel.width - offset
       }
 
     { panel |

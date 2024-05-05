@@ -1,5 +1,5 @@
 /* Represents a tab. */
-record Ui.Tab {
+type Ui.Tab {
   iconBefore : Html,
   iconAfter : Html,
   content : Html,

@@ -88,9 +88,9 @@ component Ui.Layout.Website {
           item
 
         if Html.isNotEmpty(html) {
-          Maybe::Just(ratio)
+          Maybe.Just(ratio)
         } else {
-          Maybe::Nothing
+          Maybe.Nothing
         }
       })
     |> Array.compact

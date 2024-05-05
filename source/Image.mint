@@ -24,10 +24,10 @@ component Ui.Image {
   property draggable : Bool = false
 
   /* The height of the image. */
-  property height : Ui.Size = Ui.Size::Px(100)
+  property height : Ui.Size = Ui.Size.Px(100)
 
   /* The width of the image. */
-  property width : Ui.Size = Ui.Size::Px(100)
+  property width : Ui.Size = Ui.Size.Px(100)
 
   /* The source of the image. */
   property src : String = ""

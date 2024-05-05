@@ -15,7 +15,7 @@ component Ui.Dropdown {
   property onClose : Function(Promise(Void)) = Promise.never
 
   /* The position of the panel. */
-  property position : Ui.Position = Ui.Position::BottomLeft
+  property position : Ui.Position = Ui.Position.BottomLeft
 
   /* Whether or not to trigger the close event when clicking outside of the panel. */
   property closeOnOutsideClick : Bool = false

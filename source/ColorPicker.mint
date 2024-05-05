@@ -6,13 +6,13 @@ component Ui.ColorPicker {
   property onChange : Function(Color, Promise(Void)) = Promise.never1
 
   /* The position of the dropdown. */
-  property position : Ui.Position = Ui.Position::BottomRight
+  property position : Ui.Position = Ui.Position.BottomRight
 
   /* The current value (as `Color`). */
-  property value : Color = Color::HEX("000000FF")
+  property value : Color = Color.HEX("000000FF")
 
   /* The size of the picker. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* Whether or not the picker is disabled. */
   property disabled : Bool = false
@@ -64,7 +64,7 @@ component Ui.ColorPicker {
       </Ui.AvoidFocus>
 
     let label =
-      Maybe::Just(
+      Maybe.Just(
         <div::base>
           <span>
             Color.toCSSHex(value)

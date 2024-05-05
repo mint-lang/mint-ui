@@ -1,7 +1,7 @@
 /* A generic box component. */
 component Ui.Box {
   /* The size of the box. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* Whether or not to fit the content to the extent of the box. */
   property fitContent : Bool = false
@@ -64,19 +64,19 @@ component Ui.Box {
     <div::wrapper>
       if Html.isNotEmpty(label) {
         <div::label>
-         label
+          label
         </div>
       }
 
       <div::base>
         if Html.isNotEmpty(title) {
           <div::title>
-           title
+            title
           </div>
         }
 
         <Ui.Content fitContent={fitContent}>
-         children
+          children
         </Ui.Content>
       </div>
     </div>

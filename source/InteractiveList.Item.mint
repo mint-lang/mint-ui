@@ -4,7 +4,7 @@ component Ui.InteractiveList.Item {
   property onClick : Function(Html.Event, Promise(Void)) = Promise.never1
 
   /* The size of the item. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The content to render. */
   property children : Array(Html) = []
@@ -52,7 +52,7 @@ component Ui.InteractiveList.Item {
   fun render : Html {
     <div::base onClick={onClick}>
       if intended {
-        <Ui.Icon icon={Ui.Icons:CHEVRON_RIGHT}/>
+        <Ui.Icon icon={Ui.Icons.CHEVRON_RIGHT}/>
       }
 
       children

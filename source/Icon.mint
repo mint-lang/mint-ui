@@ -4,7 +4,7 @@ component Ui.Icon {
   property onClick : Function(Html.Event, Promise(Void)) = Promise.never1
 
   /* The size of the icon. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* Whether or not the icon can be interacted with. */
   property interactive : Bool = false

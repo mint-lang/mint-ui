@@ -7,7 +7,7 @@ component Ui.Slider {
   property onChange : Function(Number, Promise(Void)) = Promise.never1
 
   /* The size of the slider. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* Whether or not the slider is disabled. */
   property disabled : Bool = false

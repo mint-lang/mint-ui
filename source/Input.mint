@@ -31,7 +31,7 @@ component Ui.Input {
   property onBlur : Function(Promise(Void)) = Promise.never
 
   /* The size of the input. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* Whether or not the icon is interactive. */
   property iconInteractive : Bool = false
@@ -61,7 +61,7 @@ component Ui.Input {
   property list : String = ""
 
   /* The current value of the input. */
-  state currentValue : Maybe(String) = Maybe::Nothing
+  state currentValue : Maybe(String) = Maybe.Nothing
 
   /* The ID of the last timeout. */
   state timeoutId : Number = 0
@@ -177,7 +177,7 @@ component Ui.Input {
   /* Handles the `input` and `change` events. */
   fun handleChange (event : Html.Event) {
     if inputDelay == 0 {
-      next { currentValue: Maybe::Nothing }
+      next { currentValue: Maybe.Nothing }
       onChange(Dom.getValue(event.target))
     } else {
       let {nextId, nextValue, promise} =
@@ -185,7 +185,7 @@ component Ui.Input {
 
       next
         {
-          currentValue: Maybe::Just(nextValue),
+          currentValue: Maybe.Just(nextValue),
           timeoutId: nextId
         }
 
@@ -196,7 +196,7 @@ component Ui.Input {
         let actualValue =
           Maybe.withDefault(currentValue, value)
 
-        await next { currentValue: Maybe::Nothing }
+        await next { currentValue: Maybe.Nothing }
 
         onChange(actualValue)
       }

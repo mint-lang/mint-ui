@@ -7,7 +7,7 @@ component Ui.Card.Image {
   property objectFit : String = "cover"
 
   /* The height of the image. */
-  property height : Ui.Size = Ui.Size::Em(10)
+  property height : Ui.Size = Ui.Size.Em(10)
 
   /* The URL for the image. */
   property src : String = ""

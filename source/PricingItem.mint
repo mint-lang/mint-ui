@@ -1,13 +1,13 @@
 /* A component to display a pricing item / plan. */
 component Ui.PricingItem {
   /* The information for the price - currency, value, period. */
-  property price : Maybe(Tuple(String, String, String)) = Maybe::Nothing
+  property price : Maybe(Tuple(String, String, String)) = Maybe.Nothing
 
   /* The maximum width of the component. */
-  property maxWidth : Ui.Size = Ui.Size::Em(22)
+  property maxWidth : Ui.Size = Ui.Size.Em(22)
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The slot for the image at the top. */
   property image : Html = <></>
@@ -120,37 +120,37 @@ component Ui.PricingItem {
       }
 
       <div::name>
-         name
+        name
       </div>
 
       <hr::hr/>
 
-      if let Maybe::Just(item) = price {
+      if let Maybe.Just(item) = price {
         <div::price>
           <div::currency>
-             item[0]
+            item[0]
           </div>
 
           <div::value>
-             item[1]
+            item[1]
           </div>
 
           <div::period>
-             item[2]
+            item[2]
           </div>
         </div>
       }
 
       <div::description>
         <Ui.Content>
-           description
+          description
         </Ui.Content>
       </div>
 
       <hr::hr/>
 
       <div::actions>
-         actions
+        actions
       </div>
     </div>
   }

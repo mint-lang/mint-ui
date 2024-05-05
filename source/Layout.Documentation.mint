@@ -6,7 +6,7 @@ component Ui.Layout.Documentation {
   property mobileNavigationLabel : Html = <>"Pages"</>
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The items grouped by a string. */
   property items : Array(Ui.NavItem) = []
@@ -161,7 +161,7 @@ component Ui.Layout.Documentation {
 
   /* Updates the table of contents. */
   fun updateToc {
-    if let Maybe::Just(element) = content {
+    if let Maybe.Just(element) = content {
       let items =
         Dom.getElementsBySelector(element, "a[name]")
 
@@ -188,7 +188,7 @@ component Ui.Layout.Documentation {
         <button::button-reset onClick={openActionSheet}>
           <div::button>
             mobileNavigationLabel
-            <Ui.Icon icon={Ui.Icons:CHEVRON_DOWN}/>
+            <Ui.Icon icon={Ui.Icons.CHEVRON_DOWN}/>
           </div>
         </button>
       }
@@ -199,7 +199,7 @@ component Ui.Layout.Documentation {
 
       if !mobile {
         <div::toc>
-          <Ui.Box label="Contents">
+          <Ui.Box label=<>"Contents"</>>
             for item of tocItems {
               <div>
                 <a::toc-item href="##{item[0]}">

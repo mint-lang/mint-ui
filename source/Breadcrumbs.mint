@@ -9,7 +9,7 @@ component Ui.Breadcrumbs {
   property items : Array(Tuple(String, Html)) = []
 
   /* The base size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The separator between items. */
   property separator : Html = <>"/"</>

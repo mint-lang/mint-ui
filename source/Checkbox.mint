@@ -4,7 +4,7 @@ component Ui.Checkbox {
   property onChange : Function(Bool, Promise(Void)) = Promise.never1
 
   /* The size of the checkbox. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* Whether or not the checkbox is disabled. */
   property disabled : Bool = false
@@ -85,7 +85,7 @@ component Ui.Checkbox {
       role="checkbox">
 
       <Ui.Icon
-        icon={Ui.Icons:CHECK}
+        icon={Ui.Icons.CHECK}
         opacity={
           if checked {
             1

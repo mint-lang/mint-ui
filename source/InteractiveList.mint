@@ -10,7 +10,7 @@ component Ui.InteractiveList {
   property selected : Set(String) = Set.empty()
 
   /* The size of the list. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The items to render. */
   property items : Array(Ui.ListItem) = []
@@ -82,8 +82,8 @@ component Ui.InteractiveList {
         items,
         (item : Ui.ListItem) {
           case item {
-            Ui.ListItem::Divider => false
-            Ui.ListItem::Item => true
+            Ui.ListItem.Divider => false
+            Ui.ListItem.Item => true
           }
         })
 
@@ -114,7 +114,7 @@ component Ui.InteractiveList {
       handleSelect(nextKey)
     }
 
-    if let Maybe::Just(element) = container {
+    if let Maybe.Just(element) = container {
       Ui.scrollIntoViewIfNeeded(`#{element}.children[#{nextIndex}]`)
     }
   }
@@ -122,22 +122,22 @@ component Ui.InteractiveList {
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
     case event.keyCode {
-      Html.Event:ENTER =>
+      Html.Event.ENTER =>
         onSelect(intended)
 
-      Html.Event:SPACE =>
+      Html.Event.SPACE =>
         {
           Html.Event.preventDefault(event)
           onSelect(intended)
         }
 
-      Html.Event:DOWN_ARROW =>
+      Html.Event.DOWN_ARROW =>
         {
           Html.Event.preventDefault(event)
           selectNext(true)
         }
 
-      Html.Event:UP_ARROW =>
+      Html.Event.UP_ARROW =>
         {
           Html.Event.preventDefault(event)
           selectNext(false)
@@ -164,7 +164,7 @@ component Ui.InteractiveList {
         <div::items as container>
           for item of items {
             case item {
-              Ui.ListItem::Item(key, content) =>
+              Ui.ListItem.Item(key, content) =>
                 <Ui.InteractiveList.Item
                   onClick={(event : Html.Event) { handleClickSelect(key) }}
                   intended={intendable && key == intended}
@@ -175,7 +175,7 @@ component Ui.InteractiveList {
 
                 </Ui.InteractiveList.Item>
 
-              Ui.ListItem::Divider => <div/>
+              Ui.ListItem.Divider => <div/>
             }
           }
         </div>

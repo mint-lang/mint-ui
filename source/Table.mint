@@ -10,7 +10,7 @@ component Ui.Table {
   property headers : Array(Ui.Table.Header) = []
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The order direction: `asc` or `desc` */
   property orderDirection : String = ""

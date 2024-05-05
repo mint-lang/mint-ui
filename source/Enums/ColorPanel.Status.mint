@@ -1,5 +1,5 @@
 /* An enum for tracking the status of the dragging for the color panel. */
-enum Ui.ColorPanel.Status {
+type Ui.ColorPanel.Status {
   /* The value-saturation handle is dragged. */
   ValueSaturationDragging(Dom.Element)
 

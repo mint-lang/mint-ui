@@ -4,10 +4,10 @@ component Ui.Calendar.Cell {
   property onClick : Function(Time, Promise(Void)) = Promise.never1
 
   /* The language to use for time formatting. */
-  property language : Time.Format.Language = Time.Format:ENGLISH
+  property language : Time.Format.Language = Time.Format.ENGLISH
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* Whether or not the cell is selected. */
   property selected : Bool = false

@@ -1,10 +1,10 @@
 /* A form field component. */
 component Ui.Field {
   /* The error message. */
-  property error : Maybe(String) = Maybe::Nothing
+  property error : Maybe(String) = Maybe.Nothing
 
   /* The orientation. */
-  property orientation : Ui.Field = Ui.Field::Vertical
+  property orientation : Ui.Field = Ui.Field.Vertical
 
   /* Whether or not the label is in a single line. */
   property singleLineLabel : Bool = true
@@ -23,15 +23,15 @@ component Ui.Field {
   /* The style for the control. */
   style control {
     case orientation {
-      Ui.Field::HorizontalReverse =>
+      Ui.Field.HorizontalReverse =>
         flex-direction: row;
         align-items: center;
 
-      Ui.Field::Horizontal =>
+      Ui.Field.Horizontal =>
         flex-direction: row-reverse;
         align-items: center;
 
-      Ui.Field::Vertical =>
+      Ui.Field.Vertical =>
         flex-direction: column;
     }
 
@@ -71,13 +71,13 @@ component Ui.Field {
     font-weight: bold;
 
     case orientation {
-      Ui.Field::HorizontalReverse =>
+      Ui.Field.HorizontalReverse =>
         flex: 0 0 auto;
 
-      Ui.Field::Horizontal =>
+      Ui.Field.Horizontal =>
         flex: 1;
 
-      Ui.Field::Vertical =>
+      Ui.Field.Vertical =>
         flex: 0 0 auto;
     }
 
@@ -102,9 +102,9 @@ component Ui.Field {
         </div>
       </div>
 
-      if let Maybe::Just(message) = error {
+      if let Maybe.Just(message) = error {
         <div::error>
-          <Ui.Icon icon={Ui.Icons:ALERT}/>
+          <Ui.Icon icon={Ui.Icons.ALERT}/>
           <div::gap/>
           message
         </div>

@@ -4,13 +4,13 @@ component Ui.DatePicker {
   property onChange : Function(Time, Promise(Void)) = Promise.never1
 
   /* The language to use for time formatting. */
-  property language : Time.Format.Language = Time.Format:ENGLISH
+  property language : Time.Format.Language = Time.Format.ENGLISH
 
   /* The position of the dropdown. */
-  property position : Ui.Position = Ui.Position::BottomRight
+  property position : Ui.Position = Ui.Position.BottomRight
 
   /* The size of the select. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The current value (as `Time`). */
   property value : Time = Time.today()
@@ -31,7 +31,7 @@ component Ui.DatePicker {
   property format : String = "%Y-%m-%d"
 
   /* A variable for tracking the current month. */
-  state month : Maybe(Time) = Maybe::Nothing
+  state month : Maybe(Time) = Maybe.Nothing
 
   style label {
     text-overflow: ellipsis;
@@ -64,7 +64,7 @@ component Ui.DatePicker {
 
   /* Handles the month change event. */
   fun handleMonthChange (value : Time) {
-    next { month: Maybe::Just(value) }
+    next { month: Maybe.Just(value) }
   }
 
   /* Renders the date picker. */
@@ -82,13 +82,13 @@ component Ui.DatePicker {
       </Ui.AvoidFocus>
 
     let label =
-      Maybe::Just(
+      Maybe.Just(
         <div::label>
           formatter(value, language, format)
         </div>)
 
     <Ui.Picker as picker
-      icon={Ui.Icons:CALENDAR}
+      icon={Ui.Icons.CALENDAR}
       onKeyDown={handleKeyDown}
       matchWidth={false}
       disabled={disabled}

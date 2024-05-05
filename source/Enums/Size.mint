@@ -1,5 +1,5 @@
 /* This enum represents a size. */
-enum Ui.Size {
+type Ui.Size {
   /* CSS em unit. */
   Em(Number)
 
@@ -15,9 +15,9 @@ module Ui.Size {
   /* Converts the size into its CSS equivalent. */
   fun toString (size : Ui.Size) : String {
     case size {
-      Ui.Size::Em(value) => "#{value}em"
-      Ui.Size::Px(value) => "#{value}px"
-      Ui.Size::Inherit => "inherit"
+      Ui.Size.Em(value) => "#{value}em"
+      Ui.Size.Px(value) => "#{value}px"
+      Ui.Size.Inherit => "inherit"
     }
   }
 }

@@ -3,16 +3,16 @@ component Ui.Grid {
   connect Ui exposing { mobile }
 
   /* The minimum width of a column on mobile. */
-  property mobileWidth : Ui.Size = Ui.Size::Em(20)
+  property mobileWidth : Ui.Size = Ui.Size.Em(20)
 
   /* The minimum width of a column. */
-  property width : Ui.Size = Ui.Size::Em(15)
+  property width : Ui.Size = Ui.Size.Em(15)
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The gap between the children. */
-  property gap : Ui.Size = Ui.Size::Em(1)
+  property gap : Ui.Size = Ui.Size.Em(1)
 
   /* The children to render. */
   property children : Array(Html) = []

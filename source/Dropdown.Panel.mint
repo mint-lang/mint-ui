@@ -3,7 +3,7 @@ component Ui.Dropdown.Panel {
   connect Ui exposing { mobile }
 
   /* The size of the panel. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The children to display. */
   property children : Array(Html) = []

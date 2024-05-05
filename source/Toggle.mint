@@ -4,10 +4,10 @@ component Ui.Toggle {
   property onChange : Function(Bool, Promise(Void)) = Promise.never1
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The width of the component. */
-  property width : Ui.Size = Ui.Size::Em(5.5)
+  property width : Ui.Size = Ui.Size.Em(5.5)
 
   /* The label for the false position. */
   property offLabel : String = "OFF"

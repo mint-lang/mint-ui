@@ -9,31 +9,31 @@ component Ui.ColorPanel {
   property onEnd : Function(Promise(Void)) = Promise.never
 
   /* The value (color). */
-  property value : Color = Color::HEX("000000FF")
+  property value : Color = Color.HEX("000000FF")
 
   /* The size of the panel. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* Whether or not to embed the panel (remove border). */
   property embedded : Bool = false
 
   /* The state for storing the drag status. */
-  state status : Ui.ColorPanel.Status = Ui.ColorPanel.Status::Idle
+  state status : Ui.ColorPanel.Status = Ui.ColorPanel.Status.Idle
 
   /* State for the temporary saturation value. */
-  state saturationString : Maybe(String) = Maybe::Nothing
+  state saturationString : Maybe(String) = Maybe.Nothing
 
   /* State for the temporary value value. */
-  state valueString : Maybe(String) = Maybe::Nothing
+  state valueString : Maybe(String) = Maybe.Nothing
 
   /* State for the temporary alpha value. */
-  state alphaString : Maybe(String) = Maybe::Nothing
+  state alphaString : Maybe(String) = Maybe.Nothing
 
   /* State for the temporary hex value. */
-  state hexString : Maybe(String) = Maybe::Nothing
+  state hexString : Maybe(String) = Maybe.Nothing
 
   /* State for the temporary hue value. */
-  state hueString : Maybe(String) = Maybe::Nothing
+  state hueString : Maybe(String) = Maybe.Nothing
 
   /* The provider to track the pointer while dragging. */
   use Provider.Pointer {
@@ -41,7 +41,7 @@ component Ui.ColorPanel {
     moves: moves,
     ups: ups
   } when {
-    status != Ui.ColorPanel.Status::Idle
+    status != Ui.ColorPanel.Status.Idle
   }
 
   /* Styles for the panel itself. */
@@ -208,14 +208,14 @@ component Ui.ColorPanel {
 
   /* The pointer up event handler. */
   fun ups (event : Html.Event) : Promise(Void) {
-    await next { status: Ui.ColorPanel.Status::Idle }
+    await next { status: Ui.ColorPanel.Status.Idle }
     onEnd()
   }
 
   /* The pointer move event handler. */
   fun moves (event : Html.Event) : Promise(Void) {
     case status {
-      Ui.ColorPanel.Status::ValueSaturationDragging(element) =>
+      Ui.ColorPanel.Status.ValueSaturationDragging(element) =>
         {
           let dimensions =
             Dom.getDimensions(element)
@@ -236,7 +236,7 @@ component Ui.ColorPanel {
           onChange(nextValue)
         }
 
-      Ui.ColorPanel.Status::HueDragging(element) =>
+      Ui.ColorPanel.Status.HueDragging(element) =>
         {
           let dimensions =
             Dom.getDimensions(element)
@@ -252,7 +252,7 @@ component Ui.ColorPanel {
           onChange(nextValue)
         }
 
-      Ui.ColorPanel.Status::AlphaDragging(element) =>
+      Ui.ColorPanel.Status.AlphaDragging(element) =>
         {
           let dimensions =
             Dom.getDimensions(element)
@@ -268,7 +268,7 @@ component Ui.ColorPanel {
           onChange(nextValue)
         }
 
-      Ui.ColorPanel.Status::Idle =>
+      Ui.ColorPanel.Status.Idle =>
         next { }
     }
   }
@@ -276,24 +276,24 @@ component Ui.ColorPanel {
   /* The pointer down event handler on the value-saturation square. */
   fun handleRectPointerDown (event : Html.Event) : Promise(Void) {
     Html.Event.preventDefault(event)
-    next { status: Ui.ColorPanel.Status::ValueSaturationDragging(event.target) }
+    next { status: Ui.ColorPanel.Status.ValueSaturationDragging(event.target) }
   }
 
   /* The pointer down event handler on the hue bar. */
   fun handleHuePointerDown (event : Html.Event) : Promise(Void) {
     Html.Event.preventDefault(event)
-    next { status: Ui.ColorPanel.Status::HueDragging(event.target) }
+    next { status: Ui.ColorPanel.Status.HueDragging(event.target) }
   }
 
   /* The pointer down event handler on the alpha bar. */
   fun handleAlphaPointerDown (event : Html.Event) : Promise(Void) {
     Html.Event.preventDefault(event)
-    next { status: Ui.ColorPanel.Status::AlphaDragging(event.target) }
+    next { status: Ui.ColorPanel.Status.AlphaDragging(event.target) }
   }
 
   /* The change event handler for the hue input. */
   fun handleHue (raw : String) : Promise(Void) {
-    next { hueString: Maybe::Just(raw) }
+    next { hueString: Maybe.Just(raw) }
   }
 
   /* The blur event handler for the hue input. */
@@ -307,13 +307,13 @@ component Ui.ColorPanel {
     let newValue =
       Color.setHue(value, newHue)
 
-    await next { hueString: Maybe::Nothing }
+    await next { hueString: Maybe.Nothing }
     onChange(newValue)
   }
 
   /* The change event handler for the value input. */
   fun handleValue (raw : String) : Promise(Void) {
-    next { valueString: Maybe::Just(raw) }
+    next { valueString: Maybe.Just(raw) }
   }
 
   /* The blur event handler for the value input. */
@@ -327,13 +327,13 @@ component Ui.ColorPanel {
     let nextValue =
       Color.setValue(value, newValue)
 
-    await next { valueString: Maybe::Nothing }
+    await next { valueString: Maybe.Nothing }
     onChange(nextValue)
   }
 
   /* The change event handler for the saturation input. */
   fun handleSaturation (raw : String) : Promise(Void) {
-    next { saturationString: Maybe::Just(raw) }
+    next { saturationString: Maybe.Just(raw) }
   }
 
   /* The blur event handler for the saturation input. */
@@ -347,13 +347,13 @@ component Ui.ColorPanel {
     let newValue =
       Color.setSaturation(value, saturation)
 
-    await next { saturationString: Maybe::Nothing }
+    await next { saturationString: Maybe.Nothing }
     onChange(newValue)
   }
 
   /* The change event handler for the alpha input. */
   fun handleAlpha (raw : String) : Promise(Void) {
-    next { alphaString: Maybe::Just(raw) }
+    next { alphaString: Maybe.Just(raw) }
   }
 
   /* The change event handler for the alpha input. */
@@ -367,13 +367,13 @@ component Ui.ColorPanel {
     let newValue =
       Color.setAlpha(value, alpha)
 
-    await next { alphaString: Maybe::Nothing }
+    await next { alphaString: Maybe.Nothing }
     onChange(newValue)
   }
 
   /* The change event handler for the hex input. */
   fun handleHex (raw : String) : Promise(Void) {
-    next { hexString: Maybe::Just(raw) }
+    next { hexString: Maybe.Just(raw) }
   }
 
   /* The blur event handler for the hex input. */
@@ -384,7 +384,7 @@ component Ui.ColorPanel {
       |> Maybe.flatten
       |> Maybe.withDefault(value)
 
-    await next { hexString: Maybe::Nothing }
+    await next { hexString: Maybe.Nothing }
     onChange(newValue)
   }
 

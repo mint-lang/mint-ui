@@ -10,10 +10,10 @@ component Ui.FileInput {
   property selectLabel : String = "Select a file"
 
   /* The selected file. */
-  property value : Maybe(File) = Maybe::Nothing
+  property value : Maybe(File) = Maybe.Nothing
 
   /* The size of the input. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The label for the clear action. */
   property clearLabel : String = "Clear"
@@ -144,7 +144,7 @@ component Ui.FileInput {
   fun handleClear (event : Html.Event) : Promise(Void) {
     Html.Event.preventDefault(event)
     Html.Event.stopPropagation(event)
-    onChange(Maybe::Nothing)
+    onChange(Maybe.Nothing)
   }
 
   /* Handles the select event. */
@@ -154,13 +154,13 @@ component Ui.FileInput {
     let selected =
       await File.select(accept)
 
-    onChange(Maybe::Just(selected))
+    onChange(Maybe.Just(selected))
   }
 
   /* Renders the component. */
   fun render : Html {
     <button::base as base onClick={handleSelect}>
-      if let Maybe::Just(file) = value {
+      if let Maybe.Just(file) = value {
         <>
           <div::infos>
             <Ui.Field label="Name">
@@ -187,13 +187,13 @@ component Ui.FileInput {
 
             <a onClick={handleClear}>
               clearLabel
-              <Ui.Icon icon={Ui.Icons:X}/>
+              <Ui.Icon icon={Ui.Icons.X}/>
             </a>
           </div>
         </>
       } else {
         <div::select>
-          <Ui.Icon icon={Ui.Icons:CLOUD_UPLOAD}/>
+          <Ui.Icon icon={Ui.Icons.CLOUD_UPLOAD}/>
           selectLabel
         </div>
       }

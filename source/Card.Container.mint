@@ -1,7 +1,7 @@
 /* This component is for showing structured content in a Card. */
 component Ui.Card.Container {
   /* The size of the container. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* Where to align the text (center, left or right). */
   property textAlign : String = "left"
@@ -106,8 +106,8 @@ component Ui.Card.Container {
             image
           } else {
             <Ui.Image
-              height={Ui.Size::Em(3)}
-              width={Ui.Size::Em(3)}
+              height={Ui.Size.Em(3)}
+              width={Ui.Size.Em(3)}
               src={thumbnail}/>
           }
         </div>

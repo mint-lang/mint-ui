@@ -1,4 +1,4 @@
-record Ui.ContainedImage {
+type Ui.ContainedImage {
   originalHeight : Number,
   originalWidth : Number,
   currentHeight : Number,

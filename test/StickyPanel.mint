@@ -1,5 +1,5 @@
 component Ui.StickyPanel.Test {
-  property position : Ui.Position = Ui.Position::TopLeft
+  property position : Ui.Position = Ui.Position.TopLeft
 
   style base {
     justify-content: center;
@@ -66,7 +66,7 @@ suite "Ui.StickyPanel" {
   }
 
   test "positions the top-right correctly" {
-    <Ui.StickyPanel.Test position={Ui.Position::TopRight}/>
+    <Ui.StickyPanel.Test position={Ui.Position.TopRight}/>
     |> Test.Html.start()
     |> Test.Html.findGlobally("#content")
     |> Test.Html.assertTop(140)
@@ -74,7 +74,7 @@ suite "Ui.StickyPanel" {
   }
 
   test "positions the top-center correctly" {
-    <Ui.StickyPanel.Test position={Ui.Position::TopCenter}/>
+    <Ui.StickyPanel.Test position={Ui.Position.TopCenter}/>
     |> Test.Html.start()
     |> Test.Html.findGlobally("#content")
     |> Test.Html.assertTop(140)
@@ -82,7 +82,7 @@ suite "Ui.StickyPanel" {
   }
 
   test "positions the bottom-left correctly" {
-    <Ui.StickyPanel.Test position={Ui.Position::BottomLeft}/>
+    <Ui.StickyPanel.Test position={Ui.Position.BottomLeft}/>
     |> Test.Html.start()
     |> Test.Html.findGlobally("#content")
     |> Test.Html.assertTop(310)
@@ -90,7 +90,7 @@ suite "Ui.StickyPanel" {
   }
 
   test "positions the bottom-right correctly" {
-    <Ui.StickyPanel.Test position={Ui.Position::BottomRight}/>
+    <Ui.StickyPanel.Test position={Ui.Position.BottomRight}/>
     |> Test.Html.start()
     |> Test.Html.findGlobally("#content")
     |> Test.Html.assertTop(310)
@@ -98,7 +98,7 @@ suite "Ui.StickyPanel" {
   }
 
   test "positions the bottom-center correctly" {
-    <Ui.StickyPanel.Test position={Ui.Position::BottomCenter}/>
+    <Ui.StickyPanel.Test position={Ui.Position.BottomCenter}/>
     |> Test.Html.start()
     |> Test.Html.findGlobally("#content")
     |> Test.Html.assertTop(310)
@@ -106,7 +106,7 @@ suite "Ui.StickyPanel" {
   }
 
   test "positions the left-top correctly" {
-    <Ui.StickyPanel.Test position={Ui.Position::LeftTop}/>
+    <Ui.StickyPanel.Test position={Ui.Position.LeftTop}/>
     |> Test.Html.start()
     |> Test.Html.findGlobally("#content")
     |> Test.Html.assertTop(200)
@@ -114,7 +114,7 @@ suite "Ui.StickyPanel" {
   }
 
   test "positions the left-center correctly" {
-    <Ui.StickyPanel.Test position={Ui.Position::LeftCenter}/>
+    <Ui.StickyPanel.Test position={Ui.Position.LeftCenter}/>
     |> Test.Html.start()
     |> Test.Html.findGlobally("#content")
     |> Test.Html.assertTop(225)
@@ -122,7 +122,7 @@ suite "Ui.StickyPanel" {
   }
 
   test "positions the left-bottom correctly" {
-    <Ui.StickyPanel.Test position={Ui.Position::LeftBottom}/>
+    <Ui.StickyPanel.Test position={Ui.Position.LeftBottom}/>
     |> Test.Html.start()
     |> Test.Html.findGlobally("#content")
     |> Test.Html.assertTop(250)
@@ -130,7 +130,7 @@ suite "Ui.StickyPanel" {
   }
 
   test "positions the right-top correctly" {
-    <Ui.StickyPanel.Test position={Ui.Position::RightTop}/>
+    <Ui.StickyPanel.Test position={Ui.Position.RightTop}/>
     |> Test.Html.start()
     |> Test.Html.findGlobally("#content")
     |> Test.Html.assertTop(200)
@@ -138,7 +138,7 @@ suite "Ui.StickyPanel" {
   }
 
   test "positions the right-center correctly" {
-    <Ui.StickyPanel.Test position={Ui.Position::RightCenter}/>
+    <Ui.StickyPanel.Test position={Ui.Position.RightCenter}/>
     |> Test.Html.start()
     |> Test.Html.findGlobally("#content")
     |> Test.Html.assertTop(225)
@@ -146,7 +146,7 @@ suite "Ui.StickyPanel" {
   }
 
   test "positions the right-bottom correctly" {
-    <Ui.StickyPanel.Test position={Ui.Position::RightBottom}/>
+    <Ui.StickyPanel.Test position={Ui.Position.RightBottom}/>
     |> Test.Html.start()
     |> Test.Html.findGlobally("#content")
     |> Test.Html.assertTop(250)

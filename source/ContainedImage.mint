@@ -40,13 +40,13 @@ component Ui.ContainedImage {
 
   /* Sets the position and size of the image to be contained in the container. */
   fun update : Promise(Void) {
-    let Maybe::Just(root) =
+    let Maybe.Just(root) =
       base or return next { }
 
     let dimensions =
       Dom.getDimensions(root)
 
-    let Maybe::Just(element) =
+    let Maybe.Just(element) =
       image or return next { }
 
     let imageDimensions =

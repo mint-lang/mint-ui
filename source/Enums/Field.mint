@@ -1,5 +1,5 @@
 /* An enum representing Ui.Field layouts. */
-enum Ui.Field {
+type Ui.Field {
   /* The input and label are laid out horizontally (input first). */
   HorizontalReverse
 

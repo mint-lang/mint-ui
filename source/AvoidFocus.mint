@@ -33,7 +33,7 @@ component Ui.AvoidFocus {
 
   /* Sets `tabindex="-1"` on all child elements. */
   fun update : Promise(Void) {
-    if let Maybe::Just(element) = base {
+    if let Maybe.Just(element) = base {
       for element of Dom.getElementsBySelector(element, "*") {
         Dom.setAttribute(element, "tabindex", "-1")
       }

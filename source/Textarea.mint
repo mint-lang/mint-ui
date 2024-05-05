@@ -53,12 +53,12 @@ component Ui.Textarea {
   property value : String = ""
 
   /* The size of the textarea. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   property rows : Number = 5
 
   /* The current value of the input. */
-  state currentValue : Maybe(String) = Maybe::Nothing
+  state currentValue : Maybe(String) = Maybe.Nothing
 
   /* The ID of the last timeout. */
   state timeoutId : Number = 0
@@ -177,7 +177,7 @@ component Ui.Textarea {
   /* Handles the `input` and `change` events. */
   fun handleChange (event : Html.Event) {
     if inputDelay == 0 {
-      next { currentValue: Maybe::Nothing }
+      next { currentValue: Maybe.Nothing }
 
       onChange(Dom.getValue(event.target))
     } else {
@@ -186,7 +186,7 @@ component Ui.Textarea {
 
       next
         {
-          currentValue: Maybe::Just(nextValue),
+          currentValue: Maybe.Just(nextValue),
           timeoutId: nextId
         }
 
@@ -197,7 +197,7 @@ component Ui.Textarea {
         let actualValue =
           Maybe.withDefault(currentValue, value)
 
-        await next { currentValue: Maybe::Nothing }
+        await next { currentValue: Maybe.Nothing }
 
         onChange(actualValue)
       }
@@ -210,47 +210,47 @@ component Ui.Textarea {
       case behavior {
         "grow" =>
           <div::common::mirror>
-              {
-                /* Get the value as lines. */
-                let lines =
-                  currentValue
-                  |> Maybe.withDefault(value)
-                  |> String.split("\n")
+            {
+              /* Get the value as lines. */
+              let lines =
+                currentValue
+                |> Maybe.withDefault(value)
+                |> String.split("\n")
 
-                /*
-                We need to add an extra line because the mirror
-                won't grow in an empty line.
-                */
-                let last =
-                  Array.last(lines)
-                  |> Maybe.map(
-                    (item : String) {
-                      if String.isBlank(item) {
-                        <>
-                          " "
-                        </>
-                      } else {
-                        <></>
-                      }
-                    })
-                  |> Maybe.withDefault(<></>)
+              /*
+              We need to add an extra line because the mirror
+              won't grow in an empty line.
+              */
+              let last =
+                Array.last(lines)
+                |> Maybe.map(
+                  (item : String) {
+                    if String.isBlank(item) {
+                      <>
+                        " "
+                      </>
+                    } else {
+                      <></>
+                    }
+                  })
+                |> Maybe.withDefault(<></>)
 
-                /* Map lines into spans separated by line breaks. */
-                let spans =
-                  lines
-                  |> Array.map(
-                    (line : String) : Html {
-                      <span>
-                       line
-                      </span>
-                    })
-                  |> Array.intersperse(<br/>)
+              /* Map lines into spans separated by line breaks. */
+              let spans =
+                lines
+                |> Array.map(
+                  (line : String) : Html {
+                    <span>
+                      line
+                    </span>
+                  })
+                |> Array.intersperse(<br/>)
 
-                <>
-                  spans
-                  last
-                </>
-              }
+              <>
+                spans
+                last
+              </>
+            }
           </div>
 
         => <></>

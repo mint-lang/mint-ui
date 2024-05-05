@@ -22,7 +22,7 @@ global component Ui.Modal {
   state resolve : Function(Maybe(Void), Void) = (value : Maybe(Void)) { void }
 
   /* The previously focused element. */
-  state focusedElement : Maybe(Dom.Element) = Maybe::Nothing
+  state focusedElement : Maybe(Dom.Element) = Maybe.Nothing
 
   /* The transition duration. */
   state transitionDuration : Number = 240
@@ -55,7 +55,7 @@ global component Ui.Modal {
       900,
       240,
       () {
-        if let Maybe::Just(item) = base {
+        if let Maybe.Just(item) = base {
           item.focusFirst()
         }
       })
@@ -95,13 +95,13 @@ global component Ui.Modal {
     await next { open: false }
 
     await Timer.timeout(transitionDuration)
-    await resolve(Maybe::Nothing)
+    await resolve(Maybe.Nothing)
     await Dom.focus(focusedElement)
 
     next
       {
         resolve: (value : Maybe(Void)) { void },
-        focusedElement: Maybe::Nothing,
+        focusedElement: Maybe.Nothing,
         content: <></>
       }
   }
@@ -111,13 +111,13 @@ global component Ui.Modal {
     await next { open: false }
 
     await Timer.timeout(transitionDuration)
-    await resolve(Maybe::Just(void))
+    await resolve(Maybe.Just(void))
     await Dom.focus(focusedElement)
 
     await next
       {
         resolve: (value : Maybe(Void)) { void },
-        focusedElement: Maybe::Nothing,
+        focusedElement: Maybe.Nothing,
         content: <></>
       }
   }

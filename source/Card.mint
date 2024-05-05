@@ -1,13 +1,13 @@
 /* A Card is used to display data in semantically grouped way. */
 component Ui.Card {
   /* The click event handler. */
-  property onClick : Maybe(Function(Html.Event, Promise(Void))) = Maybe::Nothing
+  property onClick : Maybe(Function(Html.Event, Promise(Void))) = Maybe.Nothing
 
   /* The minimum width of the card. */
-  property minWidth : Ui.Size = Ui.Size::Px(0)
+  property minWidth : Ui.Size = Ui.Size.Px(0)
 
   /* The size of the component. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The child elements. */
   property children : Array(Html) = []
@@ -115,14 +115,14 @@ component Ui.Card {
   fun render : Html {
     if String.isBlank(href) {
       case onClick {
-        Maybe::Just(handler) =>
+        Maybe.Just(handler) =>
           <button::common::button::focus onClick={handler}>
             <div::base>
               children
             </div>
           </button>
 
-        Maybe::Nothing =>
+        Maybe.Nothing =>
           <a::common::base>
             children
           </a>

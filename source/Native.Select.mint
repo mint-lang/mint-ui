@@ -4,7 +4,7 @@ component Ui.Native.Select {
   property onChange : Function(String, Promise(Void)) = Promise.never1
 
   /* The size of the select. */
-  property size : Ui.Size = Ui.Size::Inherit
+  property size : Ui.Size = Ui.Size.Inherit
 
   /* The items to show. */
   property items : Array(Ui.ListItem) = []
@@ -134,7 +134,7 @@ component Ui.Native.Select {
       <div::grid>
         label
 
-        <Ui.Icon icon={Ui.Icons:CHEVRON_DOWN}/>
+        <Ui.Icon icon={Ui.Icons.CHEVRON_DOWN}/>
       </div>
 
     <div::element as element>
@@ -147,12 +147,12 @@ component Ui.Native.Select {
 
         for item of items {
           case item {
-            Ui.ListItem::Divider =>
+            Ui.ListItem.Divider =>
               <option
                 disabled={true}
                 label="─────────────"/>
 
-            Ui.ListItem::Item(content, key) =>
+            Ui.ListItem.Item(content, key) =>
               <option value={key}>
                 content
               </option>

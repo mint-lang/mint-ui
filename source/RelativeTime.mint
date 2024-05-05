@@ -4,7 +4,7 @@ component Ui.RelativeTime {
   property formatter : Function(Time, Time, Time.Format.Language, String) = Time.distanceOfTimeInWords
 
   /* The language to use for time formatting. */
-  property language : Time.Format.Language = Time.Format:ENGLISH
+  property language : Time.Format.Language = Time.Format.ENGLISH
 
   /* The formatter for the title. */
   property titleFormatter : Function(Time.Format.Language, Time, String) =

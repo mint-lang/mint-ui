@@ -76,12 +76,12 @@ component Ui.Table.Header {
           <div::icon onClick={handleSort}>
             if orderBy == data.sortKey {
               if orderDirection == "desc" {
-                <Ui.Icon icon={Ui.Icons:TRIANGLE_DOWN}/>
+                <Ui.Icon icon={Ui.Icons.TRIANGLE_DOWN}/>
               } else {
-                <Ui.Icon icon={Ui.Icons:TRIANGLE_UP}/>
+                <Ui.Icon icon={Ui.Icons.TRIANGLE_UP}/>
               }
             } else {
-              <Ui.Icon icon={Ui.Icons:TRIANGLE_UP_DOWN}/>
+              <Ui.Icon icon={Ui.Icons.TRIANGLE_UP_DOWN}/>
             }
           </div>
         }

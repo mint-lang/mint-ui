@@ -1,5 +1,5 @@
 /* An enum to represent the state of a picker. */
-enum Ui.Picker.Status {
+type Ui.Picker.Status {
   /* The picker is focused. */
   Focused
 
