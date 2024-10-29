@@ -101,33 +101,23 @@ component Ui.Layout.Website {
   fun render : Html {
     <div::base>
       if Html.isNotEmpty(notification) {
-        <div>
-          notification
-        </div>
+        <div>notification</div>
       }
 
       if Html.isNotEmpty(header) {
-        <div>
-          header
-        </div>
+        <div>header</div>
       }
 
       if Html.isNotEmpty(breadcrumbs) {
-        <div::breadcrumbs>
-          breadcrumbs
-        </div>
+        <div::breadcrumbs>breadcrumbs</div>
       }
 
       if Html.isNotEmpty(content) {
-        <div::content>
-          content
-        </div>
+        <div::content>content</div>
       }
 
       if Html.isNotEmpty(footer) {
-        <div>
-          footer
-        </div>
+        <div>footer</div>
       }
     </div>
   }

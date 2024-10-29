@@ -6,10 +6,7 @@ type Ui.ListItem {
   - a content which is displayed
   - a match string which is searched against
   */
-  Item(
-    matchString : String,
-    content : Html,
-    key : String)
+  Item(matchString : String, content : Html, key : String)
 
   /* A divider between items. */
   Divider
@@ -34,7 +31,7 @@ module Ui.ListItem {
 
   /* Returns the `content` of a list item. */
   fun content (item : Ui.ListItem) : Html {
-    if let Ui.ListItem.Item(content) = item {
+    if let Ui.ListItem.Item(_, content) = item {
       content
     }
   }
@@ -48,7 +45,7 @@ module Ui.ListItem {
 
   /* Returns the `key` of a list item. */
   fun key (item : Ui.ListItem) : String {
-    if let Ui.ListItem.Item(key) = item {
+    if let Ui.ListItem.Item(_, _, key) = item {
       key
     }
   }

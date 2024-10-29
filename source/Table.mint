@@ -1,7 +1,8 @@
 /* A sortable table component, which collapses into a definition list on small screens. */
 component Ui.Table {
   /* The handler for the order change event. */
-  property onOrderChange : Function(Tuple(String, String), Promise(Void)) = Promise.never1
+  property onOrderChange : Function(Tuple(String, String), Promise(Void)) =
+    Promise.never1
 
   /* The data for the rows. */
   property rows : Array(Tuple(String, Array(Ui.Cell))) = []
@@ -28,10 +29,7 @@ component Ui.Table {
   state width : Number = 0
 
   /* We are using this provider to update the `width` state. */
-  use Provider.ElementSize {
-    changes: updateWidth,
-    element: base
-  }
+  use Provider.ElementSize { changes: updateWidth, element: base }
 
   /* The style for the table. */
   style base {
@@ -50,14 +48,12 @@ component Ui.Table {
       color: var(--content-text);
     }
 
-    td,
-    th {
+    td, th {
       text-align: left;
       padding: 0.5em 0.7em;
     }
 
-    td + td,
-    th + th {
+    td + td, th + th {
       if bordered {
         border-left: 0.0625em solid var(--input-border);
       }
@@ -100,9 +96,10 @@ component Ui.Table {
     <div as base>
       if mobile {
         <Ui.DefinitionList
-          headers={Array.map(headers, (header : Ui.Table.Header) { header.label })}
+          headers={Array.map(headers, .label(Ui.Table.Header))}
           size={size}
-          rows={rows}/>
+          rows={rows}
+        />
       } else {
         <table::base as table>
           <thead>
@@ -111,7 +108,8 @@ component Ui.Table {
                 orderDirection={orderDirection}
                 onOrderChange={onOrderChange}
                 orderBy={orderBy}
-                data={header}/>
+                data={header}
+              />
             }
           </thead>
 
@@ -122,9 +120,7 @@ component Ui.Table {
 
               <tr>
                 for cell of cells {
-                  <td>
-                    <Ui.Cell cell={cell}/>
-                  </td>
+                  <td><Ui.Cell cell={cell}/></td>
                 }
               </tr>
             }

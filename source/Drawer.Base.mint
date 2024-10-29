@@ -26,10 +26,7 @@ component Ui.Drawer.Base {
   /* Whether or not the drawer is open. */
   property open : Bool = false
 
-  use Provider.OutsideClick {
-    elements: [drawer],
-    clicks: onClose
-  } when {
+  use Provider.OutsideClick { elements: [drawer], clicks: onClose } when {
     open && closeOnOutsideClick
   }
 
@@ -92,13 +89,7 @@ component Ui.Drawer.Base {
 
   fun render : Html {
     <Html.Portals.Body>
-      <Ui.FocusTrap>
-        <div::base>
-          <div::drawer as drawer>
-            children
-          </div>
-        </div>
-      </Ui.FocusTrap>
+      <Ui.FocusTrap><div::base><div::drawer as drawer>children</div></div></Ui.FocusTrap>
     </Html.Portals.Body>
   }
 }

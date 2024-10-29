@@ -119,16 +119,8 @@ component Ui.Native.Select {
     let label =
       items
       |> Array.find((item : Ui.ListItem) { Ui.ListItem.key(item) == value })
-      |> Maybe.map(
-        (item : Ui.ListItem) {
-          <div>
-            Ui.ListItem.content(item)
-          </div>
-        })
-      |> Maybe.withDefault(
-        <div::placeholder>
-          placeholder
-        </div>)
+      |> Maybe.map((item : Ui.ListItem) { <div>Ui.ListItem.content(item)</div> })
+      |> Maybe.withDefault(<div::placeholder>placeholder</div>)
 
     let grid =
       <div::grid>
@@ -143,22 +135,14 @@ component Ui.Native.Select {
         onFocus={handleFocus}
         onBlur={handleBlur}
         disabled={disabled}
-        value={value}>
-
+        value={value}
+      >
         for item of items {
           case item {
-            Ui.ListItem.Divider =>
-              <option
-                disabled={true}
-                label="─────────────"/>
-
-            Ui.ListItem.Item(content, key) =>
-              <option value={key}>
-                content
-              </option>
+            Divider => <option disabled={true} label="─────────────"/>
+            Item(_, content, key) => <option value={key}>content</option>
           }
         }
-
       </select>
 
       grid

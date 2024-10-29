@@ -22,20 +22,19 @@ component Ui.Field {
 
   /* The style for the control. */
   style control {
+    display: flex;
+
     case orientation {
-      Ui.Field.HorizontalReverse =>
+      Vertical => flex-direction: column;
+
+      HorizontalReverse =>
         flex-direction: row;
         align-items: center;
 
-      Ui.Field.Horizontal =>
+      Horizontal =>
         flex-direction: row-reverse;
         align-items: center;
-
-      Ui.Field.Vertical =>
-        flex-direction: column;
     }
-
-    display: flex;
   }
 
   /* The style for the error message. */
@@ -71,14 +70,9 @@ component Ui.Field {
     font-weight: bold;
 
     case orientation {
-      Ui.Field.HorizontalReverse =>
-        flex: 0 0 auto;
-
-      Ui.Field.Horizontal =>
-        flex: 1;
-
-      Ui.Field.Vertical =>
-        flex: 0 0 auto;
+      HorizontalReverse => flex: 0 0 auto;
+      Vertical => flex: 0 0 auto;
+      Horizontal => flex: 1;
     }
 
     if singleLineLabel {
@@ -91,15 +85,11 @@ component Ui.Field {
   fun render : Html {
     <div::base>
       <div::control>
-        <div::label>
-          label
-        </div>
+        <div::label>label</div>
 
         <div::gap/>
 
-        <div>
-          children
-        </div>
+        <div>children</div>
       </div>
 
       if let Maybe.Just(message) = error {

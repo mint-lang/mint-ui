@@ -42,9 +42,7 @@ component Ui.Slider {
       margin-top: -0.26875em;
     }
 
-    &::-webkit-slider-thumb,
-    &::-moz-range-thumb,
-    &::-ms-thumb {
+    &::-webkit-slider-thumb, &::-moz-range-thumb, &::-ms-thumb {
       background-color: var(--primary-color);
       box-sizing: border-box;
       border-radius: 0.2em;
@@ -53,15 +51,11 @@ component Ui.Slider {
       border: 0;
     }
 
-    &:focus::-webkit-slider-thumb,
-    &:focus::-moz-range-thumb,
-    &:focus::-ms-thumb {
+    &:focus::-webkit-slider-thumb, &:focus::-moz-range-thumb, &:focus::-ms-thumb {
       background-color: var(--primary-color);
     }
 
-    &::-webkit-slider-runnable-track,
-    &::-moz-range-track,
-    &::-ms-track {
+    &::-webkit-slider-runnable-track, &::-moz-range-track, &::-ms-track {
       border: 0.0625em solid var(--input-border);
       background-color: var(--input-color);
       box-sizing: border-box;
@@ -76,9 +70,8 @@ component Ui.Slider {
       background-repeat: no-repeat;
     }
 
-    &:focus::-webkit-slider-runnable-track,
-    &:focus::-moz-range-track,
-    &:focus::-ms-track {
+    &:focus::-webkit-slider-runnable-track, &:focus::-moz-range-track,
+      &:focus::-ms-track {
       background-color: var(--input-focus-color);
       border-color: var(--input-focus-border);
       color: var(--input-focus-text);
@@ -133,6 +126,7 @@ component Ui.Slider {
       onChange={handleChange}
       onInput={handleInput}
       disabled={disabled}
-      type="range"/>
+      type="range"
+    />
   }
 }

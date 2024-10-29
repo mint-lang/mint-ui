@@ -15,10 +15,7 @@ component Ui.AvoidFocus {
   property children : Array(Html) = []
 
   /* We are using the mutation provider to update elements on the fly. */
-  use Provider.Mutation {
-    changes: update,
-    element: base
-  }
+  use Provider.Mutation { changes: update, element: base }
 
   /* Style for the base element. */
   style base {
@@ -44,8 +41,6 @@ component Ui.AvoidFocus {
 
   /* Renders the component. */
   fun render : Html {
-    <div::base as base aria-hidden="true">
-      children
-    </div>
+    <div::base as base aria-hidden="true">children</div>
   }
 }

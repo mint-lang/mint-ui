@@ -108,29 +108,22 @@ component Ui.Card.Container {
             <Ui.Image
               height={Ui.Size.Em(3)}
               width={Ui.Size.Em(3)}
-              src={thumbnail}/>
+              src={thumbnail}
+            />
           }
         </div>
       }
 
       if Html.isNotEmpty(title) {
-        <div::title>
-          title
-        </div>
+        <div::title>title</div>
       }
 
       if Html.isNotEmpty(subtitle) {
-        <div::subtitle>
-          subtitle
-        </div>
+        <div::subtitle>subtitle</div>
       }
 
       if Html.isNotEmpty(content) {
-        <div::content>
-          <Ui.Content>
-            content
-          </Ui.Content>
-        </div>
+        <div::content><Ui.Content>content</Ui.Content></div>
       }
     </div>
   }

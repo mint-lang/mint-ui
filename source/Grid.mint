@@ -19,7 +19,9 @@ component Ui.Grid {
 
   /* The styles for the grid. */
   style base {
-    grid-template-columns: repeat(auto-fit, minmax(#{Ui.Size.toString(columnWidth)}, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(#{Ui.Size.toString(
+      columnWidth)}, 1fr));
+
     grid-gap: #{Ui.Size.toString(gap)};
     display: grid;
 
@@ -36,8 +38,6 @@ component Ui.Grid {
 
   /* Renders the grid. */
   fun render : Html {
-    <div::base>
-      children
-    </div>
+    <div::base>children</div>
   }
 }

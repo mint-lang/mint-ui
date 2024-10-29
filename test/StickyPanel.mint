@@ -31,7 +31,8 @@ component Ui.StickyPanel.Test {
         content={<div::content id="content"/>}
         element={<div::element id="element"/>}
         position={position}
-        offset={10}/>
+        offset={10}
+      />
     </div>
   }
 }

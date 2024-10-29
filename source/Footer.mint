@@ -66,17 +66,12 @@ component Ui.Footer {
   /* Renders the component. */
   fun render : Html {
     <div::base>
-      <div::infos>
-        infos
-      </div>
+      <div::infos>infos</div>
 
       <div::categories>
         for item of navitems {
           <div::category>
-            <strong>
-              item[0]
-            </strong>
-
+            <strong>item[0]</strong>
             <Ui.NavItems items={item[1]}/>
           </div>
         }

@@ -42,17 +42,12 @@ component Ui.Dropdown {
   state width : Number = 0
 
   /* We use this provider to update the width of the panel if needed. */
-  use Provider.AnimationFrame {
-    frames: updateDimensions
-  } when {
+  use Provider.AnimationFrame { frames: updateDimensions } when {
     open && matchWidth
   }
 
   /* We use this provider to close the panel when clicking outside of it. */
-  use Provider.OutsideClick {
-    elements: [panel],
-    clicks: onClose
-  } when {
+  use Provider.OutsideClick { elements: [panel], clicks: onClose } when {
     closeOnOutsideClick && open && !mobile
   }
 
@@ -98,11 +93,8 @@ component Ui.Dropdown {
         <Ui.Modal.Base
           closeOnOutsideClick={closeOnOutsideClick}
           onClose={onClose}
-          open={open}>
-
-          content
-
-        </Ui.Modal.Base>
+          open={open}
+        >content</Ui.Modal.Base>
       </>
     } else {
       <Ui.StickyPanel as stickyPanel
@@ -112,11 +104,8 @@ component Ui.Dropdown {
         element={element}
         offset={offset}
         zIndex={zIndex}
-        content={
-          <div::panel as panel onClick={onClick}>
-            content
-          </div>
-        }/>
+        content={<div::panel as panel onClick={onClick}>content</div>}
+      />
     }
   }
 }

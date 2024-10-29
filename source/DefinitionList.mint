@@ -57,8 +57,7 @@ component Ui.DefinitionList {
     cursor: pointer;
     outline: none;
 
-    &:focus,
-    &:hover {
+    &:focus, &:hover {
       background: var(--primary-light-color);
       color: var(--primary-light-text);
     }
@@ -94,6 +93,7 @@ component Ui.DefinitionList {
     }
   }
 
+  /* Handles the click event. */
   fun handleClick (index : Number) : Function(Promise(Void)) {
     () {
       if Set.has(data, index) {
@@ -119,26 +119,18 @@ component Ui.DefinitionList {
             <div::summary(open) onClick={handleClick(index)}>
               <Ui.Icon icon={Ui.Icons.CHEVRON_RIGHT}/>
 
-              <div::cell>
-                summary
-              </div>
+              <div::cell>summary</div>
             </div>
 
             if open {
               <div>
                 for cell of cells {
                   let header =
-                    headers[Array.indexOf(cells, cell) or 0]
-                    |> Maybe.withDefault("")
+                    headers[Array.indexOf(cells, cell) or 0] or ""
 
                   <div::item>
-                    <div::label>
-                      header
-                    </div>
-
-                    <div>
-                      <Ui.Cell cell={cell}/>
-                    </div>
+                    <div::label>header</div>
+                    <div><Ui.Cell cell={cell}/></div>
                   </div>
                 }
               </div>

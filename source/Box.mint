@@ -63,21 +63,15 @@ component Ui.Box {
   fun render {
     <div::wrapper>
       if Html.isNotEmpty(label) {
-        <div::label>
-          label
-        </div>
+        <div::label>label</div>
       }
 
       <div::base>
         if Html.isNotEmpty(title) {
-          <div::title>
-            title
-          </div>
+          <div::title>title</div>
         }
 
-        <Ui.Content fitContent={fitContent}>
-          children
-        </Ui.Content>
+        <Ui.Content fitContent={fitContent}>children</Ui.Content>
       </div>
     </div>
   }

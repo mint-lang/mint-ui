@@ -57,8 +57,7 @@ component Ui.Card {
       border: 0;
     }
 
-    &:hover,
-    &:focus {
+    &:hover, &:focus {
       if bordered {
         border: 0.0625em solid var(--primary-color);
 
@@ -115,27 +114,19 @@ component Ui.Card {
   fun render : Html {
     if String.isBlank(href) {
       case onClick {
-        Maybe.Just(handler) =>
+        Just(handler) =>
           <button::common::button::focus onClick={handler}>
-            <div::base>
-              children
-            </div>
+            <div::base>children</div>
           </button>
 
-        Maybe.Nothing =>
-          <a::common::base>
-            children
-          </a>
+        Nothing => <a::common::base>children</a>
       }
     } else {
       <a::common::base::focus
         onDragStart={Html.Event.preventDefault}
         target={target}
-        href={href}>
-
-        children
-
-      </a>
+        href={href}
+      >children</a>
     }
   }
 }

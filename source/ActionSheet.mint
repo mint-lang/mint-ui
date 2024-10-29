@@ -104,8 +104,7 @@ global component Ui.ActionSheet {
   }
 
   style item-interactive (group : Bool) {
-    &:hover,
-    &:focus {
+    &:hover, &:focus {
       if !group {
         color: var(--primary-color);
       }
@@ -212,29 +211,30 @@ global component Ui.ActionSheet {
       await resolve(void)
       await Dom.focus(focusedElement)
 
-      next
-        {
-          resolve: (value : Void) { void },
-          focusedElement: Maybe.Nothing,
-          size: Ui.Size.Inherit,
-          items: []
-        }
+      next {
+        resolve: (value : Void) { void },
+        focusedElement: Maybe.Nothing,
+        size: Ui.Size.Inherit,
+        items: []
+      }
     }
   }
 
   /* Shows the component with the given items and options. */
-  fun showWithOptions (size : Ui.Size, items : Array(Ui.NavItem)) : Promise(Void) {
+  fun showWithOptions (
+    size : Ui.Size,
+    items : Array(Ui.NavItem)
+  ) : Promise(Void) {
     if Array.size(items) > 0 {
       let {resolve, promise} =
         Promise.create()
 
-      next
-        {
-          focusedElement: Dom.getActiveElement(),
-          resolve: resolve,
-          items: items,
-          size: size
-        }
+      next {
+        focusedElement: Dom.getActiveElement(),
+        resolve: resolve,
+        items: items,
+        size: size
+      }
 
       /* This is needed so the things happen after the promise is returned. */
       {
@@ -245,14 +245,12 @@ global component Ui.ActionSheet {
         /* We need to wait for the element to be settled before we can focus it. */
         await Timer.timeout(100)
 
-        case container {
-          Maybe.Just(element) => Dom.focusFirst(element)
-          Maybe.Nothing => next { }
+        if let Just(element) = container {
+          Dom.focusFirst(element)
         }
 
-        case scrollContainer {
-          Maybe.Just(element) => Dom.scrollTo(element, 0, 0)
-          Maybe.Nothing => next { }
+        if let Just(element) = scrollContainer {
+          Dom.scrollTo(element, 0, 0)
         }
       }
 
@@ -306,7 +304,7 @@ global component Ui.ActionSheet {
     group : Bool,
     href : String,
     target : String,
-    onClick : Function(Html.Event, Promise(Void))
+    onClick : Function(Html.Event, Promise(Void)) = Promise.never1
   ) {
     let contents =
       <>
@@ -322,23 +320,16 @@ global component Ui.ActionSheet {
       </>
 
     if group {
-      <div::item(group)::item-interactive(group) onClick={onClick}>
-        contents
-      </div>
+      <div::item(group)::item-interactive(group) onClick={onClick}>contents</div>
     } else if String.isNotBlank(href) {
       <a::item(group)::item-interactive(group)
         onClick={onClick}
         target={target}
-        href={href}>
-
-        contents
-
-      </a>
+        href={href}
+      >contents</a>
     } else {
       <button::reset::item(group)::item-interactive(group) onClick={onClick}>
-        <div::item(group)>
-          contents
-        </div>
+        <div::item(group)>contents</div>
       </button>
     }
   }
@@ -346,43 +337,21 @@ global component Ui.ActionSheet {
   /* Renders the given navigation item. */
   fun renderItem (item : Ui.NavItem) : Html {
     case item {
-      Ui.NavItem.Html(content) =>
-        <div::html>
-          content
-        </div>
+      Html(content) => <div::html>content</div>
 
-      Ui.NavItem.Divider => <div::divider/>
+      Divider => <div::divider/>
 
-      Ui.NavItem.Item(iconAfter, iconBefore, label, action) =>
-        renderContents(
-          iconAfter,
-          iconBefore,
-          label,
-          false,
-          "",
-          "",
+      Item(action, iconBefore, iconAfter, label) =>
+        renderContents(iconAfter, iconBefore, label, false, "", "",
           (event : Html.Event) { handleItemClick(action, event) })
 
-      Ui.NavItem.Link(iconAfter, iconBefore, label, href, target) =>
-        renderContents(
-          iconAfter,
-          iconBefore,
-          label,
-          false,
-          href,
-          target,
+      Link(iconBefore, iconAfter, target, label, href) =>
+        renderContents(iconAfter, iconBefore, label, false, href, target,
           (event : Html.Event) { handleLinkClick(href, event) })
 
-      Ui.NavItem.Group(iconAfter, iconBefore, label, items) =>
+      Group(items, iconBefore, iconAfter, label) =>
         <>
-          renderContents(
-            iconAfter,
-            iconBefore,
-            label,
-            true,
-            "",
-            "",
-            Promise.never1)
+          renderContents(iconAfter, iconBefore, label, true, "", "")
 
           <div::group>
             <div::gutter/>

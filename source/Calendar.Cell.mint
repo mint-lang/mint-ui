@@ -69,10 +69,7 @@ component Ui.Calendar.Cell {
   fun render : Html {
     <div::base
       title={Time.format(day, language, "%Y-%m-%d")}
-      onClick={handleClick}>
-
-      Time.format(day, language, "%d")
-
-    </div>
+      onClick={handleClick}
+    >Time.format(day, language, "%d")</div>
   }
 }

@@ -36,10 +36,7 @@ component Ui.Header {
   use Provider.Url { changes: updateUrl }
 
   /* We are using this provider to update the `width` state. */
-  use Provider.ElementSize {
-    changes: updateWidth,
-    element: base
-  }
+  use Provider.ElementSize { changes: updateWidth, element: base }
 
   /* Styles for the base. */
   style base {
@@ -74,8 +71,7 @@ component Ui.Header {
       color: inherit;
     }
 
-    &:hover,
-    &:focus {
+    &:hover, &:focus {
       color: var(--primary-color);
     }
   }
@@ -118,19 +114,13 @@ component Ui.Header {
   fun renderItem (iconBefore : Html, iconAfter : Html, label : String) {
     <>
       if Html.isNotEmpty(iconBefore) {
-        <div::icon>
-          <Ui.Icon icon={iconBefore}/>
-        </div>
+        <div::icon><Ui.Icon icon={iconBefore}/></div>
       }
 
-      <span::label>
-        label
-      </span>
+      <span::label>label</span>
 
       if Html.isNotEmpty(iconAfter) {
-        <div::icon>
-          <Ui.Icon icon={iconAfter}/>
-        </div>
+        <div::icon><Ui.Icon icon={iconAfter}/></div>
       }
     </>
   }
@@ -144,10 +134,7 @@ component Ui.Header {
         if width < breakpoint {
           [
             <div onClick={handleClick}>
-              <Ui.Icon
-                size={Ui.Size.Em(2)}
-                interactive={true}
-                icon={icon}/>
+              <Ui.Icon size={Ui.Size.Em(2)} interactive={true} icon={icon}/>
             </div>
           ]
         } else {
@@ -156,7 +143,7 @@ component Ui.Header {
               Ui.NavItem.Divider => <div::divider/>
               Ui.NavItem.Html(content) => content
 
-              Ui.NavItem.Group(iconBefore, iconAfter, label, items) =>
+              Ui.NavItem.Group(items, iconBefore, iconAfter, label) =>
                 {
                   let key =
                     String.parameterize(label)
@@ -165,39 +152,43 @@ component Ui.Header {
                     Map.getWithDefault(openDropdowns, key, false)
 
                   <Ui.Dropdown
-                    onClose={() { next { openDropdowns: Map.set(openDropdowns, key, false) } }}
+                    onClose={
+                      () {
+                        next {
+                          openDropdowns: Map.set(openDropdowns, key, false)
+                        }
+                      }
+                    }
                     position={Ui.Position.BottomRight}
                     closeOnOutsideClick={true}
                     offset={15}
                     open={open}
                     element={
                       <div::item(false)
-                        onClick={() { next { openDropdowns: Map.set(openDropdowns, key, true) } }}
-                        tabIndex="0">
-
-                        renderItem(iconBefore, iconAfter, label)
-
-                      </div>
+                        onClick={
+                          () {
+                            next {
+                              openDropdowns: Map.set(openDropdowns, key, true)
+                            }
+                          }
+                        }
+                        tabIndex="0"
+                      >renderItem(iconBefore, iconAfter, label)</div>
                     }
                     content={
-                      <Ui.Dropdown.Panel>
-                        <Ui.NavItems items={items}/>
-                      </Ui.Dropdown.Panel>
-                    }/>
+                      <Ui.Dropdown.Panel><Ui.NavItems items={items}/></Ui.Dropdown.Panel>
+                    }
+                  />
                 }
 
-              Ui.NavItem.Item(iconBefore, iconAfter, label, action) =>
+              Ui.NavItem.Item(action, iconBefore, iconAfter, label) =>
                 <div::item(false) onClick={action}>
                   renderItem(iconBefore, iconAfter, label)
                 </div>
 
-              Ui.NavItem.Link(iconBefore, iconAfter, label, href, target) =>
-                <a::item(Window.isActiveURL(href))
-                  target={target}
-                  href={href}>
-
+              Ui.NavItem.Link(iconBefore, iconAfter, target, label, href) =>
+                <a::item(Window.isActiveURL(href)) target={target} href={href}>
                   renderItem(iconBefore, iconAfter, label)
-
                 </a>
             }
           }

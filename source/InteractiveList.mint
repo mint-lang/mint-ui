@@ -48,14 +48,13 @@ component Ui.InteractiveList {
 
   /* Intend the first element when the component is mounted. */
   fun componentDidMount {
-    next
-      {
-        intended:
-          selected
-          |> Set.toArray
-          |> Array.first
-          |> Maybe.withDefault("")
-      }
+    next {
+      intended:
+        selected
+        |> Set.toArray
+        |> Array.first
+        |> Maybe.withDefault("")
+    }
   }
 
   /* Sets the intended element. */
@@ -78,12 +77,11 @@ component Ui.InteractiveList {
   /* Selects the next or previous element. */
   fun selectNext (forward : Bool) : Promise(Void) {
     let itemsOnly =
-      Array.select(
-        items,
+      Array.select(items,
         (item : Ui.ListItem) {
           case item {
-            Ui.ListItem.Divider => false
-            Ui.ListItem.Item => true
+            Divider => false
+            Item => true
           }
         })
 
@@ -122,8 +120,7 @@ component Ui.InteractiveList {
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
     case event.keyCode {
-      Html.Event.ENTER =>
-        onSelect(intended)
+      Html.Event.ENTER => onSelect(intended)
 
       Html.Event.SPACE =>
         {
@@ -158,8 +155,8 @@ component Ui.InteractiveList {
 
     <div::base
       onKeyDown={Ui.disabledHandler(!interactive, handleKeyDown)}
-      tabindex={tabIndex}>
-
+      tabindex={tabIndex}
+    >
       <Ui.ScrollPanel>
         <div::items as container>
           for item of items {
@@ -169,18 +166,14 @@ component Ui.InteractiveList {
                   onClick={(event : Html.Event) { handleClickSelect(key) }}
                   intended={intendable && key == intended}
                   selected={Set.has(selected, key)}
-                  key={key}>
-
-                  content
-
-                </Ui.InteractiveList.Item>
+                  key={key}
+                >content</Ui.InteractiveList.Item>
 
               Ui.ListItem.Divider => <div/>
             }
           }
         </div>
       </Ui.ScrollPanel>
-
     </div>
   }
 }

@@ -45,27 +45,18 @@ component Ui.Content {
       margin-bottom: 0;
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
+    h1, h2, h3, h4, h5 {
       margin-bottom: 0.35em;
       margin-top: 2em;
 
       line-height: 1.2em;
     }
 
-    h1 + *,
-    h2 + *,
-    h3 + *,
-    h4 + *,
-    h5 + * {
+    h1 + *, h2 + *, h3 + *, h4 + *, h5 + * {
       margin-top: 0;
     }
 
-    ul,
-    ol {
+    ul, ol {
       padding-left: 1.5em;
     }
 
@@ -77,8 +68,7 @@ component Ui.Content {
       color: var(--primary-color);
       text-decoration: none;
 
-      code:not([class]),
-      kbd:not([class]) {
+      code:not([class]), kbd:not([class]) {
         color: inherit;
       }
 
@@ -96,8 +86,7 @@ component Ui.Content {
       }
     }
 
-    code:not([class]),
-    kbd:not([class]) {
+    code:not([class]), kbd:not([class]) {
       border: 0.0625em solid var(--input-border);
       background: var(--input-color);
       color: var(--input-text);
@@ -116,8 +105,7 @@ component Ui.Content {
       display: block;
     }
 
-    video:not([class]),
-    img:not([class]) {
+    video:not([class]), img:not([class]) {
       border-radius: 0.25em;
       width: 100%;
     }
@@ -125,8 +113,6 @@ component Ui.Content {
 
   /* Renders the content. */
   fun render : Html {
-    <div::base key={key}>
-      children
-    </div>
+    <div::base key={key}>children</div>
   }
 }

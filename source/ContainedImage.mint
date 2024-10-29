@@ -13,10 +13,7 @@ component Ui.ContainedImage {
   property src : String
 
   /* We are using this provider to update the position and size. */
-  use Provider.ElementSize {
-    changes: UPDATE,
-    element: base
-  }
+  use Provider.ElementSize { changes: UPDATE, element: base }
 
   /* Cache the update function so it doesn't go into an infinite loop. */
   const UPDATE = (dimensions : Dom.Dimensions) { update() }
@@ -59,10 +56,14 @@ component Ui.ContainedImage {
       `#{element}.naturalHeight`
 
     let height =
-      Math.min(Math.min(dimensions.width * (naturalHeight / naturalWidth), dimensions.height), naturalHeight) - (padding * 2)
+      Math.min(
+        Math.min(dimensions.width * (naturalHeight / naturalWidth),
+          dimensions.height), naturalHeight) - (padding * 2)
 
     let width =
-      Math.min(Math.min(dimensions.height * (naturalWidth / naturalHeight), dimensions.width), naturalWidth) - (padding * 2)
+      Math.min(
+        Math.min(dimensions.height * (naturalWidth / naturalHeight),
+          dimensions.width), naturalWidth) - (padding * 2)
 
     let left =
       (dimensions.width - width) / 2
@@ -90,10 +91,7 @@ component Ui.ContainedImage {
   /* Renders the component. */
   fun render : Html {
     <div::base as base>
-      <img::image as image
-        onLoad={update}
-        alt={alt}
-        src={src}/>
+      <img::image as image onLoad={update} alt={alt} src={src}/>
     </div>
   }
 }

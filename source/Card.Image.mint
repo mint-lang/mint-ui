@@ -20,6 +20,7 @@ component Ui.Card.Image {
       borderRadius="0"
       fullWidth={true}
       height={height}
-      src={src}/>
+      src={src}
+    />
   }
 }

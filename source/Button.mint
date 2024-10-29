@@ -126,8 +126,7 @@ component Ui.Button {
       }
     }
 
-    &:hover,
-    &:focus {
+    &:hover, &:focus {
       case type {
         "secondary" => background-color: var(--secondary-hover);
         "warning" => background-color: var(--warning-hover);
@@ -182,24 +181,18 @@ component Ui.Button {
   fun render : Html {
     let content =
       <div::container>
-        <Ui.Container
-          gap={Ui.Size.Em(0.625)}
-          justify="start">
-
+        <Ui.Container gap={Ui.Size.Em(0.625)} justify="start">
           if Html.isNotEmpty(iconBefore) {
             <Ui.Icon icon={iconBefore}/>
           }
 
           if String.isNotBlank(label) {
-            <div::label>
-              label
-            </div>
+            <div::label>label</div>
           }
 
           if Html.isNotEmpty(iconAfter) {
             <Ui.Icon icon={iconAfter}/>
           }
-
         </Ui.Container>
       </div>
 
@@ -218,21 +211,15 @@ component Ui.Button {
         onMouseUp={mouseUpHandler}
         onClick={clickHandler}
         target={target}
-        href={href}>
-
-        content
-
-      </a>
+        href={href}
+      >content</a>
     } else {
       <button::styles as button
         onMouseDown={mouseDownHandler}
         onMouseUp={mouseUpHandler}
         onClick={clickHandler}
-        disabled={disabled}>
-
-        content
-
-      </button>
+        disabled={disabled}
+      >content</button>
     }
   }
 }

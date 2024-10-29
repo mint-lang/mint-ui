@@ -33,8 +33,7 @@ component Ui.Brand {
 
   /* Style for the root element is it's a link. */
   style link {
-    &:focus,
-    &:hover {
+    &:focus, &:hover {
       color: var(--primary-color);
     }
   }
@@ -46,19 +45,13 @@ component Ui.Brand {
           <Ui.Icon icon={icon}/>
         }
 
-        <div::name>
-          name
-        </div>
+        <div::name>name</div>
       </>
 
     if String.isEmpty(href) {
-      <div::base href={href}>
-        content
-      </div>
+      <div::base href={href}>content</div>
     } else {
-      <a::base::link href={href}>
-        content
-      </a>
+      <a::base::link href={href}>content</a>
     }
   }
 }

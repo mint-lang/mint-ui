@@ -22,8 +22,7 @@ component Ui.DarkModeToggle {
     margin: 0;
     border: 0;
 
-    &:focus > *,
-    &:hover > * {
+    &:focus > *, &:hover > * {
       background: var(--primary-color);
       color: var(--primary-text);
     }
@@ -78,13 +77,8 @@ component Ui.DarkModeToggle {
   fun render {
     <button::button onClick={toggle}>
       <div::button-content>
-        <Ui.Icon
-          icon={Ui.Icons.MOON}
-          opacity={0.5}/>
-
-        <Ui.Icon
-          icon={Ui.Icons.SUN}
-          opacity={0.5}/>
+        <Ui.Icon icon={Ui.Icons.MOON} opacity={0.5}/>
+        <Ui.Icon icon={Ui.Icons.SUN} opacity={0.5}/>
 
         <div::icon>
           <Ui.Icon
@@ -94,7 +88,8 @@ component Ui.DarkModeToggle {
               } else {
                 Ui.Icons.SUN
               }
-            }/>
+            }
+          />
         </div>
       </div>
     </button>

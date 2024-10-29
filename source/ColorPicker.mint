@@ -28,7 +28,8 @@ component Ui.ColorPicker {
     height: 1.25em;
     width: 2.5em;
 
-    background: linear-gradient(#{Color.toCSSHex(value)}, #{Color.toCSSHex(value)}),
+    background: linear-gradient(#{Color.toCSSHex(value)}, #{Color.toCSSHex(
+      value)}),
                 linear-gradient(45deg, var(--checker-color-1) 25%, transparent 25%, transparent 75%, var(--checker-color-1) 75%, var(--checker-color-1)),
                 linear-gradient(45deg, var(--checker-color-1) 25%, transparent 25%, transparent 75%, var(--checker-color-1) 75%, var(--checker-color-1));
 
@@ -60,16 +61,14 @@ component Ui.ColorPicker {
           onChange={onChange}
           embedded={true}
           value={value}
-          size={size}/>
+          size={size}
+        />
       </Ui.AvoidFocus>
 
     let label =
       Maybe.Just(
         <div::base>
-          <span>
-            Color.toCSSHex(value)
-          </span>
-
+          <span>Color.toCSSHex(value)</span>
           <div::rect/>
         </div>)
 
@@ -82,6 +81,7 @@ component Ui.ColorPicker {
       panel={panel}
       label={label}
       icon={<></>}
-      size={size}/>
+      size={size}
+    />
   }
 }

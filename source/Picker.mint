@@ -41,26 +41,29 @@ component Ui.Picker {
   /* Whether or not the dropdown is shown. */
   state status : Ui.Picker.Status = Ui.Picker.Status.Idle
 
-  use Providers.TabFocus {
+  use Provider.TabFocus {
     onTabOut: handleClose,
     onTabIn: handleTabIn,
     element: element
   }
 
   use Provider.OutsideClick {
-    elements: [element, Maybe.flatten(Maybe.map(dropdown, (dropdown : Ui.Dropdown.Panel) { dropdown.base }))],
+    elements:
+      [
+        element,
+        Maybe.flatten(
+          Maybe.map(dropdown, (dropdown : Ui.Dropdown.Panel) { dropdown.base }))
+      ],
     clicks: handleClicks
   } when {
-    (status == Ui.Picker.Status.Focused ||
-      status == Ui.Picker.Status.Open) && !mobile
+    (status == Ui.Picker.Status.Focused || status == Ui.Picker.Status.Open) && !mobile
   }
 
   use Provider.Keyboard {
     ups: (event : Html.Event) { next { } },
     downs: handleKeyDown
   } when {
-    status == Ui.Picker.Status.Focused ||
-      status == Ui.Picker.Status.Open
+    status == Ui.Picker.Status.Focused || status == Ui.Picker.Status.Open
   }
 
   /* Handles the up events. */
@@ -103,8 +106,7 @@ component Ui.Picker {
   */
   fun handleKeyDown (event : Html.Event) {
     case event.keyCode {
-      Html.Event.ESCAPE =>
-        hideDropdown()
+      Html.Event.ESCAPE => hideDropdown()
 
       Html.Event.ENTER =>
         if onEnter(event) {
@@ -130,8 +132,7 @@ component Ui.Picker {
 
   /* Returns if the picker is focused. */
   get focused : Bool {
-    status == Ui.Picker.Status.Focused ||
-      status == Ui.Picker.Status.Open
+    status == Ui.Picker.Status.Focused || status == Ui.Picker.Status.Open
   }
 
   /* The styles for the element. */
@@ -198,17 +199,11 @@ component Ui.Picker {
   /* Renders the component. */
   fun render : Html {
     let content =
-      <Ui.Dropdown.Panel as dropdown size={size}>
-        panel
-      </Ui.Dropdown.Panel>
+      <Ui.Dropdown.Panel as dropdown size={size}>panel</Ui.Dropdown.Panel>
 
     let grid =
       <div::grid>
-        Maybe.withDefault(
-          label,
-          <div::placeholder>
-            placeholder
-          </div>)
+        Maybe.withDefault(label, <div::placeholder>placeholder</div>)
 
         if Html.isNotEmpty(icon) {
           <Ui.Icon icon={icon}/>
@@ -219,17 +214,9 @@ component Ui.Picker {
 
     let html =
       if disabled {
-        <div::element>
-          grid
-        </div>
+        <div::element>grid</div>
       } else {
-        <div::element as element
-          onMouseUp={handleFocus}
-          tabindex="0">
-
-          grid
-
-        </div>
+        <div::element as element onMouseUp={handleFocus} tabindex="0">grid</div>
       }
 
     /*
@@ -244,6 +231,7 @@ component Ui.Picker {
       content={content}
       offset={offset}
       element={html}
-      open={open}/>
+      open={open}
+    />
   }
 }

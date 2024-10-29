@@ -122,14 +122,8 @@ component Ui.Book {
   fun render {
     let contents =
       <>
-        <div::front>
-          <img::image
-            alt={alt}
-            src={src}/>
-        </div>
-
+        <div::front><img::image alt={alt} src={src}/></div>
         <div::back/>
-
         <div::left-right::right/>
         <div::left-right::left/>
         <div::top-bottom::bottom/>
@@ -138,17 +132,9 @@ component Ui.Book {
 
     <div::base>
       if String.isBlank(href) {
-        <a::book>
-          contents
-        </a>
+        <a::book>contents</a>
       } else {
-        <a::book
-          target={target}
-          href={href}>
-
-          contents
-
-        </a>
+        <a::book target={target} href={href}>contents</a>
       }
     </div>
   }

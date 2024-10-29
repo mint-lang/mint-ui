@@ -66,11 +66,7 @@ component Ui.Input {
   /* The ID of the last timeout. */
   state timeoutId : Number = 0
 
-  use Providers.TabFocus {
-    onTabOut: onTabOut,
-    onTabIn: onTabIn,
-    element: input
-  }
+  use Provider.TabFocus { onTabOut: onTabOut, onTabIn: onTabIn, element: input }
 
   /* The styles for the base. */
   style base {
@@ -183,11 +179,7 @@ component Ui.Input {
       let {nextId, nextValue, promise} =
         Ui.inputDelayHandler(timeoutId, inputDelay, event)
 
-      next
-        {
-          currentValue: Maybe.Just(nextValue),
-          timeoutId: nextId
-        }
+      next { currentValue: Maybe.Just(nextValue), timeoutId: nextId }
 
       {
         /* Await the promise here. */
@@ -219,12 +211,11 @@ component Ui.Input {
         placeholder={placeholder}
         disabled={disabled}
         list={list}
-        type={type}/>
+        type={type}
+      />
 
       if showIcon {
-        <div::icon onClick={onIconClick}>
-          <Ui.Icon icon={icon}/>
-        </div>
+        <div::icon onClick={onIconClick}><Ui.Icon icon={icon}/></div>
       }
     </div>
   }

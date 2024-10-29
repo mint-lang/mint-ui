@@ -43,8 +43,7 @@ component Ui.FileInput {
       border: 0;
     }
 
-    &:hover,
-    &:focus {
+    &:hover, &:focus {
       --file-input-border: var(--input-focus-border);
 
       border-color: var(--input-focus-border);
@@ -163,22 +162,11 @@ component Ui.FileInput {
       if let Maybe.Just(file) = value {
         <>
           <div::infos>
-            <Ui.Field label="Name">
-              <div::name>
-                File.name(file)
-              </div>
-            </Ui.Field>
-
-            <Ui.Field label="Content-Type">
-              <div::data>
-                File.mimeType(file)
-              </div>
-            </Ui.Field>
+            <Ui.Field label="Name"><div::name>File.name(file)</div></Ui.Field>
+            <Ui.Field label="Content-Type"><div::data>File.mimeType(file)</div></Ui.Field>
 
             <Ui.Field label="Size">
-              <div::data>
-                FileSize.format(File.size(file))
-              </div>
+              <div::data>FileSize.format(File.size(file))</div>
             </Ui.Field>
           </div>
 

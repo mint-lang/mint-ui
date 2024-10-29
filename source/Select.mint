@@ -58,18 +58,14 @@ component Ui.Select {
           Set.empty()
           |> Set.add(value)
         }
-        items={items}/>
+        items={items}
+      />
 
     let label =
       items
       |> Array.find(
         (item : Ui.ListItem) : Bool { Ui.ListItem.key(item) == value })
-      |> Maybe.map(
-        (item : Ui.ListItem) {
-          <div>
-            Ui.ListItem.content(item)
-          </div>
-        })
+      |> Maybe.map((item : Ui.ListItem) { <div>Ui.ListItem.content(item)</div> })
 
     <Ui.Picker as picker
       icon={Ui.Icons.CHEVRON_DOWN}
@@ -82,6 +78,7 @@ component Ui.Select {
       offset={offset}
       panel={panel}
       label={label}
-      size={size}/>
+      size={size}
+    />
   }
 }

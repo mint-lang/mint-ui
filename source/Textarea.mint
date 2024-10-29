@@ -63,11 +63,7 @@ component Ui.Textarea {
   /* The ID of the last timeout. */
   state timeoutId : Number = 0
 
-  use Providers.TabFocus {
-    onTabOut: onTabOut,
-    onTabIn: onTabIn,
-    element: textarea
-  }
+  use Provider.TabFocus { onTabOut: onTabOut, onTabIn: onTabIn, element: textarea }
 
   /* The common styles for the textarea and its mirror. */
   style common {
@@ -184,11 +180,7 @@ component Ui.Textarea {
       let {nextId, nextValue, promise} =
         Ui.inputDelayHandler(timeoutId, inputDelay, event)
 
-      next
-        {
-          currentValue: Maybe.Just(nextValue),
-          timeoutId: nextId
-        }
+      next { currentValue: Maybe.Just(nextValue), timeoutId: nextId }
 
       {
         /* Await the promise here. */
@@ -226,9 +218,7 @@ component Ui.Textarea {
                 |> Maybe.map(
                   (item : String) {
                     if String.isBlank(item) {
-                      <>
-                        " "
-                      </>
+                      <>" "</>
                     } else {
                       <></>
                     }
@@ -238,12 +228,7 @@ component Ui.Textarea {
               /* Map lines into spans separated by line breaks. */
               let spans =
                 lines
-                |> Array.map(
-                  (line : String) : Html {
-                    <span>
-                      line
-                    </span>
-                  })
+                |> Array.map((line : String) : Html { <span>line</span> })
                 |> Array.intersperse(<br/>)
 
               <>
@@ -268,7 +253,8 @@ component Ui.Textarea {
         disabled={disabled}
         onFocus={onFocus}
         onKeyUp={onKeyUp}
-        onBlur={onBlur}/>
+        onBlur={onBlur}
+      />
     </div>
   }
 }

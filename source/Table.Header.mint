@@ -1,7 +1,8 @@
 /* A table header component. */
 component Ui.Table.Header {
   /* The handler for the order change event. */
-  property onOrderChange : Function(Tuple(String, String), Promise(Void)) = Promise.never1
+  property onOrderChange : Function(Tuple(String, String), Promise(Void)) =
+    Promise.never1
 
   /* The order direction either "asc" or "desc". */
   property orderDirection : String = ""
@@ -68,9 +69,7 @@ component Ui.Table.Header {
   fun render : Html {
     <th::base>
       <div::wrap>
-        <span>
-          data.label
-        </span>
+        <span>data.label</span>
 
         if data.sortable {
           <div::icon onClick={handleSort}>

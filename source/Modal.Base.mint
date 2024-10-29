@@ -23,10 +23,7 @@ component Ui.Modal.Base {
   /* Whether or not the modal is open. */
   property open : Bool = false
 
-  use Provider.OutsideClick {
-    elements: [wrapper],
-    clicks: onClose
-  } when {
+  use Provider.OutsideClick { elements: [wrapper], clicks: onClose } when {
     open && closeOnOutsideClick
   }
 
@@ -87,12 +84,6 @@ component Ui.Modal.Base {
 
   /* Renders the modal. */
   fun render : Html {
-    <Ui.FocusTrap>
-      <div::base>
-        <div::wrapper as wrapper>
-          children
-        </div>
-      </div>
-    </Ui.FocusTrap>
+    <Ui.FocusTrap><div::base><div::wrapper as wrapper>children</div></div></Ui.FocusTrap>
   }
 }

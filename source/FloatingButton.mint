@@ -85,8 +85,7 @@ component Ui.FloatingButton {
       }
     }
 
-    &:hover,
-    &:focus {
+    &:hover, &:focus {
       filter: brightness(0.8) contrast(1.5);
     }
   }
@@ -94,9 +93,7 @@ component Ui.FloatingButton {
   /* Renders the button. */
   fun render : Html {
     <button::base onClick={onClick}>
-      <Ui.Icon
-        size={Ui.Size.Em(0.5)}
-        icon={icon}/>
+      <Ui.Icon size={Ui.Size.Em(0.5)} icon={icon}/>
     </button>
   }
 }

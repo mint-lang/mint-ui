@@ -24,16 +24,10 @@ component Ui.Layout.Documentation {
   state tocShown : Bool = false
 
   /* We are using this provider to update the `tocShown` state. */
-  use Provider.ElementSize {
-    changes: updateTocShown,
-    element: base
-  }
+  use Provider.ElementSize { changes: updateTocShown, element: base }
 
   /* We are using the mutation provider to update elements on the fly. */
-  use Provider.Mutation {
-    changes: updateToc,
-    element: content
-  }
+  use Provider.Mutation { changes: updateToc, element: content }
 
   /* The styles for the base. */
   style base {
@@ -81,8 +75,7 @@ component Ui.Layout.Documentation {
       opacity: 0.6;
     }
 
-    &:hover,
-    &:focus {
+    &:hover, &:focus {
       color: var(--primary-color);
       outline: none;
     }
@@ -117,8 +110,7 @@ component Ui.Layout.Documentation {
     margin: 0;
     margin-bottom: 1em;
 
-    &:hover,
-    &:focus {
+    &:hover, &:focus {
       box-shadow: 0 0 0 0.1875em var(--primary-color),
                   0 0 0.625em var(--shadow-color);
     }
@@ -165,10 +157,12 @@ component Ui.Layout.Documentation {
       let items =
         Dom.getElementsBySelector(element, "a[name]")
 
-      let tocItems =
+      let newTocItems =
         Array.map(items, getTocData)
 
-      next { tocItems: tocItems }
+      if newTocItems != tocItems {
+        next { tocItems: newTocItems }
+      }
     }
   }
 
@@ -181,9 +175,7 @@ component Ui.Layout.Documentation {
   fun render : Html {
     <div::base as base>
       if !mobile {
-        <Ui.Box>
-          <Ui.NavItems items={items}/>
-        </Ui.Box>
+        <Ui.Box><Ui.NavItems items={items}/></Ui.Box>
       } else {
         <button::button-reset onClick={openActionSheet}>
           <div::button>
@@ -193,19 +185,13 @@ component Ui.Layout.Documentation {
         </button>
       }
 
-      <div::content as content>
-        children
-      </div>
+      <div::content as content>children</div>
 
       if !mobile {
         <div::toc>
           <Ui.Box label=<>"Contents"</>>
             for item of tocItems {
-              <div>
-                <a::toc-item href="##{item[0]}">
-                  item[1]
-                </a>
-              </div>
+              <div><a::toc-item href="##{item[0]}">item[1]</a></div>
             }
           </Ui.Box>
         </div>

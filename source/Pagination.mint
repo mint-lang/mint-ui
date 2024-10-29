@@ -72,7 +72,8 @@ component Ui.Pagination {
       ellipsis={false}
       label={label}
       type={type}
-      key={key}/>
+      key={key}
+    />
   }
 
   /* Renders the pagination. */
@@ -81,16 +82,11 @@ component Ui.Pagination {
       Math.floor(Math.max(total - 1, 0) / perPage)
 
     let buttonRange =
-      Array.range(
-        Math.max(0, page - sidePages),
+      Array.range(Math.max(0, page - sidePages),
         Math.min(page + sidePages, pages))
 
     <div::base>
-      <Ui.Container
-        gap={Ui.Size.Em(0.625)}
-        justify="start"
-        align="stretch">
-
+      <Ui.Container gap={Ui.Size.Em(0.625)} justify="start" align="stretch">
         /* First page button */
         if !mobile && !Array.contains(buttonRange, 0) {
           renderButton({0, false, "", Ui.Icons.DOUBLE_CHEVRON_LEFT})
@@ -120,7 +116,8 @@ component Ui.Pagination {
           }
         } else {
           for index of buttonRange {
-            renderButton({index, index == page, Number.toString(index + 1), <></>})
+            renderButton(
+              {index, index == page, Number.toString(index + 1), <></>})
           }
         }
 
@@ -138,7 +135,6 @@ component Ui.Pagination {
         if !mobile && page < pages && !Array.contains(buttonRange, pages) {
           renderButton({pages, false, "", Ui.Icons.DOUBLE_CHEVRON_RIGHT})
         }
-
       </Ui.Container>
     </div>
   }

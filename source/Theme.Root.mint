@@ -22,7 +22,9 @@ component Ui.Theme.Root {
     let resolvedTokens =
       [
         [
-          Ui.Token.Simple(name: "title-font-family", value: fontConfiguration.titleName),
+          Ui.Token.Simple(
+            name: "title-font-family",
+            value: fontConfiguration.titleName),
           Ui.Token.Simple(name: "font-family", value: fontConfiguration.name)
         ],
         tokens
@@ -102,10 +104,7 @@ component Ui.Theme.Root {
 
     <>
       <Html.Portals.Head>
-        <style>
-          css
-        </style>
-
+        <style>css</style>
         <style>":root { #{resolvedTokens} } "</style>
       </Html.Portals.Head>
 

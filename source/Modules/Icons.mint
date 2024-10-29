@@ -70,7 +70,10 @@ module Ui.Icons {
   const FILE_MEDIA = @svg(../../assets/icons/file-media.svg)
   const FILE_PDF = @svg(../../assets/icons/file-pdf.svg)
   const FILE_SUBMODULE = @svg(../../assets/icons/file-submodule.svg)
-  const FILE_SYMLINK_DIRECTORY = @svg(../../assets/icons/file-symlink-directory.svg)
+
+  const FILE_SYMLINK_DIRECTORY =
+    @svg(../../assets/icons/file-symlink-directory.svg)
+
   const FILE_SYMLINK_FILE = @svg(../../assets/icons/file-symlink-file.svg)
   const FILE_ZIP = @svg(../../assets/icons/file-zip.svg)
   const FLAME = @svg(../../assets/icons/flame.svg)
@@ -165,7 +168,10 @@ module Ui.Icons {
   const REPO_PULL = @svg(../../assets/icons/repo-pull.svg)
   const REPO_PUSH = @svg(../../assets/icons/repo-push.svg)
   const REPO_TEMPLATE = @svg(../../assets/icons/repo-template.svg)
-  const REPO_TEMPLATE_PRIVATE = @svg(../../assets/icons/repo-template-private.svg)
+
+  const REPO_TEMPLATE_PRIVATE =
+    @svg(../../assets/icons/repo-template-private.svg)
+
   const REPORT = @svg(../../assets/icons/report.svg)
   const REQUEST_CHANGES = @svg(../../assets/icons/request-changes.svg)
   const ROCKET = @svg(../../assets/icons/rocket.svg)

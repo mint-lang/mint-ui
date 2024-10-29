@@ -50,10 +50,7 @@ global component Ui.Modal {
 
   /* Shows the component with the given content. */
   fun show (content : Html) : Promise(Maybe(Void)) {
-    showWithOptions(
-      content,
-      900,
-      240,
+    showWithOptions(content, 900, 240,
       () {
         if let Maybe.Just(item) = base {
           item.focusFirst()
@@ -71,15 +68,14 @@ global component Ui.Modal {
     let {resolve, promise} =
       Promise.create()
 
-    next
-      {
-        transitionDuration: transitionDuration,
-        focusedElement: Dom.getActiveElement(),
-        content: content,
-        resolve: resolve,
-        zIndex: zIndex,
-        open: true
-      }
+    next {
+      transitionDuration: transitionDuration,
+      focusedElement: Dom.getActiveElement(),
+      content: content,
+      resolve: resolve,
+      zIndex: zIndex,
+      open: true
+    }
 
     /* This block makes it so that it's statements are run asynchronously. */
     {
@@ -98,12 +94,11 @@ global component Ui.Modal {
     await resolve(Maybe.Nothing)
     await Dom.focus(focusedElement)
 
-    next
-      {
-        resolve: (value : Maybe(Void)) { void },
-        focusedElement: Maybe.Nothing,
-        content: <></>
-      }
+    next {
+      resolve: (value : Maybe(Void)) { void },
+      focusedElement: Maybe.Nothing,
+      content: <></>
+    }
   }
 
   /* Hides the modal. */
@@ -114,23 +109,15 @@ global component Ui.Modal {
     await resolve(Maybe.Just(void))
     await Dom.focus(focusedElement)
 
-    await next
-      {
-        resolve: (value : Maybe(Void)) { void },
-        focusedElement: Maybe.Nothing,
-        content: <></>
-      }
+    await next {
+      resolve: (value : Maybe(Void)) { void },
+      focusedElement: Maybe.Nothing,
+      content: <></>
+    }
   }
 
   /* Renders the modal. */
   fun render : Html {
-    <Ui.Modal.Base as base
-      onClose={cancel}
-      zIndex={zIndex}
-      open={open}>
-
-      content
-
-    </Ui.Modal.Base>
+    <Ui.Modal.Base as base onClose={cancel} zIndex={zIndex} open={open}>content</Ui.Modal.Base>
   }
 }

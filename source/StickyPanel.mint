@@ -27,9 +27,7 @@ component Ui.StickyPanel {
   /* Variable for the right position. */
   state top : Number = 0
 
-  use Provider.AnimationFrame {
-    frames: updateDimensions
-  } when {
+  use Provider.AnimationFrame { frames: updateDimensions } when {
     shouldCalculate
   }
 
@@ -53,40 +51,47 @@ component Ui.StickyPanel {
   ) : Dom.Dimensions {
     let top =
       case position {
-        Ui.Position.BottomCenter => dimensions.bottom + offset
-        Ui.Position.BottomRight => dimensions.bottom + offset
-        Ui.Position.BottomLeft => dimensions.bottom + offset
+        BottomCenter => dimensions.bottom + offset
+        BottomRight => dimensions.bottom + offset
+        BottomLeft => dimensions.bottom + offset
 
-        Ui.Position.TopCenter => dimensions.top - panel.height - offset
-        Ui.Position.TopRight => dimensions.top - panel.height - offset
-        Ui.Position.TopLeft => dimensions.top - panel.height - offset
+        TopCenter => dimensions.top - panel.height - offset
+        TopRight => dimensions.top - panel.height - offset
+        TopLeft => dimensions.top - panel.height - offset
 
-        Ui.Position.RightCenter => dimensions.top + (dimensions.height / 2) - (panel.height / 2)
-        Ui.Position.RightBottom => dimensions.bottom - panel.height
-        Ui.Position.RightTop => dimensions.top
+        RightCenter =>
+          dimensions.top + (dimensions.height / 2) - (panel.height / 2)
 
-        Ui.Position.LeftCenter => dimensions.top + (dimensions.height / 2) - (panel.height / 2)
-        Ui.Position.LeftBottom => dimensions.bottom - panel.height
-        Ui.Position.LeftTop => dimensions.top
+        RightBottom => dimensions.bottom - panel.height
+        RightTop => dimensions.top
+
+        LeftCenter =>
+          dimensions.top + (dimensions.height / 2) - (panel.height / 2)
+
+        LeftBottom => dimensions.bottom - panel.height
+        LeftTop => dimensions.top
       }
 
     let left =
       case position {
-        Ui.Position.BottomCenter => dimensions.left + (dimensions.width / 2) - (panel.width / 2)
-        Ui.Position.BottomRight => dimensions.right - panel.width
-        Ui.Position.BottomLeft => dimensions.left
+        BottomCenter =>
+          dimensions.left + (dimensions.width / 2) - (panel.width / 2)
 
-        Ui.Position.TopCenter => dimensions.left + (dimensions.width / 2) - (panel.width / 2)
-        Ui.Position.TopRight => dimensions.right - panel.width
-        Ui.Position.TopLeft => dimensions.left
+        BottomRight => dimensions.right - panel.width
+        BottomLeft => dimensions.left
 
-        Ui.Position.RightCenter => dimensions.right + offset
-        Ui.Position.RightBottom => dimensions.right + offset
-        Ui.Position.RightTop => dimensions.right + offset
+        TopCenter => dimensions.left + (dimensions.width / 2) - (panel.width / 2)
 
-        Ui.Position.LeftCenter => dimensions.left - panel.width - offset
-        Ui.Position.LeftBottom => dimensions.left - panel.width - offset
-        Ui.Position.LeftTop => dimensions.left - panel.width - offset
+        TopRight => dimensions.right - panel.width
+        TopLeft => dimensions.left
+
+        RightCenter => dimensions.right + offset
+        RightBottom => dimensions.right + offset
+        RightTop => dimensions.right + offset
+
+        LeftCenter => dimensions.left - panel.width - offset
+        LeftBottom => dimensions.left - panel.width - offset
+        LeftTop => dimensions.left - panel.width - offset
       }
 
     { panel |
@@ -117,9 +122,7 @@ component Ui.StickyPanel {
             favoredPosition
           } else {
             let inversePosition =
-              calculatePosition(
-                Ui.Position.inverse(position),
-                dimensions,
+              calculatePosition(Ui.Position.inverse(position), dimensions,
                 panelDimensions)
 
             if Ui.isFullyVisible(inversePosition) {
@@ -129,11 +132,7 @@ component Ui.StickyPanel {
             }
           }
 
-        next
-          {
-            left: finalPosition.left,
-            top: finalPosition.top
-          }
+        next { left: finalPosition.left, top: finalPosition.top }
       }
     }
   }
@@ -142,11 +141,7 @@ component Ui.StickyPanel {
   fun render : Array(Html) {
     [
       element,
-      <Html.Portals.Body>
-        <div::panel as panel>
-          content
-        </div>
-      </Html.Portals.Body>
+      <Html.Portals.Body><div::panel as panel>content</div></Html.Portals.Body>
     ]
   }
 }

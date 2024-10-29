@@ -41,8 +41,7 @@ component Ui.Breadcrumbs {
       border: 0;
     }
 
-    &:hover,
-    &:focus {
+    &:hover, &:focus {
       color: var(--primary-color);
     }
   }
@@ -68,28 +67,16 @@ component Ui.Breadcrumbs {
             item
 
           if String.isBlank(href) {
-            <span::breadcrumb aria-label="breadcrumb">
-              content
-            </span>
+            <span::breadcrumb aria-label="breadcrumb">content</span>
           } else {
-            <a::breadcrumb::link
-              aria-label="breadcrumb"
-              href={href}>
-
-              content
-
-            </a>
+            <a::breadcrumb::link aria-label="breadcrumb" href={href}>content</a>
           }
         }
 
       let span =
-        <span::separator aria-hidden="true">
-          separator
-        </span>
+        <span::separator aria-hidden="true">separator</span>
 
-      <nav::base as base>
-        Array.intersperse(content, span)
-      </nav>
+      <nav::base as base>Array.intersperse(content, span)</nav>
     }
   }
 }

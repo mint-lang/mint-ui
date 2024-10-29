@@ -6,7 +6,8 @@ component Ui.ImageCrop {
   property onUpdate : Function(Ui.ContainedImage, Promise(Void)) = Promise.never1
 
   /* The `change` event handler. */
-  property onChange : Function(Ui.ImageCrop.Value, Promise(Void)) = Promise.never1
+  property onChange : Function(Ui.ImageCrop.Value, Promise(Void)) =
+    Promise.never1
 
   /* The size of the component. */
   property size : Ui.Size = Ui.Size.Inherit
@@ -16,13 +17,7 @@ component Ui.ImageCrop {
 
   /* The value (crop data). */
   property value : Ui.ImageCrop.Value =
-    {
-      source: "",
-      height: 0.5,
-      width: 0.5,
-      x: 0.25,
-      y: 0.25
-    }
+    { source: "", height: 0.5, width: 0.5, x: 0.25, y: 0.25 }
 
   /* A state to hold the dimensions of the image. */
   state position : Ui.ContainedImage =
@@ -39,11 +34,7 @@ component Ui.ImageCrop {
   state status = Ui.ImageCrop.Status.Idle
 
   /* The provider to track the pointer while dragging. */
-  use Provider.Pointer {
-    downs: Promise.never1,
-    moves: moves,
-    ups: ups
-  } when {
+  use Provider.Pointer { downs: Promise.never1, moves: moves, ups: ups } when {
     status != Ui.ImageCrop.Status.Idle
   }
 
@@ -172,13 +163,11 @@ component Ui.ImageCrop {
     distance : Number
   ) {
     case direction {
-      Ui.ImageCrop.Direction.Backward =>
+      Backward =>
         {
           /* Clamp the distance to the minimum and maximum possible values. */
           let clampedDistance =
-            Math.clamp(
-              distance,
-              -startPosition + startSize,
+            Math.clamp(distance, -startPosition + startSize,
               1 - (startPosition + startSize))
 
           /*
@@ -195,14 +184,11 @@ component Ui.ImageCrop {
           {position, size}
         }
 
-      Ui.ImageCrop.Direction.Forward =>
+      Forward =>
         {
           /* Clamp the distance to the minimum and maximum possible values. */
           let clampedDistance =
-            Math.clamp(
-              distance,
-              -startPosition,
-              1 - startPosition)
+            Math.clamp(distance, -startPosition, 1 - startPosition)
 
           /*
           Calculate new size. In this case moving up/left we need
@@ -219,18 +205,17 @@ component Ui.ImageCrop {
         }
 
       /* This is the clearest case since we are just moving the crop area. */
-      Ui.ImageCrop.Direction.Move =>
-        {
-          Math.clamp(startPosition + distance, 0, 1 - startSize),
-          startSize
-        }
+      Move => {
+        Math.clamp(startPosition + distance, 0, 1 - startSize),
+        startSize
+      }
     }
   }
 
   /* Handles the move event. */
   fun moves (event : Html.Event) : Promise(Void) {
     if let Maybe.Just(element) = base {
-      if let Ui.ImageCrop.Status.Dragging(directions, startValue, startEvent) = status {
+      if let Dragging(directions, startValue, startEvent) = status {
         /* Calculate the moved distance as a percentage of the image. */
         let distance =
           {
@@ -240,28 +225,17 @@ component Ui.ImageCrop {
 
         /* Calculate the new values for the horizontal axis. */
         let {x, width} =
-          calculateAxis(
-            directions[0],
-            startValue.x,
-            startValue.width,
+          calculateAxis(directions[0], startValue.x, startValue.width,
             distance[0])
 
         /* Calculate the new values for the vertical axis. */
         let {y, height} =
-          calculateAxis(
-            directions[1],
-            startValue.y,
-            startValue.height,
+          calculateAxis(directions[1], startValue.y, startValue.height,
             distance[1])
 
         /* Call the change event handler with the new value. */
         onChange(
-          { value |
-            height: Math.abs(height),
-            width: Math.abs(width),
-            y: y,
-            x: x
-          })
+          { value | height: Math.abs(height), width: Math.abs(width), y: y, x: x })
       }
     }
   }
@@ -278,31 +252,32 @@ component Ui.ImageCrop {
   ) {
     Html.Event.stopPropagation(event)
 
-    next
-      {
-        status:
-          Ui.ImageCrop.Status.Dragging(
-            directions: directions,
-            startValue: value,
-            startEvent: event)
-      }
+    next {
+      status:
+        Ui.ImageCrop.Status.Dragging(
+          directions: directions,
+          startValue: value,
+          startEvent: event)
+    }
   }
 
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
     let updatedValue =
       case event.keyCode {
+        Html.Event.UP_ARROW =>
+          Maybe.Just({ value | y: Math.clamp(value.y - 0.005, 0, 1) })
+
         Html.Event.DOWN_ARROW =>
-          Maybe.Just({ value | y: Math.clamp(value.y + 0.005, 0, 1 - value.height) })
+          Maybe.Just(
+            { value | y: Math.clamp(value.y + 0.005, 0, 1 - value.height) })
 
         Html.Event.RIGHT_ARROW =>
-          Maybe.Just({ value | x: Math.clamp(value.x + 0.005, 0, 1 - value.width) })
+          Maybe.Just(
+            { value | x: Math.clamp(value.x + 0.005, 0, 1 - value.width) })
 
         Html.Event.LEFT_ARROW =>
           Maybe.Just({ value | x: Math.clamp(value.x - 0.005, 0, 1) })
-
-        Html.Event.UP_ARROW =>
-          Maybe.Just({ value | y: Math.clamp(value.y - 0.005, 0, 1) })
 
         => Maybe.Nothing
       }
@@ -321,31 +296,20 @@ component Ui.ImageCrop {
 
   /* Renders the component. */
   fun render {
-    <div::base as base
-      onKeyDown={handleKeyDown}
-      tabindex="0">
-
-      <Ui.ContainedImage
-        onUpdate={updatePosition}
-        src={value.source}/>
-
-      <div::wrapper(true)>
-        <div::overlay::cutout/>
-      </div>
+    <div::base as base onKeyDown={handleKeyDown} tabindex="0">
+      <Ui.ContainedImage onUpdate={updatePosition} src={value.source}/>
+      <div::wrapper(true)><div::overlay::cutout/></div>
 
       <div::wrapper(false)>
         <div::crop-area::cutout
           onPointerDown={
             (event : Html.Event) {
               startDrag(
-                {
-                  Ui.ImageCrop.Direction.Move,
-                  Ui.ImageCrop.Direction.Move
-                },
-                event)
+                {Ui.ImageCrop.Direction.Move, Ui.ImageCrop.Direction.Move},
+                  event)
             }
-          }>
-
+          }
+        >
           <div::crop-handle("top-left")
             onPointerDown={
               (event : Html.Event) {
@@ -353,10 +317,10 @@ component Ui.ImageCrop {
                   {
                     Ui.ImageCrop.Direction.Forward,
                     Ui.ImageCrop.Direction.Forward
-                  },
-                  event)
+                  }, event)
               }
-            }/>
+            }
+          />
 
           <div::crop-handle("top-right")
             onPointerDown={
@@ -365,10 +329,10 @@ component Ui.ImageCrop {
                   {
                     Ui.ImageCrop.Direction.Backward,
                     Ui.ImageCrop.Direction.Forward
-                  },
-                  event)
+                  }, event)
               }
-            }/>
+            }
+          />
 
           <div::crop-handle("bottom-left")
             onPointerDown={
@@ -377,10 +341,10 @@ component Ui.ImageCrop {
                   {
                     Ui.ImageCrop.Direction.Forward,
                     Ui.ImageCrop.Direction.Backward
-                  },
-                  event)
+                  }, event)
               }
-            }/>
+            }
+          />
 
           <div::crop-handle("bottom-right")
             onPointerDown={
@@ -389,14 +353,12 @@ component Ui.ImageCrop {
                   {
                     Ui.ImageCrop.Direction.Backward,
                     Ui.ImageCrop.Direction.Backward
-                  },
-                  event)
+                  }, event)
               }
-            }/>
-
+            }
+          />
         </div>
       </div>
-
     </div>
   }
 }

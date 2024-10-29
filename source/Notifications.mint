@@ -46,10 +46,7 @@ global component Ui.Notifications {
         let {content, duration} =
           notification
 
-        <Ui.Notification
-          duration={duration}
-          content={content}
-          key={id}/>
+        <Ui.Notification duration={duration} content={content} key={id}/>
       }
     </div>
   }

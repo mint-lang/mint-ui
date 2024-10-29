@@ -28,8 +28,7 @@ component Ui.Icon {
     display: inline-flex;
     align-items: center;
 
-    &:focus,
-    &:hover {
+    &:focus, &:hover {
       if actuallyInteractive {
         color: var(--primary-color);
       }
@@ -85,17 +84,11 @@ component Ui.Icon {
 
   fun render : Html {
     if String.isNotBlank(href) {
-      <a::base::link href={href}>
-        icon
-      </a>
+      <a::base::link href={href}>icon</a>
     } else if actuallyInteractive {
-      <button::base::button onClick={Ui.disabledHandler(disabled, onClick)}>
-        icon
-      </button>
+      <button::base::button onClick={Ui.disabledHandler(disabled, onClick)}>icon</button>
     } else {
-      <div::base onClick={Ui.disabledHandler(disabled, onClick)}>
-        icon
-      </div>
+      <div::base onClick={Ui.disabledHandler(disabled, onClick)}>icon</div>
     }
   }
 }

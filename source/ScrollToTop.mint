@@ -71,13 +71,12 @@ component Ui.ScrollToTop {
         <Ui.FloatingButton
           icon={Ui.Icons.CHEVRON_UP}
           onClick={handleClick}
-          type="secondary"/>
+          type="secondary"
+        />
       </div>
 
     if global {
-      <Html.Portals.Body>
-        base
-      </Html.Portals.Body>
+      <Html.Portals.Body>base</Html.Portals.Body>
     } else {
       base
     }

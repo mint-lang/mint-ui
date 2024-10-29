@@ -114,44 +114,25 @@ component Ui.PricingItem {
   fun render : Html {
     <div::base>
       if Html.isNotEmpty(image) {
-        <div::image>
-          image
-        </div>
+        <div::image>image</div>
       }
 
-      <div::name>
-        name
-      </div>
-
+      <div::name>name</div>
       <hr::hr/>
 
       if let Maybe.Just(item) = price {
         <div::price>
-          <div::currency>
-            item[0]
-          </div>
+          <div::currency>item[0]</div>
 
-          <div::value>
-            item[1]
-          </div>
+          <div::value>item[1]</div>
 
-          <div::period>
-            item[2]
-          </div>
+          <div::period>item[2]</div>
         </div>
       }
 
-      <div::description>
-        <Ui.Content>
-          description
-        </Ui.Content>
-      </div>
-
+      <div::description><Ui.Content>description</Ui.Content></div>
       <hr::hr/>
-
-      <div::actions>
-        actions
-      </div>
+      <div::actions>actions</div>
     </div>
   }
 }

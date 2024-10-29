@@ -31,10 +31,7 @@ component Ui.Example {
   state width : Number = 0
 
   /* We are using this provider to update the `mobile` state. */
-  use Provider.ElementSize {
-    changes: updateWidth,
-    element: base
-  }
+  use Provider.ElementSize { changes: updateWidth, element: base }
 
   /* the style for the base. */
   style base {
@@ -148,21 +145,13 @@ component Ui.Example {
         warning
       }
 
-      <div::demo-area>
-        <div::demo-area-wrapper>
-          content
-        </div>
-      </div>
+      <div::demo-area><div::demo-area-wrapper>content</div></div>
 
       if Html.isNotEmpty(controls) {
-        <div::controls>
-          controls
-        </div>
+        <div::controls>controls</div>
       }
 
-      <div::code>
-        highlight(code)
-      </div>
+      <div::code>highlight(code)</div>
     </div>
   }
 }

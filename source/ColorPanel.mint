@@ -36,17 +36,13 @@ component Ui.ColorPanel {
   state hueString : Maybe(String) = Maybe.Nothing
 
   /* The provider to track the pointer while dragging. */
-  use Provider.Pointer {
-    downs: Promise.never1,
-    moves: moves,
-    ups: ups
-  } when {
+  use Provider.Pointer { downs: Promise.never1, moves: moves, ups: ups } when {
     status != Ui.ColorPanel.Status.Idle
   }
 
   /* Styles for the panel itself. */
   style base {
-    grid-template-areas: "rect hue" "alpha alpha";
+    grid-template-areas: "rect hue""alpha alpha";
     grid-template-columns: 13em 1em;
     grid-template-rows: 13em 1em;
     grid-gap: 1em;
@@ -215,7 +211,7 @@ component Ui.ColorPanel {
   /* The pointer move event handler. */
   fun moves (event : Html.Event) : Promise(Void) {
     case status {
-      Ui.ColorPanel.Status.ValueSaturationDragging(element) =>
+      ValueSaturationDragging(element) =>
         {
           let dimensions =
             Dom.getDimensions(element)
@@ -236,7 +232,7 @@ component Ui.ColorPanel {
           onChange(nextValue)
         }
 
-      Ui.ColorPanel.Status.HueDragging(element) =>
+      HueDragging(element) =>
         {
           let dimensions =
             Dom.getDimensions(element)
@@ -252,7 +248,7 @@ component Ui.ColorPanel {
           onChange(nextValue)
         }
 
-      Ui.ColorPanel.Status.AlphaDragging(element) =>
+      AlphaDragging(element) =>
         {
           let dimensions =
             Dom.getDimensions(element)
@@ -268,8 +264,7 @@ component Ui.ColorPanel {
           onChange(nextValue)
         }
 
-      Ui.ColorPanel.Status.Idle =>
-        next { }
+      Idle => next { }
     }
   }
 
@@ -410,34 +405,45 @@ component Ui.ColorPanel {
           <Ui.Input
             value={hexString or Color.toCSSHex(value)}
             onChange={handleHex}
-            onBlur={updateHex}/>
+            onBlur={updateHex}
+          />
         </div>
 
         <div>
           <div::label>"H"</div>
 
           <Ui.Input
-            value={hueString or Number.toString(Math.round(Color.getHue(value)))}
+            value={
+              hueString or Number.toString(Math.round(Color.getHue(value)))
+            }
             onChange={handleHue}
-            onBlur={updateHue}/>
+            onBlur={updateHue}
+          />
         </div>
 
         <div>
           <div::label>"S"</div>
 
           <Ui.Input
-            value={saturationString or Number.toString(Math.round(Color.getSaturation(value)))}
+            value={
+              saturationString or Number.toString(
+                Math.round(Color.getSaturation(value)))
+            }
             onChange={handleSaturation}
-            onBlur={updateSaturation}/>
+            onBlur={updateSaturation}
+          />
         </div>
 
         <div>
           <div::label>"V"</div>
 
           <Ui.Input
-            value={valueString or Number.toString(Math.round(Color.getValue(value)))}
+            value={
+              valueString or Number.toString(Math.round(Color.getValue(value)))
+            }
             onChange={handleValue}
-            onBlur={updateValue}/>
+            onBlur={updateValue}
+          />
         </div>
 
         <div>
@@ -446,7 +452,8 @@ component Ui.ColorPanel {
           <Ui.Input
             value={alphaString or Number.toString(Color.getAlpha(value))}
             onChange={handleAlpha}
-            onBlur={updateAlpha}/>
+            onBlur={updateAlpha}
+          />
         </div>
       </div>
     </div>

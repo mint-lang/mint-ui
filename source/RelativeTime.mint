@@ -1,7 +1,8 @@
 /* Renders a time relative from the current time in human readable language. */
 component Ui.RelativeTime {
   /* The formatter for the text. */
-  property formatter : Function(Time, Time, Time.Format.Language, String) = Time.distanceOfTimeInWords
+  property formatter : Function(Time, Time, Time.Format.Language, String) =
+    Time.distanceOfTimeInWords
 
   /* The language to use for time formatting. */
   property language : Time.Format.Language = Time.Format.ENGLISH

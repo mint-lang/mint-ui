@@ -25,7 +25,7 @@ component Ui.DatePicker {
   property offset : Number = 5
 
   /* The formatter for the time in the input. */
-  property formatter : Function(Time, Time.Format.Language, String, String) = Time.format
+  property formatter = Time.format
 
   /* The format for the time in the input. */
   property format : String = "%Y-%m-%d"
@@ -42,20 +42,28 @@ component Ui.DatePicker {
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
     case event.keyCode {
-      37 => onChange(`new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() - 1)`)
+      37 =>
+        onChange(
+          `new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() - 1)`)
 
       38 =>
         {
           Html.Event.preventDefault(event)
-          onChange(`new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() - 1)`)
+
+          onChange(
+            `new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() - 1)`)
         }
 
-      39 => onChange(`new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() + 1)`)
+      39 =>
+        onChange(
+          `new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() + 1)`)
 
       40 =>
         {
           Html.Event.preventDefault(event)
-          onChange(`new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() + 1)`)
+
+          onChange(
+            `new Date(#{value}.getFullYear(), #{value}.getMonth(), #{value}.getDate() + 1)`)
         }
 
       => next { }
@@ -78,14 +86,12 @@ component Ui.DatePicker {
           onChange={onChange}
           embedded={true}
           day={value}
-          size={size}/>
+          size={size}
+        />
       </Ui.AvoidFocus>
 
     let label =
-      Maybe.Just(
-        <div::label>
-          formatter(value, language, format)
-        </div>)
+      Maybe.Just(<div::label>formatter(value, language, format)</div>)
 
     <Ui.Picker as picker
       icon={Ui.Icons.CALENDAR}
@@ -97,6 +103,7 @@ component Ui.DatePicker {
       offset={offset}
       panel={panel}
       label={label}
-      size={size}/>
+      size={size}
+    />
   }
 }

@@ -31,8 +31,7 @@ component Ui.NavItem {
       color: var(--primary-color);
     }
 
-    &:hover,
-    &:focus {
+    &:hover, &:focus {
       color: var(--primary-color);
     }
   }
@@ -90,31 +89,25 @@ component Ui.NavItem {
   /* Renders the item. */
   fun render : Html {
     case item {
-      Ui.NavItem.Group(iconBefore, iconAfter, label, items) =>
+      Group(items, iconBefore, iconAfter, label) =>
         <div::group>
-          <strong::group-item::row>
-            renderContents(iconBefore, iconAfter, label)
-          </strong>
+          <strong::group-item::row>renderContents(iconBefore, iconAfter, label)</strong>
 
           <Ui.NavItems items={items}/>
         </div>
 
-      Ui.NavItem.Link(iconBefore, iconAfter, label, href, target) =>
-        <a::row::item(Window.isActiveURL(href))
-          target={target}
-          href={href}>
-
+      Link(iconBefore, iconAfter, target, label, href) =>
+        <a::row::item(Window.isActiveURL(href)) target={target} href={href}>
           renderContents(iconBefore, iconAfter, label)
-
         </a>
 
-      Ui.NavItem.Item(iconBefore, iconAfter, label, action) =>
+      Item(action, iconBefore, iconAfter, label) =>
         <div::row::item(false) onClick={action}>
           renderContents(iconBefore, iconAfter, label)
         </div>
 
-      Ui.NavItem.Divider => <div::divider/>
-      Ui.NavItem.Html(content) => content
+      Divider => <div::divider/>
+      Html(content) => content
     }
   }
 }

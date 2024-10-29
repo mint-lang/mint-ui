@@ -100,10 +100,6 @@ component Ui.Notification {
 
   /* Renders the component. */
   fun render : Html {
-    <div::base>
-      <div::content as base onClick={handleClick}>
-        content
-      </div>
-    </div>
+    <div::base><div::content as base onClick={handleClick}>content</div></div>
   }
 }

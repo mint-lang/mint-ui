@@ -133,17 +133,17 @@ component Ui.Calendar {
           onClick={handleChevronLeftClick}
           icon={Ui.Icons.CHEVRON_LEFT}
           disabled={disabled}
-          interactive={true}/>
+          interactive={true}
+        />
 
-        <div::text>
-          Time.format(month, language, "%B - %Y")
-        </div>
+        <div::text>Time.format(month, language, "%B - %Y")</div>
 
         <Ui.Icon
           onClick={handleChevronRightClick}
           icon={Ui.Icons.CHEVRON_RIGHT}
           disabled={disabled}
-          interactive={true}/>
+          interactive={true}
+        />
       </div>
 
       <div::dayNames>
@@ -152,9 +152,7 @@ component Ui.Calendar {
             Time.range(Time.atBeginningOfWeek(day), Time.atEndOfWeek(day))
 
           for day of range {
-            <div::dayName>
-              Time.format(day, language, "%a")
-            </div>
+            <div::dayName>Time.format(day, language, "%a")</div>
           }
         }
       </div>
@@ -182,14 +180,9 @@ component Ui.Calendar {
           let actualDays =
             case Array.size(days) {
               28 =>
-                Time.range(
-                  Time.previousWeek(startDate),
-                  Time.nextWeek(endDate))
+                Time.range(Time.previousWeek(startDate), Time.nextWeek(endDate))
 
-              35 =>
-                Time.range(
-                  startDate,
-                  Time.nextWeek(endDate))
+              35 => Time.range(startDate, Time.nextWeek(endDate))
 
               => days
             }
@@ -216,7 +209,8 @@ component Ui.Calendar {
               onClick={handleCellClick}
               day={normalizedCell}
               selected={selected}
-              readonly={readonly}/>
+              readonly={readonly}
+            />
           }
         }
       </div>

@@ -53,9 +53,7 @@ component Ui.Image {
           next { }
         }
       }
-  } when {
-    !visible
-  }
+  } when { !visible }
 
   /* The style for the image. */
   style image {
@@ -127,7 +125,8 @@ component Ui.Image {
           onDragStart={handleDragStart}
           onLoad={handleLoad}
           alt={alt}
-          src={src}/>
+          src={src}
+        />
       }
     </div>
   }

@@ -106,13 +106,8 @@ component Ui.ContentHint {
   /* Renders the hint. */
   fun render : Html {
     <div::base>
-      <div::icon>
-        <Ui.Icon icon={icon}/>
-      </div>
-
-      <div::content>
-        children
-      </div>
+      <div::icon><Ui.Icon icon={icon}/></div>
+      <div::content>children</div>
     </div>
   }
 }

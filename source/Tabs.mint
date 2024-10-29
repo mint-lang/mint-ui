@@ -23,10 +23,7 @@ component Ui.Tabs {
   state width : Number = 0
 
   /* We are using this provider to update the `mobile` state. */
-  use Provider.ElementSize {
-    changes: updateWidth,
-    element: base
-  }
+  use Provider.ElementSize { changes: updateWidth, element: base }
 
   /* The style for the base element. */
   style base {
@@ -86,8 +83,7 @@ component Ui.Tabs {
   style button-mobile {
     border-bottom: 0.1875em solid var(--content-border);
 
-    &:focus,
-    &:hover {
+    &:focus, &:hover {
       border-bottom: 0.1875em solid var(--primary-color);
       color: var(--primary-color);
     }
@@ -114,8 +110,7 @@ component Ui.Tabs {
   style tab (active : Bool) {
     margin-bottom: -0.1875em;
 
-    &:focus,
-    &:hover {
+    &:focus, &:hover {
       border-bottom: 0.1875em solid var(--primary-color);
       color: var(--primary-color);
       opacity: 1;
@@ -184,17 +179,15 @@ component Ui.Tabs {
             |> Maybe.map(renderTab)
             |> Maybe.withDefault(<></>)
 
-            <Ui.Icon
-              icon={Ui.Icons.CHEVRON_DOWN}
-              size={Ui.Size.Em(1.5)}/>
+            <Ui.Icon icon={Ui.Icons.CHEVRON_DOWN} size={Ui.Size.Em(1.5)}/>
           </div>
         </button>
       } else {
         <div::tabs>
           for tab of items {
-            <button::button-reset::tab(tab.key == active) onClick={() { handleSelect(tab.key) }}>
-              renderTab(tab)
-            </button>
+            <button::button-reset::tab(tab.key == active)
+              onClick={() { handleSelect(tab.key) }}
+            >renderTab(tab)</button>
           }
         </div>
       }

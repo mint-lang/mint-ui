@@ -42,42 +42,42 @@ module Ui.Position {
   /* Returns the string representation of a position. */
   fun toString (position : Ui.Position) : String {
     case position {
-      Ui.Position.BottomCenter => "BottomCenter"
-      Ui.Position.BottomRight => "BottomRight"
-      Ui.Position.BottomLeft => "BottomLeft"
+      BottomCenter => "BottomCenter"
+      BottomRight => "BottomRight"
+      BottomLeft => "BottomLeft"
 
-      Ui.Position.TopCenter => "TopCenter"
-      Ui.Position.TopRight => "TopRight"
-      Ui.Position.TopLeft => "TopLeft"
+      TopCenter => "TopCenter"
+      TopRight => "TopRight"
+      TopLeft => "TopLeft"
 
-      Ui.Position.RightBottom => "RightBottom"
-      Ui.Position.RightCenter => "RightCenter"
-      Ui.Position.RightTop => "RightTop"
+      RightBottom => "RightBottom"
+      RightCenter => "RightCenter"
+      RightTop => "RightTop"
 
-      Ui.Position.LeftBottom => "LeftBottom"
-      Ui.Position.LeftCenter => "LeftCenter"
-      Ui.Position.LeftTop => "LeftTop"
+      LeftBottom => "LeftBottom"
+      LeftCenter => "LeftCenter"
+      LeftTop => "LeftTop"
     }
   }
 
   /* Returns the inverse position of the given position. */
   fun inverse (position : Ui.Position) : Ui.Position {
     case position {
-      Ui.Position.BottomCenter => Ui.Position.TopCenter
-      Ui.Position.BottomRight => Ui.Position.TopRight
-      Ui.Position.BottomLeft => Ui.Position.TopLeft
+      BottomCenter => Ui.Position.TopCenter
+      BottomRight => Ui.Position.TopRight
+      BottomLeft => Ui.Position.TopLeft
 
-      Ui.Position.TopCenter => Ui.Position.BottomCenter
-      Ui.Position.TopRight => Ui.Position.BottomRight
+      TopCenter => Ui.Position.BottomCenter
+      TopRight => Ui.Position.BottomRight
       Ui.Position.TopLeft => Ui.Position.BottomLeft
 
-      Ui.Position.RightBottom => Ui.Position.LeftBottom
-      Ui.Position.RightCenter => Ui.Position.LeftCenter
-      Ui.Position.RightTop => Ui.Position.LeftTop
+      RightBottom => Ui.Position.LeftBottom
+      RightCenter => Ui.Position.LeftCenter
+      RightTop => Ui.Position.LeftTop
 
-      Ui.Position.LeftBottom => Ui.Position.RightBottom
-      Ui.Position.LeftCenter => Ui.Position.RightCenter
-      Ui.Position.LeftTop => Ui.Position.RightTop
+      LeftBottom => Ui.Position.RightBottom
+      LeftCenter => Ui.Position.RightCenter
+      LeftTop => Ui.Position.RightTop
     }
   }
 }

@@ -39,8 +39,7 @@ component Ui.ScrollPanel {
 
   /* Base style for the component. */
   style base {
-    &::before,
-    &::after {
+    &::before, &::after {
       transition: opacity 320ms;
       pointer-events: none;
       position: sticky;
@@ -81,8 +80,7 @@ component Ui.ScrollPanel {
       flex: 0 0 auto;
     }
 
-    &::before,
-    &::after {
+    &::before, &::after {
       margin-right: -#{shadowSize}px;
       min-width: #{shadowSize}px;
     }
@@ -126,8 +124,7 @@ component Ui.ScrollPanel {
     overflow-x: hidden;
     overflow-y: auto;
 
-    &::before,
-    &::after {
+    &::before, &::after {
       margin-top: -#{shadowSize}px;
       min-height: #{shadowSize}px;
     }
@@ -181,33 +178,27 @@ component Ui.ScrollPanel {
   fun recalculate : Promise(Void) {
     if orientation == "horizontal" {
       if let Maybe.Just(element) = horizontal {
-        next
-          {
-            scrollPosition: Dom.getScrollLeft(element),
-            clientSize: Dom.getClientWidth(element),
-            scrollSize: Dom.getScrollWidth(element)
-          }
+        next {
+          scrollPosition: Dom.getScrollLeft(element),
+          clientSize: Dom.getClientWidth(element),
+          scrollSize: Dom.getScrollWidth(element)
+        }
       }
     } else if let Maybe.Just(element) = vertical {
-      next
-        {
-          scrollPosition: Dom.getScrollTop(element),
-          clientSize: Dom.getClientHeight(element),
-          scrollSize: Dom.getScrollHeight(element)
-        }
+      next {
+        scrollPosition: Dom.getScrollTop(element),
+        clientSize: Dom.getClientHeight(element),
+        scrollSize: Dom.getScrollHeight(element)
+      }
     }
   }
 
   /* Renders the component. */
   fun render : Html {
     if orientation == "horizontal" {
-      <div::base::horizontal as horizontal onScroll={recalculate}>
-        children
-      </div>
+      <div::base::horizontal as horizontal onScroll={recalculate}>children</div>
     } else {
-      <div::base::vertical as vertical onScroll={recalculate}>
-        children
-      </div>
+      <div::base::vertical as vertical onScroll={recalculate}>children</div>
     }
   }
 }

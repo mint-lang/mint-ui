@@ -82,8 +82,8 @@ component Ui.Checkbox {
       aria-checked={Bool.toString(checked)}
       disabled={disabled}
       onClick={toggle}
-      role="checkbox">
-
+      role="checkbox"
+    >
       <Ui.Icon
         icon={Ui.Icons.CHECK}
         opacity={
@@ -92,8 +92,8 @@ component Ui.Checkbox {
           } else {
             0.25
           }
-        }/>
-
+        }
+      />
     </button>
   }
 }

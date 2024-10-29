@@ -122,18 +122,11 @@ component Ui.Toggle {
       aria-checked={Bool.toString(checked)}
       disabled={disabled}
       onClick={toggle}
-      role="checkbox">
-
-      <div::label(checked) aria-hidden="true">
-        onLabel
-      </div>
-
-      <div::label(!checked) aria-hidden="true">
-        offLabel
-      </div>
-
+      role="checkbox"
+    >
+      <div::label(checked) aria-hidden="true">onLabel</div>
+      <div::label(!checked) aria-hidden="true">offLabel</div>
       <div::overlay aria-hidden="true"/>
-
     </button>
   }
 }

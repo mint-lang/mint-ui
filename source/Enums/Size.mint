@@ -15,9 +15,9 @@ module Ui.Size {
   /* Converts the size into its CSS equivalent. */
   fun toString (size : Ui.Size) : String {
     case size {
-      Ui.Size.Em(value) => "#{value}em"
-      Ui.Size.Px(value) => "#{value}px"
-      Ui.Size.Inherit => "inherit"
+      Em(value) => "#{value}em"
+      Px(value) => "#{value}px"
+      Inherit => "inherit"
     }
   }
 }

@@ -22,10 +22,7 @@ component Ui.Column {
       justify={justify}
       align={align}
       size={size}
-      gap={gap}>
-
-      children
-
-    </Ui.Container>
+      gap={gap}
+    >children</Ui.Container>
   }
 }

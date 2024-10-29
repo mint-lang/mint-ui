@@ -114,31 +114,22 @@ component Ui.Modal.Content {
     <div::base>
       <div::header>
         if Html.isNotEmpty(icon) {
-          <div::icon>
-            <Ui.Icon
-              size={Ui.Size.Em(1.375)}
-              icon={icon}/>
-          </div>
+          <div::icon><Ui.Icon size={Ui.Size.Em(1.375)} icon={icon}/></div>
         }
 
-        <div::title>
-          title
-        </div>
+        <div::title>title</div>
 
         <Ui.Icon
           onClick={(event : Html.Event) { Ui.Modal.cancel() }}
           interactive={true}
-          icon={Ui.Icons.X}/>
+          icon={Ui.Icons.X}
+        />
       </div>
 
-      <div::content>
-        content
-      </div>
+      <div::content>content</div>
 
       if Html.isNotEmpty(actions) {
-        <div::actions>
-          actions
-        </div>
+        <div::actions>actions</div>
       }
     </div>
   }
