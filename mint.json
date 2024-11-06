@@ -10,7 +10,7 @@
   "dependencies": {
     "mint-color": {
       "repository": "https://github.com/mint-lang/mint-color",
-      "constraint": "0.9.0 <= v < 1.0.0"
+      "constraint": "0.10.0 <= v < 1.0.0"
     }
   }
 }
