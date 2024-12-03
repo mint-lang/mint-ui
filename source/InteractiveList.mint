@@ -161,7 +161,7 @@ component Ui.InteractiveList {
         <div::items as container>
           for item of items {
             case item {
-              Ui.ListItem.Item(key, content) =>
+              Ui.ListItem.Item(_, content, key) =>
                 <Ui.InteractiveList.Item
                   onClick={(event : Html.Event) { handleClickSelect(key) }}
                   intended={intendable && key == intended}
