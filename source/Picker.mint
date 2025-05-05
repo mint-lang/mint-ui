@@ -105,23 +105,15 @@ component Ui.Picker {
   - on SPACE key it shows the dropdown
   */
   fun handleKeyDown (event : Html.Event) {
-    case event.keyCode {
-      Html.Event.ESCAPE => hideDropdown()
-
-      Html.Event.ENTER =>
-        if onEnter(event) {
-          hideDropdown()
-        } else {
-          next { }
-        }
-
-      Html.Event.SPACE =>
-        {
-          Html.Event.preventDefault(event)
-          showDropdown()
-        }
-
-      => onKeyDown(event)
+    if event.keyCode == Html.Event.ESCAPE {
+      hideDropdown()
+    } else if event.keyCode == Html.Event.ENTER && onEnter(event) {
+      hideDropdown()
+    } else if event.keyCode == Html.Event.SPACE {
+      Html.Event.preventDefault(event)
+      showDropdown()
+    } else {
+      onKeyDown(event)
     }
   }
 
