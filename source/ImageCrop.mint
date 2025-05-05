@@ -264,22 +264,16 @@ component Ui.ImageCrop {
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
     let updatedValue =
-      case event.keyCode {
-        Html.Event.UP_ARROW =>
-          Maybe.Just({ value | y: Math.clamp(value.y - 0.005, 0, 1) })
-
-        Html.Event.DOWN_ARROW =>
-          Maybe.Just(
-            { value | y: Math.clamp(value.y + 0.005, 0, 1 - value.height) })
-
-        Html.Event.RIGHT_ARROW =>
-          Maybe.Just(
-            { value | x: Math.clamp(value.x + 0.005, 0, 1 - value.width) })
-
-        Html.Event.LEFT_ARROW =>
-          Maybe.Just({ value | x: Math.clamp(value.x - 0.005, 0, 1) })
-
-        => Maybe.Nothing
+      if event.keyCode == Html.Event.UP_ARROW {
+        Maybe.Just({ value | y: Math.clamp(value.y - 0.005, 0, 1) })
+      } else if event.keyCode == Html.Event.DOWN_ARROW {
+        Maybe.Just(
+          { value | y: Math.clamp(value.y + 0.005, 0, 1 - value.height) })
+      } else if event.keyCode == Html.Event.RIGHT_ARROW {
+        Maybe.Just(
+          { value | x: Math.clamp(value.x + 0.005, 0, 1 - value.width) })
+      } else if event.keyCode == Html.Event.LEFT_ARROW {
+        Maybe.Just({ value | x: Math.clamp(value.x - 0.005, 0, 1) })
       }
 
     if let Maybe.Just(newValue) = updatedValue {

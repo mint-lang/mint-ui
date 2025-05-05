@@ -119,28 +119,15 @@ component Ui.InteractiveList {
 
   /* Handles the keydown event. */
   fun handleKeyDown (event : Html.Event) {
-    case event.keyCode {
-      Html.Event.ENTER => onSelect(intended)
-
-      Html.Event.SPACE =>
-        {
-          Html.Event.preventDefault(event)
-          onSelect(intended)
-        }
-
-      Html.Event.DOWN_ARROW =>
-        {
-          Html.Event.preventDefault(event)
-          selectNext(true)
-        }
-
-      Html.Event.UP_ARROW =>
-        {
-          Html.Event.preventDefault(event)
-          selectNext(false)
-        }
-
-      => next { }
+    if event.keyCode == Html.Event.ENTER || event.keyCode == Html.Event.SPACE {
+      Html.Event.preventDefault(event)
+      onSelect(intended)
+    } else if event.keyCode == Html.Event.DOWN_ARROW {
+      Html.Event.preventDefault(event)
+      selectNext(true)
+    } else if event.keyCode == Html.Event.UP_ARROW {
+      Html.Event.preventDefault(event)
+      selectNext(false)
     }
   }
 

@@ -41,10 +41,7 @@ suite "Ui.Button" {
 
 suite "Ui.Button - Disabled" {
   test "always renders as button" {
-    <Ui.Button
-      disabled={true}
-      label="Hello"
-      href="/"/>
+    <Ui.Button disabled={true} label="Hello" href="/"/>
     |> Test.Html.start()
     |> Test.Html.assertTextOf("button", "Hello")
   }
@@ -54,9 +51,7 @@ suite "Ui.Button - Disabled" {
       (event : Html.Event) { Promise.never() }
       |> Test.Context.spyOn
 
-    <Ui.Button
-      onClick={handler}
-      disabled={true}/>
+    <Ui.Button onClick={handler} disabled={true}/>
     |> Test.Html.start()
     |> Test.Html.triggerClick("button")
     |> Test.Context.assertFunctionNotCalled(handler)
@@ -67,9 +62,7 @@ suite "Ui.Button - Disabled" {
       (event : Html.Event) { Promise.never() }
       |> Test.Context.spyOn
 
-    <Ui.Button
-      onMouseDown={handler}
-      disabled={true}/>
+    <Ui.Button onMouseDown={handler} disabled={true}/>
     |> Test.Html.start()
     |> Test.Html.triggerMouseDown("button")
     |> Test.Context.assertFunctionNotCalled(handler)
@@ -80,9 +73,7 @@ suite "Ui.Button - Disabled" {
       (event : Html.Event) { Promise.never() }
       |> Test.Context.spyOn
 
-    <Ui.Button
-      onMouseUp={handler}
-      disabled={true}/>
+    <Ui.Button onMouseUp={handler} disabled={true}/>
     |> Test.Html.start()
     |> Test.Html.triggerMouseUp("button")
     |> Test.Context.assertFunctionNotCalled(handler)

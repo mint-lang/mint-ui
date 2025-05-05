@@ -17,9 +17,7 @@ suite "Ui.Toggle - Disabled" {
       (event : Bool) { Promise.never() }
       |> Test.Context.spyOn
 
-    <Ui.Toggle
-      onChange={handler}
-      disabled={true}/>
+    <Ui.Toggle onChange={handler} disabled={true}/>
     |> Test.Html.start()
     |> Test.Html.triggerClick("button")
     |> Test.Context.assertFunctionNotCalled(handler)

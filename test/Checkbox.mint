@@ -17,9 +17,7 @@ suite "Ui.Checkbox - Disabled" {
       (event : Bool) { Promise.never() }
       |> Test.Context.spyOn
 
-    <Ui.Checkbox
-      onChange={handler}
-      disabled={true}/>
+    <Ui.Checkbox onChange={handler} disabled={true}/>
     |> Test.Html.start()
     |> Test.Html.triggerClick("button")
     |> Test.Context.assertFunctionNotCalled(handler)
