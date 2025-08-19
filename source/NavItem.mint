@@ -72,7 +72,11 @@ component Ui.NavItem {
   }
 
   /* Renders the contents of an item. */
-  fun renderContents (iconBefore : Html, iconAfter : Html, label : String) {
+  fun renderContents (
+    iconBefore : Html,
+    iconAfter : Html,
+    label : String
+  ) : Html {
     <>
       if Html.isNotEmpty(iconBefore) {
         <Ui.Icon icon={iconBefore}/>

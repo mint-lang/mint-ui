@@ -305,7 +305,7 @@ global component Ui.ActionSheet {
     href : String,
     target : String,
     onClick : Function(Html.Event, Promise(Void)) = Promise.never1
-  ) {
+  ) : Html {
     let contents =
       <>
         if Html.isNotEmpty(iconBefore) {
