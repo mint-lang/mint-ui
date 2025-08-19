@@ -37,7 +37,7 @@ component Ui.Pagination {
     display: grid;
 
     &:before {
-      content: "\\2219 \\2219 \\2219";
+      content: "\2219 \2219 \2219";
     }
   }
 
