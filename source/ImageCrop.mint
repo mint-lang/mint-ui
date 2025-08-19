@@ -70,7 +70,7 @@ component Ui.ImageCrop {
   }
 
   /* The style for the wrapper. */
-  style wrapper (overflow : bool) {
+  style wrapper (overflow : Bool) {
     height: calc(#{position.currentHeight}px + 1px);
     width: calc(#{position.currentWidth}px + 1px);
     position: absolute;
