@@ -1,6 +1,6 @@
 {
   "name": "mint-ui",
-  "mint-version": "0.24.0 <= v < 1.0.0",
+  "mint-version": "0.27.0 <= v < 1.0.0",
   "source-directories": [
     "source"
   ],
@@ -10,7 +10,7 @@
   "dependencies": {
     "mint-color": {
       "repository": "https://github.com/mint-lang/mint-color",
-      "constraint": "0.10.0 <= v < 1.0.0"
+      "constraint": "0.11.0 <= v < 1.0.0"
     }
   }
 }

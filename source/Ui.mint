@@ -284,6 +284,6 @@ store Ui {
   }
 
   fun getElementFromVNode (vnode : Object) : Maybe(Dom.Element) {
-    `#{vnode}.__e ? #{Maybe::Just(`#{vnode}.__e`)} : #{Maybe::Nothing}`
+    `#{vnode}.__e ? #{Maybe.Just(`#{vnode}.__e`)} : #{Maybe.Nothing}`
   }
 }
