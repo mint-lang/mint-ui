@@ -17,11 +17,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download source
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v6
 
       - name: Install tools from asdf config
-        uses: ai/asdf-cache-action@v1
+        uses: asdf-vm/actions/install@v4
 
       - name: Install dependencies
         run: mint install
